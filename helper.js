@@ -15,6 +15,10 @@ agregando ?apiKey={YOUR_API_KEY} al final de cada endpoint.
 f02bdac78602401eb4a22dc35033d573
 ?apiKey=f02bdac78602401eb4a22dc35033d573
 
+example:
+GET 
+https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&number=2&apiKey=f02bdac78602401eb4a22dc35033d573
+
 https://spoonacular.com/food-api/docs#Authentication
 https://api.spoonacular.com/recipes/716429/information?apiKey=YOUR-API-KEY&includeNutrition=true.
 https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&number=2
