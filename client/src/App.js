@@ -2,8 +2,13 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Food</h1>
+    <div>
+      <div className='welcome'>
+        <button className='welcomeButton'></button>
+      </div>
+      <div className="main">
+        <h1>Henry Food</h1>
+      </div>
     </div>
   );
 }
