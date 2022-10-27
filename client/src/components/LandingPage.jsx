@@ -1,17 +1,17 @@
 import './LandingPage.css';
-import { useDispatch, useSelector , connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { saveName } from '../actions';
 
 function LandingPage() {
-
-    const dispatch = useDispatch()
-
-   
+  const dispatch = useDispatch()
   return (
-    <div className='landing'>
-      <h1 className='welcomeText'>Welcome ! bla bla bla</h1>
-      <button className='welcomeButton' onClick={() => dispatch(saveName(true))}>ENTER</button>
-    </div >
+    <div >
+      <div className='bgImageLanding'></div>
+      <div className='landingContainer'>
+        <h1 className='welcomeText'>Welcome ! bla bla bla</h1>
+        <button className='welcomeButton' onClick={() => dispatch(saveName(true))}>ENTER</button>
+      </div>
+    </div>
   );
 }
 

@@ -1,17 +1,22 @@
-.landing {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.mainPage {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/landingBG.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  
 }
 
-.mainPage {
-    text-align: center;
-    display: flex;
-    margin-top: 30vh;
-    background-color: lightcoral;  
+h1 {
+  align-items: center;
 }
 
 .text {
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: rgba(0, 255, 255, 0.264);
+  height: 90vh;
+    
 }
