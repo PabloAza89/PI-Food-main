@@ -1,0 +1,17 @@
+.landing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainPage {
+    text-align: center;
+    display: flex;
+    margin-top: 30vh;
+    background-color: lightcoral;  
+}
+
+.text {
+  background-color: aqua;
+}
