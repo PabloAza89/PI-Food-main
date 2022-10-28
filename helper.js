@@ -2,7 +2,8 @@
 
 // https://api.spoonacular.com/recipes/complexSearch
 
-// https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=30
+// https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3
+// https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true
 
 // add &addRecipeInformation=true
 
