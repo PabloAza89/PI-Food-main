@@ -15,54 +15,6 @@ const router = Router();
 // ingresada como query parameter
 //Si no existe ninguna receta mostrar un mensaje adecuado
 
-/* router.get('/recipes', async (req, res) => {
-    const { title } = req.query
-    try {
-      if (title) {
-        const exactRecipes = await Recipes.findAll({
-            attributes: ['title', 'summary', 'healthScore', 'instructions'],
-            where: {
-                title: title
-            }
-          }
-        )
-        if (exactRecipes[0] === undefined) {
-            const allRecipes = await Recipes.findAll({
-                attributes: ['title', 'summary', 'healthScore', 'instructions'],
-              }
-            )
-            return res.status(200).send(allRecipes)
-
-        }
-        else return res.status(200).send(exactRecipes)
-      }
-      
-    }
-    catch (e) {
-        res.status(400).send('No hay recetas disponibles...')      
-    }
-}); */
-
-// EXACT MATCH
-/* router.get('/recipes', async (req, res) => {
-    const { title } = req.query
-    try {
-      if (title) {
-        const exactRecipes = await Recipes.findAll({
-            //attributes: ['title', 'summary', 'healthScore', 'instructions'],
-            where: {
-                title: title
-            }
-         }
-        )
-        return res.status(200).send(exactRecipes)
-      
-        }
-    }
-    catch (e) {
-        res.status(400).send('No hay recetas disponibles...')      
-    }
-}); */
 
 // PERFECT SEARCHER !
 router.get('/recipes', async (req, res) => {
@@ -71,20 +23,29 @@ router.get('/recipes', async (req, res) => {
     try {
         if (title) {
             const titleTLC = title.toLowerCase();
-            const allAndExactDBRecipes = await Recipes.findAll({
+            const searchDBRecipes = await Recipes.findAll({
                 attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions'],
                 where: {
                     title: {
                       [Op.like]: `%${titleTLC}%`
                     }
-                  }
-                
-             }
-            )
-            if (allAndExactDBRecipes[0] === undefined) return res.status(200).send('No hay recetas disponibles')
-            return res.status(200).send(allAndExactDBRecipes)
-          
-            }
+                }
+            })
+
+            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true`);
+            const searchAPIRecipes = apiRawData.data.results.map(e => {
+                return {
+                    title: e.title,
+                    summary: e.summary,
+                    healthScore: e.healthScore,
+                    analyzedInstructions:
+                        e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : []
+                }
+            })
+            const apiFilteredResult = searchAPIRecipes.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
+            if (searchDBRecipes[0] === undefined && apiFilteredResult[0] === undefined) return res.status(200).send('No hay recetas disponibles')
+            return res.status(200).send(searchDBRecipes.concat(apiFilteredResult))
+        }
         
         const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true`);
         const allAPIRecipes = apiRawData.data.results.map(e => {
@@ -95,20 +56,12 @@ router.get('/recipes', async (req, res) => {
                 analyzedInstructions:
                     e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : []
             }
-            
         })
-        //res.status(200).send(allAPIRecipes)
-        
 
         const allDBRecipes = await Recipes.findAll({
-            attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions'],
-                     
-         }
-         )
-
-         res.status(200).send(allDBRecipes.concat(allAPIRecipes))
-
-     
+            attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions']
+        })
+        res.status(200).send(allDBRecipes.concat(allAPIRecipes))
     }
     catch (e) {
         res.status(400).send('No hay recetas disponibles...')      
@@ -172,7 +125,7 @@ router.post('/recipes', async (req, res) => {
                 analyzedInstructions: 'these are the instructions'
             }
 
-          ]).then(() => console.log("se cargo la fake recipe")));
+          ]))//.then(() => console.log("se cargo la fake recipe")));
         
     }
     catch(e) {
