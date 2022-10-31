@@ -1,6 +1,7 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
+const axios = require('axios');
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
 
@@ -68,21 +69,46 @@ router.get('/recipes', async (req, res) => {
     const { title } = req.query;
     
     try {
-      if (title) {
-        const titleTLC = title.toLowerCase();
-        const allAndExactRecipes = await Recipes.findAll({
-            attributes: ['title', 'summary', 'healthScore', 'instructions'],
-            where: {
-                title: {
-                  [Op.like]: `%${titleTLC}%`
-                }
-              }
+        if (title) {
+            const titleTLC = title.toLowerCase();
+            const allAndExactDBRecipes = await Recipes.findAll({
+                attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions'],
+                where: {
+                    title: {
+                      [Op.like]: `%${titleTLC}%`
+                    }
+                  }
+                
+             }
+            )
+            if (allAndExactDBRecipes[0] === undefined) return res.status(200).send('No hay recetas disponibles')
+            return res.status(200).send(allAndExactDBRecipes)
+          
+            }
+        
+        const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true`);
+        const allAPIRecipes = apiRawData.data.results.map(e => {
+            return {
+                title: e.title,
+                summary: e.summary,
+                healthScore: e.healthScore,
+                analyzedInstructions:
+                    e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : []
+            }
             
+        })
+        //res.status(200).send(allAPIRecipes)
+        
+
+        const allDBRecipes = await Recipes.findAll({
+            attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions'],
+                     
          }
-        )
-        return res.status(200).send(allAndExactRecipes)
-      
-        }
+         )
+
+         res.status(200).send(allDBRecipes.concat(allAPIRecipes))
+
+     
     }
     catch (e) {
         res.status(400).send('No hay recetas disponibles...')      
@@ -130,11 +156,22 @@ router.post('/recipes', async (req, res) => {
     
     try {
         res.json(await Recipes.bulkCreate([
-            {   title: "fake title three",
+            {   title: "fake title 1",
                 summary: "test summary",
                 healthScore: 10,
-                instructions: 'these are the instructions'
+                analyzedInstructions: 'these are the instructions'
+            },
+            {   title: "fake title 2",
+                summary: "test summary",
+                healthScore: 11,
+                analyzedInstructions: 'these are the instructions'
+            },
+            {   title: "fake title 3",
+                summary: "test summary",
+                healthScore: 12,
+                analyzedInstructions: 'these are the instructions'
             }
+
           ]).then(() => console.log("se cargo la fake recipe")));
         
     }
@@ -153,7 +190,7 @@ router.post('/recipes', async (req, res) => {
 router.post('/diets', async (req, res) => {
     try {
         res.json(await Diets.bulkCreate([
-            { title: "Gluten Free" },
+            { title: "Gluten Free", },
             { title: "Ketogenic" },
             { title: "Vegetarian" },
             { title: "Lacto-Vegetarian" },
@@ -164,6 +201,7 @@ router.post('/diets', async (req, res) => {
             { title: "Primal" },
             { title: "Low FODMAP" },
             { title: "Whole30" }
+            /* { title: ["Gluten Free", "Ketogenic", "Vegetarian" , "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal", "Low FODMAP", "Whole30"]} */
           ]))//.then(() => console.log("Users data have been saved")));
     }
     catch(e) {

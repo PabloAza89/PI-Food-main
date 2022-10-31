@@ -22,9 +22,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    instructions: {
+    analyzedInstructions: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     database: {
       type : DataTypes.BOOLEAN,
