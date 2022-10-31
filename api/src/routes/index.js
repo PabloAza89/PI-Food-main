@@ -2,6 +2,8 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
+require('dotenv').config();
+const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 } = process.env;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
 
@@ -32,7 +34,7 @@ router.get('/recipes', async (req, res) => {
                 }
             })
 
-            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true`);
+            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
             const searchAPIRecipes = apiRawData.data.results.map(e => {
                 return {
                     title: e.title,
@@ -47,7 +49,7 @@ router.get('/recipes', async (req, res) => {
             return res.status(200).send(searchDBRecipes.concat(apiFilteredResult))
         }
         
-        const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=f02bdac78602401eb4a22dc35033d573&number=3&addRecipeInformation=true`);
+        const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
         const allAPIRecipes = apiRawData.data.results.map(e => {
             return {
                 title: e.title,
@@ -106,7 +108,52 @@ router.get('/recipes/:id', async (req, res) => {
 }); */
 
 router.post('/recipes', async (req, res) => {
+
     
+      
+     /*  const result = await User.findOne({
+        where: { username: 'p4dm3' },
+        include: Profile
+      }); */
+
+  /*   const amidala = await User.create({
+        username: 'p4dm3',
+        points: 1000,
+        profiles: [{
+            name: 'Queen',
+            User_Profile: {
+            selfGranted: true
+            }
+        }]
+    }, {
+        include: Profile
+    }); */
+
+    // WORKING
+    try {
+        const test = await Recipes.create({
+            title: "fake title 0",
+            summary: "test summary",
+            healthScore: 10,
+            analyzedInstructions: 'these are the instructions',
+            Diets: [{
+              title: "Vegannnn"
+            }]
+          }, {
+            include: Diets
+          });
+          res.status(200).send(test)
+
+    }
+
+   
+  /*     
+      const result = await User.findOne({
+        where: { username: 'p4dm3' },
+        include: Profile
+      }); */
+
+    /*// WORKING
     try {
         res.json(await Recipes.bulkCreate([
             {   title: "fake title 1",
@@ -127,7 +174,8 @@ router.post('/recipes', async (req, res) => {
 
           ]))//.then(() => console.log("se cargo la fake recipe")));
         
-    }
+    } */
+    
     catch(e) {
         res.status(400).send("hubo un error en la precarga de datos")
     }
