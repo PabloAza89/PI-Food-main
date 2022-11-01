@@ -4,8 +4,11 @@ const { Router } = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 } = process.env;
+const API_KEY = API_KEY3;
+const NUMBER = 3;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
+//const { DatabaseError } = require('sequelize');
 
 const router = Router();
 
@@ -34,7 +37,7 @@ router.get('/recipes', async (req, res) => {
                 }
             })
 
-            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
+            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
             const searchAPIRecipes = apiRawData.data.results.map(e => {
                 return {
                     id: e.id,
@@ -53,7 +56,7 @@ router.get('/recipes', async (req, res) => {
             return res.status(200).send(searchDBRecipes.concat(apiFilteredResult))
         }
         
-        const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
+        const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
         const allAPIRecipes = apiRawData.data.results.map(e => {
             return {
                 id: e.id,
@@ -85,10 +88,19 @@ router.get('/recipes', async (req, res) => {
 
 router.get('/recipes/:id', async (req, res) => {
     const { id } = req.params;
-    let findByIDinDB;
+    var findByIDinDB;
+ /*    let qq = {
+        'id': undefined,
+        'title': undefined,
+        'summary': undefined,
+        'healthScore': undefined,
+        'analyzedInstructions': undefined,
+        'database': undefined,
+        'Diets': undefined
+    } */
     try {
         if (true) {
-            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
+            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
                 const allAPIRecipes = apiRawData.data.results.map(e => {
                     return {
                         id: e.id,
@@ -106,11 +118,30 @@ router.get('/recipes/:id', async (req, res) => {
             const apiFilteredResult = allAPIRecipes.filter(e => e.id === parseInt(id));
 
             if (apiFilteredResult[0] === undefined) {
-                findByIDinDB = await Recipes.findByPk(id)
+                findByIDinDB = await Recipes.findByPk(id, {
+                    include: [{
+                        model: Diets,
+                        attributes: ['title'],
+                        through: {
+                          attributes: []
+                        }
+                      }]
+                })
+                let dietsArray = findByIDinDB.Diets.map(e => e.title)
+                let modifiedDBObj = {
+                    id: findByIDinDB.id,
+                    title: findByIDinDB.title,
+                    summary: findByIDinDB.summary,
+                    healthScore: findByIDinDB.healthScore,
+                    analyzedInstructions: findByIDinDB.analyzedInstructions,
+                    database: findByIDinDB.database,
+                    Diets: dietsArray
+                }
+                return res.status(200).send(modifiedDBObj)
+
+            } else {
+                res.status(200).send(apiFilteredResult)
             }
-
-            res.status(200).send(apiFilteredResult.concat(findByIDinDB))
-
         }
     }
     catch (e) {
@@ -149,8 +180,7 @@ router.post('/recipes', async (req, res) => {
         const relatedDiets = await Diets.findAll({           
             where: {
                 [Op.or]: [
-                    { title: title }
-                   
+                    { title: title }                   
                   ]
             }
 
