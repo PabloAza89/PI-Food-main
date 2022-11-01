@@ -3,9 +3,9 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
 require('dotenv').config();
-const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 } = process.env;
+const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
 const API_KEY = API_KEY3;
-const NUMBER = 3;
+const NUMBER = 1;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
 //const { DatabaseError } = require('sequelize');
@@ -34,9 +34,29 @@ router.get('/recipes', async (req, res) => {
                     title: {
                       [Op.like]: `%${titleTLC}%`
                     }
-                }
+                },
+                include: [{
+                    model: Diets,
+                    attributes: ['title'],
+                    through: {
+                      attributes: []
+                    }
+                }]
             })
 
+            let dietsArray = searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
+       /*      let modifiedDBObj = {
+                id: findByIDinDB.id,
+                title: findByIDinDB.title,
+                summary: findByIDinDB.summary,
+                healthScore: findByIDinDB.healthScore,
+                analyzedInstructions: findByIDinDB.analyzedInstructions,
+                database: findByIDinDB.database,
+                Diets: dietsArray
+            }      */
+            let qq = searchDBRecipes.map(e => e.Diets = dietsArray.map(e => e))
+
+           
             const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
             const searchAPIRecipes = apiRawData.data.results.map(e => {
                 return {
@@ -52,8 +72,9 @@ router.get('/recipes', async (req, res) => {
                 }
             })
             const apiFilteredResult = searchAPIRecipes.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
-            if (searchDBRecipes[0] === undefined && apiFilteredResult[0] === undefined) return res.status(200).send('No hay recetas disponibles')
-            return res.status(200).send(searchDBRecipes.concat(apiFilteredResult))
+            if (searchDBRecipes[0] === undefined && apiFilteredResult[0] === undefined) return res.status(400).send('No hay recetasss disponibles')
+            return res.status(200).send(qq)
+            //return res.status(200).send(searchDBRecipes.concat(apiFilteredResult))
         }
         
         const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
@@ -168,7 +189,7 @@ router.get('/recipes/:id', async (req, res) => {
 }); */
 
 router.post('/recipes', async (req, res) => {
-    let title = ['Vegan', 'Primal']
+    let title = ['Whole30', 'Pescetarian']
     // WORKING
     try {
         const createRecipe = await Recipes.create({
@@ -189,6 +210,28 @@ router.post('/recipes', async (req, res) => {
         res.status(200).send(createRecipe)
 
     }
+
+    /* let title = ['Vegan', 'Primal']
+    // WORKING
+    try {
+        const createRecipe = await Recipes.create({
+            title: "fake title 0",
+            summary: "test summary",
+            healthScore: 10,
+            analyzedInstructions: 'these are the instructions'
+          });
+        const relatedDiets = await Diets.findAll({           
+            where: {
+                [Op.or]: [
+                    { title: title }                   
+                  ]
+            }
+
+        })
+        createRecipe.addDiets(relatedDiets)
+        res.status(200).send(createRecipe)
+
+    } */
 
    
   /*     
