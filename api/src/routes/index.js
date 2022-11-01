@@ -26,7 +26,7 @@ router.get('/recipes', async (req, res) => {
         if (title) {
             const titleTLC = title.toLowerCase();
             const searchDBRecipes = await Recipes.findAll({
-                attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions'],
+                //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
                 where: {
                     title: {
                       [Op.like]: `%${titleTLC}%`
@@ -37,11 +37,15 @@ router.get('/recipes', async (req, res) => {
             const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
             const searchAPIRecipes = apiRawData.data.results.map(e => {
                 return {
+                    id: e.id,
                     title: e.title,
                     summary: e.summary,
                     healthScore: e.healthScore,
                     analyzedInstructions:
-                        e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : []
+                        e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
+                    image: e.image,
+                    diets: e.diets,
+                    dishTypes: e.dishTypes
                 }
             })
             const apiFilteredResult = searchAPIRecipes.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
@@ -52,16 +56,20 @@ router.get('/recipes', async (req, res) => {
         const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
         const allAPIRecipes = apiRawData.data.results.map(e => {
             return {
+                id: e.id,
                 title: e.title,
                 summary: e.summary,
                 healthScore: e.healthScore,
                 analyzedInstructions:
-                    e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : []
+                    e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
+                image: e.image,
+                diets: e.diets,
+                dishTypes: e.dishTypes
             }
         })
 
         const allDBRecipes = await Recipes.findAll({
-            attributes: ['title', 'summary', 'healthScore', 'analyzedInstructions']
+            attributes: ['id' , 'title', 'summary', 'healthScore', 'analyzedInstructions']
         })
         res.status(200).send(allDBRecipes.concat(allAPIRecipes))
     }
@@ -76,16 +84,37 @@ router.get('/recipes', async (req, res) => {
 // Incluir los tipos de dieta asociados
 
 router.get('/recipes/:id', async (req, res) => {
-    const { id } = req.params
-    //const id = "877371e9-5398-4da2-89f3-42e32ba6eb0b";
+    const { id } = req.params;
+    let findByIDinDB;
     try {
-      if (true) {
-        const recipes = await Recipes.findByPk(id)
-        res.status(200).send(recipes)
-      }
+        if (true) {
+            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY1}&number=3&addRecipeInformation=true`);
+                const allAPIRecipes = apiRawData.data.results.map(e => {
+                    return {
+                        id: e.id,
+                        title: e.title,
+                        summary: e.summary,
+                        healthScore: e.healthScore,
+                        analyzedInstructions:
+                            e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
+                        image: e.image,
+                        diets: e.diets,
+                        dishTypes: e.dishTypes
+                    }
+                })
+            
+            const apiFilteredResult = allAPIRecipes.filter(e => e.id === parseInt(id));
+
+            if (apiFilteredResult[0] === undefined) {
+                findByIDinDB = await Recipes.findByPk(id)
+            }
+
+            res.status(200).send(apiFilteredResult.concat(findByIDinDB))
+
+        }
     }
     catch (e) {
-        res.status(400).send('No hay recetas con ese id..')      
+        res.status(400).send('No hay recetas con ese id')      
     }
 });
 
@@ -108,41 +137,26 @@ router.get('/recipes/:id', async (req, res) => {
 }); */
 
 router.post('/recipes', async (req, res) => {
-
-    
-      
-     /*  const result = await User.findOne({
-        where: { username: 'p4dm3' },
-        include: Profile
-      }); */
-
-  /*   const amidala = await User.create({
-        username: 'p4dm3',
-        points: 1000,
-        profiles: [{
-            name: 'Queen',
-            User_Profile: {
-            selfGranted: true
-            }
-        }]
-    }, {
-        include: Profile
-    }); */
-
+    let title = ['Vegan', 'Primal']
     // WORKING
     try {
-        const test = await Recipes.create({
+        const createRecipe = await Recipes.create({
             title: "fake title 0",
             summary: "test summary",
             healthScore: 10,
-            analyzedInstructions: 'these are the instructions',
-            Diets: [{
-              title: "Vegannnn"
-            }]
-          }, {
-            include: Diets
+            analyzedInstructions: 'these are the instructions'
           });
-          res.status(200).send(test)
+        const relatedDiets = await Diets.findAll({           
+            where: {
+                [Op.or]: [
+                    { title: title }
+                   
+                  ]
+            }
+
+        })
+        createRecipe.addDiets(relatedDiets)
+        res.status(200).send(createRecipe)
 
     }
 
