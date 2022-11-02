@@ -1,10 +1,11 @@
+// FUNCIONAL
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
-const API_KEY = API_KEY2;
+const API_KEY = API_KEY1;
 const NUMBER = 1;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
@@ -32,125 +33,93 @@ let allApiResults = async () => {
     })
 }
 
-/* function qq() {
-    router.use('/recipes/:id', async (req, res) => {
-        if (req.params.id) {
-            return req.originalUrl
-        }
-    })
-} */
-
-router.get('/recipes(|/:id)', async (req, res) => {
-    console.log("ID", req.params.id)  
-    console.log("TITLE", req.query.title)
-    //console.log("A VER ", req.originalUrl)  
+router.get('/recipes', async (req, res) => {
+    const { title } = req.query;
+    
+    function ifTitleExists () {
+        return req.query.title? { title: {[Op.like]: `%${req.query.title.toLowerCase()}%`}} : {}        
+    }
 
     try {
-        return res.status(200).send('aaa 2')
-        
-        if (req.params.id || req.query.title) {
-            const searchDBRecipes = await Recipes.findAll({
-                //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
-                where: 
-                    req.params.id ? { id: req.params.id } : req.query.title ? { title: { [Op.like]: `%${ req.query.title.toLowerCase() }%` } } : {}
-                    //req.query.title ? { title: { [Op.like]: `%${ req.query.title.toLowerCase() }%` } } : {}
-                ,
-                include: [{
-                    model: Diets,
-                    attributes: ['title'],
-                    through: {
-                        attributes: []
-                    }
-                }]
-            })
-    
-            let dietsArray = req.query.title ? searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title)) : searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
-            
-            let arrayForDB = []
-    
-            dietsArray.map(e => {
-                arrayForDB.push({
-                    id: searchDBRecipes[dietsArray.indexOf(e)].id,
-                    title: searchDBRecipes[dietsArray.indexOf(e)].title,
-                    summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
-                    healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                    analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                    database: searchDBRecipes[dietsArray.indexOf(e)].database,
-                    diets: e
-                })
-            })
-    
-            return res.status(200).send(arrayForDB)
-            let allApiResultsHelper = await allApiResults()
-            const apiFilteredResult = req.query.title ? allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())) : allApiResultsHelper || req.params.id ? allApiResultsHelper.filter(e => e.id.includes(req.params.id)) : allApiResultsHelper
-            return res.status(200).send(arrayForDB.concat(apiFilteredResult))
+        const searchDBRecipes = await Recipes.findAll({
+            //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
+            where: 
+            ifTitleExists()
+            ,
+            include: [{
+                model: Diets,
+                attributes: ['title'],
+                through: {
+                    attributes: []
+                }
+            }]
+        })
 
-        }
-        //else {
-            return res.status(200).send('aaa')
+        let dietsArray = searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
+        
+        let arrayForDB = []
 
-        //}
-        
-        
+        dietsArray.map(e => {
+            arrayForDB.push({
+                id: searchDBRecipes[dietsArray.indexOf(e)].id,
+                title: searchDBRecipes[dietsArray.indexOf(e)].title,
+                summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
+                healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
+                analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
+                database: searchDBRecipes[dietsArray.indexOf(e)].database,
+                diets: e
+            })
+        })
+
+        let allApiResultsHelper = await allApiResults()
+        const apiFilteredResult = req.query.title?allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())):allApiResultsHelper;
+        return res.status(200).send(arrayForDB.concat(apiFilteredResult))
     }
-    catch(e) {
-        res.status(400).send('GET/RECIPES No hay recetas disponibles...')      
+    catch (e) {
+        res.status(400).send('No hay recetas disponibles...')      
     }
 });
 
-// router.get('/recipes/:id', async (req, res) => {
-//     const { id } = req.params;
-//     //console.log('AAA', req.params.id)
-  
-//     try {
-//         let allApiResultsHelper = await allApiResults()
-//         const apiFilteredResult = allApiResultsHelper.filter(e => e.id === parseInt(id));
+router.get('/recipes/:id', async (req, res) => {
+    const { id } = req.params;
+    var findByIDinDB;
+ 
+    try {
+        if (true) {
+            let allApiResultsHelper = await allApiResults()
+            const apiFilteredResult = allApiResultsHelper.filter(e => e.id === parseInt(id));
 
-//         if (apiFilteredResult[0] === undefined) {
-//           /*   let findByIDinDB = await Recipes.findByPk(id, {
-//                 include: [{
-//                     model: Diets,
-//                     attributes: ['title'],
-//                     through: {
-//                         attributes: []
-//                     }
-//                     }]
-//             }) */
+            if (apiFilteredResult[0] === undefined) {
+                findByIDinDB = await Recipes.findByPk(id, {
+                    include: [{
+                        model: Diets,
+                        attributes: ['title'],
+                        through: {
+                          attributes: []
+                        }
+                      }]
+                })
+                let dietsArray = findByIDinDB.Diets.map(e => e.title)
+                let modifiedDBObj = {
+                    id: findByIDinDB.id,
+                    title: findByIDinDB.title,
+                    summary: findByIDinDB.summary,
+                    healthScore: findByIDinDB.healthScore,
+                    analyzedInstructions: findByIDinDB.analyzedInstructions,
+                    database: findByIDinDB.database,
+                    diets: dietsArray
+                }
+                return res.status(200).send(modifiedDBObj)
 
-//             let findByIDinDB = await Recipes.findAll({
-//                 where: 
-//                  req.params.id ? { id: req.params.id } : {}
-//                 ,
-//                 include: [{
-//                     model: Diets,
-//                     attributes: ['title'],
-//                     through: {
-//                         attributes: []
-//                     }
-//                     }]
-//             })
-
-//             let dietsArray = findByIDinDB.Diets.map(e => e.title)
-//             let modifiedDBObj = {
-//                 id: findByIDinDB.id,
-//                 title: findByIDinDB.title,
-//                 summary: findByIDinDB.summary,
-//                 healthScore: findByIDinDB.healthScore,
-//                 analyzedInstructions: findByIDinDB.analyzedInstructions,
-//                 database: findByIDinDB.database,
-//                 diets: dietsArray
-//             }
-//             return res.status(200).send(modifiedDBObj)
-
-//         }
-//          else {
-//             res.status(200).send(apiFilteredResult)
-//         }
-//     }
-//     catch(e) {
-//         res.status(400).send('No hay recetas con ese id')      
-//     }
-// });
+            } else {
+                res.status(200).send(apiFilteredResult)
+            }
+        }
+    }
+    catch (e) {
+        res.status(400).send('No hay recetas con ese id')      
+    }
+});
 
 router.post('/recipes', async (req, res) => {
     let title = ['Whole30', 'Pescetarian']
@@ -204,7 +173,7 @@ router.get('/diets', async (req, res) => {
         const diets = await Diets.findAll()
         res.status(200).send(diets)
     }
-    catch(e) {
+    catch (e) {
         res.status(400).send('No hay dietas disponibles...')      
     }
 });
