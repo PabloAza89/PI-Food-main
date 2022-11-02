@@ -4,7 +4,7 @@ const { Router } = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
-const API_KEY = API_KEY4;
+const API_KEY = API_KEY2;
 const NUMBER = 1;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
@@ -35,76 +35,44 @@ let allApiResults = async () => {
 router.get('/recipes', async (req, res) => {
     const { title } = req.query;
     
+    function ifTitleExists () {
+        return req.query.title? { title: {[Op.like]: `%${req.query.title.toLowerCase()}%`}} : {}        
+    }
+
     try {
-        if (title) {
-            const titleTLC = title.toLowerCase();
-            const searchDBRecipes = await Recipes.findAll({
-                //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
-                where: {
-                    title: {
-                      [Op.like]: `%${titleTLC}%`
-                    }
-                },
-                include: [{
-                    model: Diets,
-                    attributes: ['title'],
-                    through: {
-                      attributes: []
-                    }
-                }]
-            })
-
-            let dietsArray = searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
-            
-            let arrayForDB = []
-
-            dietsArray.map(e => {
-                arrayForDB.push({
-                    id: searchDBRecipes[dietsArray.indexOf(e)].id,
-                    title: searchDBRecipes[dietsArray.indexOf(e)].title,
-                    summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
-                    healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                    analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                    database: searchDBRecipes[dietsArray.indexOf(e)].database,
-                    diets: e
-                })
-            })
-           
-            let allApiResultsHelper = await allApiResults()
-
-            const apiFilteredResult = allApiResultsHelper.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
-            if (searchDBRecipes[0] === undefined && apiFilteredResult[0] === undefined) return res.status(400).send('No hay recetasss disponibles')
-            return res.status(200).send(arrayForDB.concat(apiFilteredResult))
-        }
-   
-        const allDBRecipes = await Recipes.findAll({
-            //attributes: ['id' , 'title', 'summary', 'healthScore', 'analyzedInstructions']
+        const searchDBRecipes = await Recipes.findAll({
+            //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
+            where: 
+            ifTitleExists()
+            ,
             include: [{
                 model: Diets,
                 attributes: ['title'],
                 through: {
-                  attributes: []
+                    attributes: []
                 }
             }]
         })
 
-        let dietsArray = allDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
-            
+        let dietsArray = searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
+        
         let arrayForDB = []
 
         dietsArray.map(e => {
             arrayForDB.push({
-                id: allDBRecipes[dietsArray.indexOf(e)].id,
-                title: allDBRecipes[dietsArray.indexOf(e)].title,
-                summary: allDBRecipes[dietsArray.indexOf(e)].summary,
-                healthScore: allDBRecipes[dietsArray.indexOf(e)].healthScore,
-                analyzedInstructions: allDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                database: allDBRecipes[dietsArray.indexOf(e)].database,
+                id: searchDBRecipes[dietsArray.indexOf(e)].id,
+                title: searchDBRecipes[dietsArray.indexOf(e)].title,
+                summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
+                healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
+                analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
+                database: searchDBRecipes[dietsArray.indexOf(e)].database,
                 diets: e
             })
         })
-       
-        res.status(200).send(arrayForDB.concat(await allApiResults()))
+
+        let allApiResultsHelper = await allApiResults()
+        const apiFilteredResult = req.query.title?allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())):allApiResultsHelper;
+        return res.status(200).send(arrayForDB.concat(apiFilteredResult))
     }
     catch (e) {
         res.status(400).send('No hay recetas disponibles...')      
@@ -117,22 +85,8 @@ router.get('/recipes/:id', async (req, res) => {
  
     try {
         if (true) {
-            const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
-                const allAPIRecipes = apiRawData.data.results.map(e => {
-                    return {
-                        id: e.id,
-                        title: e.title,
-                        summary: e.summary,
-                        healthScore: e.healthScore,
-                        analyzedInstructions:
-                            e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
-                        image: e.image,
-                        diets: e.diets,
-                        dishTypes: e.dishTypes
-                    }
-                })
-            
-            const apiFilteredResult = allAPIRecipes.filter(e => e.id === parseInt(id));
+            let allApiResultsHelper = await allApiResults()
+            const apiFilteredResult = allApiResultsHelper.filter(e => e.id === parseInt(id));
 
             if (apiFilteredResult[0] === undefined) {
                 findByIDinDB = await Recipes.findByPk(id, {
@@ -182,14 +136,10 @@ router.post('/recipes', async (req, res) => {
                     { title: title }                   
                   ]
             }
-
         })
         createRecipe.addDiets(relatedDiets)
         res.status(200).send(createRecipe)
-
     }
-   
-    
     catch(e) {
         res.status(400).send("hubo un error en la precarga de datos")
     }
@@ -214,9 +164,7 @@ router.post('/diets', async (req, res) => {
     }
     catch(e) {
         res.status(400).send('Las dietas ya estan precargadas')
-    }
-    
-      
+    } 
   });
 
 router.get('/diets', async (req, res) => {
