@@ -6,6 +6,11 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
 const API_KEY = API_KEY1;
+// API_KEY_1 
+// API_KEY_2 
+// API_KEY_3 
+// API_KEY_4 
+// API_KEY_5 AL 03/11/22 15:00 AGOTADA
 const NUMBER = 1;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
@@ -33,23 +38,14 @@ let allApiResults = async () => {
     })
 }
 
-/* function qq() {
-    router.use('/recipes/:id', async (req, res) => {
-        if (req.params.id) {
-            return req.originalUrl
-        }
-    })
-} */
-
 router.get('/recipes(|/:id)', async (req, res) => {
-    console.log("ID", req.params.id)  
-    console.log("TITLE", req.query.title)
-    //console.log("A VER ", req.originalUrl)  
+    //console.log("ROUTE", req.originalUrl)
+    //console.log("ID", req.params.id)
+    //console.log("TITLE", req.query.title)  
 
-    try {
-        return res.status(200).send('aaa 2')
+    try {        
         
-        if (req.params.id || req.query.title) {
+        if (req.query.title || req.params.id) {
             const searchDBRecipes = await Recipes.findAll({
                 //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
                 where: 
@@ -64,8 +60,9 @@ router.get('/recipes(|/:id)', async (req, res) => {
                     }
                 }]
             })
-    
+            
             let dietsArray = req.query.title ? searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title)) : searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
+            //let dietsArray = req.query.title ? searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title)) : searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
             
             let arrayForDB = []
     
@@ -87,15 +84,18 @@ router.get('/recipes(|/:id)', async (req, res) => {
             return res.status(200).send(arrayForDB.concat(apiFilteredResult))
 
         }
-        //else {
-            return res.status(200).send('aaa')
+        else {
+            return res.status(200).send(arrayForDB.concat(await allApiResults()))
+            return res.status(200).send(/* arrayForDB.concat */(await allApiResults()))
+            
 
-        //}
+        }
         
         
     }
     catch(e) {
-        res.status(400).send('GET/RECIPES No hay recetas disponibles...')      
+        if (e.code === 'ERR_BAD_REQUEST') res.status(402).send('ERROR DE API_KEY.. POR FAVOR ACTUALIZA LA API KEY !')
+        else res.send(e.code)
     }
 });
 

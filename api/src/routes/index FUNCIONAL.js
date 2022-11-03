@@ -1,4 +1,4 @@
-//PRUEBA
+// FUNCIONAL
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -12,7 +12,6 @@ const API_KEY = API_KEY1;
 // API_KEY_4 
 // API_KEY_5 AL 03/11/22 15:00 AGOTADA
 const NUMBER = 1;
-const SPECIAL_KEY = "299053a8-ebd9-4c43-9191-77bcb4bc3069"
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
 //const { DatabaseError } = require('sequelize');
@@ -93,32 +92,11 @@ router.get('/recipes/:id', async (req, res) => {
  
     try {
         if (true) {
-
-           
-
-
-
             let allApiResultsHelper = await allApiResults()
             const apiFilteredResult = allApiResultsHelper.filter(e => e.id === parseInt(id));
 
             if (apiFilteredResult[0] === undefined) {
-                findByIDinDB = await Recipes.findAll({
-                    //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
-                    
-                    //where: { id: "299053a8-ebd9-4c43-9191-77bcb4bc3069" },
-                    where: { id: req.params.id },
-                    
-                    include: [{
-                        model: Diets,
-                        attributes: ['title'],
-                        through: {
-                            attributes: []
-                        }
-                    }]
-                })
-
-
-             /*    findByIDinDB = await Recipes.findByPk(id, {
+                findByIDinDB = await Recipes.findByPk(id, {
                     include: [{
                         model: Diets,
                         attributes: ['title'],
@@ -126,31 +104,18 @@ router.get('/recipes/:id', async (req, res) => {
                           attributes: []
                         }
                       }]
-                }) */
-
-                let dietsArray = findByIDinDB.Diets.map(e => e.title)
-
-                //let dietsArray = findByIDinDB.map(e => e.Diets).map(e => e.map(e => e.title))
-        
-                let arrayForDB = []
-                
-
-                dietsArray.map(e => {
-                    arrayForDB.push({
-                        id: searchDBRecipes[dietsArray.indexOf(e)].id,
-                        title: searchDBRecipes[dietsArray.indexOf(e)].title,
-                        summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
-                        healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                        analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                        database: searchDBRecipes[dietsArray.indexOf(e)].database,
-                        diets: e
-                    })
                 })
-
-
-                return res.status(200).send(findByIDinDB)
-                return res.status(200).send(findByIDinDB)
-                
+                let dietsArray = findByIDinDB.Diets.map(e => e.title)
+                let modifiedDBObj = {
+                    id: findByIDinDB.id,
+                    title: findByIDinDB.title,
+                    summary: findByIDinDB.summary,
+                    healthScore: findByIDinDB.healthScore,
+                    analyzedInstructions: findByIDinDB.analyzedInstructions,
+                    database: findByIDinDB.database,
+                    diets: dietsArray
+                }
+                return res.status(200).send(modifiedDBObj)
 
             } else {
                 res.status(200).send(apiFilteredResult)
