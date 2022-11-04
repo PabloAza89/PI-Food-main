@@ -1,0 +1,11 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 70px;
+}
+
+.card-country {
+  font-size: small;
+  font-weight:600;
+}

@@ -1,0 +1,14 @@
+.footer {
+  position: relative;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  bottom: 5px;
+  
+  margin-left: 46%;
+  
+  
+  width: 30px;
+  height: 30px;
+  
+}

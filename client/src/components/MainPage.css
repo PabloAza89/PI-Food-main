@@ -1,3 +1,5 @@
+/* background-color: rgba(0, 255, 255, 0.264); */
+
 .mainPage {
   position: absolute;
   width: 100vw;
@@ -8,15 +10,14 @@
   
 }
 
-h1 {
-  align-items: center;
-}
-
 .text {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
+  /* align-content: center; */
+  
   background-color: rgba(0, 255, 255, 0.264);
-  height: 90vh;
+  height: 95vh;
+  
     
 }
