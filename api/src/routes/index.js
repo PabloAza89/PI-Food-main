@@ -55,18 +55,18 @@ router.get('/recipes(|/:id)', async (req, res) => {
             })
                     
             const apiFilteredResult = req.query.title?allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())): req.params.id ? allApiResultsHelper.filter(e => e.id === parseInt(req.params.id)) : allApiResultsHelper;
-            if (apiFilteredResult[0] === undefined && arrayDB[0] === undefined) return res.status(400).send('no hay recetas 3 ERROR DE TITLE')
+            if (apiFilteredResult[0] === undefined && arrayDB[0] === undefined) return res.status(400).send('THERE ARE NOT RECIPES BY THAT NAME.. :(')
             return res.status(200).send(arrayDB.concat(apiFilteredResult))
         } else {
             if (parseInt(req.params.id).toString() === req.params.id.toString()) {
-                if (allApiResultsHelper.filter(e => e.id === parseInt(req.params.id))[0] === undefined) return res.status(400).send('no hay recetas 4 ERROR DE ID')
+                if (allApiResultsHelper.filter(e => e.id === parseInt(req.params.id))[0] === undefined) return res.status(400).send('THERE ARE NOT RECIPES BY THAT ID.. :(')
                 else return res.status(200).send(allApiResultsHelper.filter(e => e.id === parseInt(req.params.id))) 
                 
-            } else return res.status(400).send('no hay recetas 1 ERROR DE ID')
+            } else return res.status(400).send('THERE ARE NOT RECIPES BY THAT ID.. :(')
         } 
     } catch(e) {
         if (e.code === 'ERR_BAD_REQUEST') res.status(402).send('ERROR DE API_KEY.. POR FAVOR ACTUALIZA LA API KEY !')
-        else res.status(400).send('no hay recetas 2 DE CATCH')
+        else res.status(400).send('THERE ARE NOT RECIPES BY THAT TITLE OR ID..')
     }
 });
 
@@ -86,7 +86,7 @@ router.post('/recipes', async (req, res) => {
         createRecipe.addDiets(relatedDiets)
         res.status(200).send(createRecipe)
     } catch(e) {
-        res.status(400).send("hubo un error en la precarga de datos")
+        res.status(400).send("THERE WAS AND ERROR WHILE CHARGING DATA..")
     }
 });
 
@@ -95,7 +95,7 @@ router.get('/diets', async (req, res) => {
         const diets = await Diets.findAll()
         res.status(200).send(diets)
     } catch(e) {
-        res.status(400).send('No hay dietas disponibles...')      
+        res.status(400).send('THERE ARE NOT AVAILABLE DIETS.. :(')      
     }
 });
 
