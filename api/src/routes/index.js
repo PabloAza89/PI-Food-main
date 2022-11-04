@@ -1,26 +1,12 @@
-//PRUEBA
 const { Router } = require('express');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
-const API_KEY = API_KEY1;
-// API_KEY_1 
-// API_KEY_2 
-// API_KEY_3 
-// API_KEY_4 
-// API_KEY_5 AL 03/11/22 15:00 AGOTADA
-const NUMBER = 1;
-const SPECIAL_KEY = "299053a8-ebd9-4c43-9191-77bcb4bc3069"
-
-const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
-//const { DatabaseError } = require('sequelize');
+const API_KEY = API_KEY2;
+const NUMBER = 2;
+const { Recipes , Diets , Op } = require('../db.js');
 
 const router = Router();
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 
 let allApiResults = async () => {
     const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
@@ -39,132 +25,54 @@ let allApiResults = async () => {
     })
 }
 
-router.get('/recipes', async (req, res) => {
-    const { title } = req.query;
-    
-    function ifTitleExists () {
-        return req.query.title? { title: {[Op.like]: `%${req.query.title.toLowerCase()}%`}} : {}        
-    }
-
+router.get('/recipes(|/:id)', async (req, res) => {
     try {
-        const searchDBRecipes = await Recipes.findAll({
-            //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
-            where: 
-            ifTitleExists()
-            ,
+        let foundInDB  = await Recipes.findAll({
+            where: req.query.title? { title: {[Op.like]: `%${req.query.title.toLowerCase()}%`}} : req.params.id ? { id: req.params.id } : {},
             include: [{
                 model: Diets,
                 attributes: ['title'],
-                through: {
-                    attributes: []
-                }
-            }]
-        })
+                through: { attributes: [] }
+            }]  
+        }).catch(function(e){ console.log('NOT FOUND IN DB.. SCRIPT CONTINUED THANKS TO "foundInDB != null" ;)') }); 
 
-        let dietsArray = searchDBRecipes.map(e => e.Diets).map(e => e.map(e => e.title))
-        
-        let arrayForDB = []
+        let allApiResultsHelper = await allApiResults() 
+            
+        if (foundInDB != null) {
+            let dietsArray = foundInDB.map(e => e.Diets).map(e => e.map(e => e.title));
+            let arrayDB = []
 
-        dietsArray.map(e => {
-            arrayForDB.push({
-                id: searchDBRecipes[dietsArray.indexOf(e)].id,
-                title: searchDBRecipes[dietsArray.indexOf(e)].title,
-                summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
-                healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                database: searchDBRecipes[dietsArray.indexOf(e)].database,
-                diets: e
+            dietsArray.map(e => {
+                arrayDB.push({
+                    id: foundInDB[dietsArray.indexOf(e)].id,
+                    title: foundInDB[dietsArray.indexOf(e)].title,
+                    summary: foundInDB[dietsArray.indexOf(e)].summary,
+                    healthScore: foundInDB[dietsArray.indexOf(e)].healthScore,
+                    analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,
+                    database: foundInDB[dietsArray.indexOf(e)].database,
+                    diets: e
+                })
             })
-        })
-
-        let allApiResultsHelper = await allApiResults()
-        const apiFilteredResult = req.query.title?allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())):allApiResultsHelper;
-        return res.status(200).send(arrayForDB.concat(apiFilteredResult))
-    }
-    catch (e) {
+                    
+            const apiFilteredResult = req.query.title?allApiResultsHelper.filter(e => e.title.toLowerCase().includes(req.query.title.toLowerCase())): req.params.id ? allApiResultsHelper.filter(e => e.id === parseInt(req.params.id)) : allApiResultsHelper;
+            if (apiFilteredResult[0] === undefined && arrayDB[0] === undefined) return res.status(400).send('no hay recetas 3 ERROR DE TITLE')
+            return res.status(200).send(arrayDB.concat(apiFilteredResult))
+        } else {
+            if (parseInt(req.params.id).toString() === req.params.id.toString()) {
+                if (allApiResultsHelper.filter(e => e.id === parseInt(req.params.id))[0] === undefined) return res.status(400).send('no hay recetas 4 ERROR DE ID')
+                else return res.status(200).send(allApiResultsHelper.filter(e => e.id === parseInt(req.params.id))) 
+                
+            } else return res.status(400).send('no hay recetas 1 ERROR DE ID')
+        } 
+    } catch(e) {
         if (e.code === 'ERR_BAD_REQUEST') res.status(402).send('ERROR DE API_KEY.. POR FAVOR ACTUALIZA LA API KEY !')
-        else res.send(e.code)
-    }
-});
-
-router.get('/recipes/:id', async (req, res) => {
-    const { id } = req.params;
-    var findByIDinDB;
- 
-    try {
-        if (true) {
-
-           
-
-
-
-            let allApiResultsHelper = await allApiResults()
-            const apiFilteredResult = allApiResultsHelper.filter(e => e.id === parseInt(id));
-
-            if (apiFilteredResult[0] === undefined) {
-                findByIDinDB = await Recipes.findAll({
-                    //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
-                    
-                    //where: { id: "299053a8-ebd9-4c43-9191-77bcb4bc3069" },
-                    where: { id: req.params.id },
-                    
-                    include: [{
-                        model: Diets,
-                        attributes: ['title'],
-                        through: {
-                            attributes: []
-                        }
-                    }]
-                })
-
-
-             /*    findByIDinDB = await Recipes.findByPk(id, {
-                    include: [{
-                        model: Diets,
-                        attributes: ['title'],
-                        through: {
-                          attributes: []
-                        }
-                      }]
-                }) */
-
-                let dietsArray = findByIDinDB.Diets.map(e => e.title)
-
-                //let dietsArray = findByIDinDB.map(e => e.Diets).map(e => e.map(e => e.title))
-        
-                let arrayForDB = []
-                
-
-                dietsArray.map(e => {
-                    arrayForDB.push({
-                        id: searchDBRecipes[dietsArray.indexOf(e)].id,
-                        title: searchDBRecipes[dietsArray.indexOf(e)].title,
-                        summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
-                        healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                        analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                        database: searchDBRecipes[dietsArray.indexOf(e)].database,
-                        diets: e
-                    })
-                })
-
-
-                return res.status(200).send(findByIDinDB)
-                return res.status(200).send(findByIDinDB)
-                
-
-            } else {
-                res.status(200).send(apiFilteredResult)
-            }
-        }
-    }
-    catch (e) {
-        res.status(400).send('No hay recetas con ese id')      
+        else res.status(400).send('no hay recetas 2 DE CATCH')
     }
 });
 
 router.post('/recipes', async (req, res) => {
     let title = ['Whole30', 'Pescetarian']
-    // WORKING
+    
     try {
         const createRecipe = await Recipes.create({
             title: "fake rice",
@@ -173,52 +81,22 @@ router.post('/recipes', async (req, res) => {
             analyzedInstructions: 'these are the instructions'
           });
         const relatedDiets = await Diets.findAll({           
-            where: {
-                [Op.or]: [
-                    { title: title }                   
-                  ]
-            }
+            where: { [Op.or]: [ { title: title } ] }
         })
         createRecipe.addDiets(relatedDiets)
         res.status(200).send(createRecipe)
-    }
-    catch(e) {
+    } catch(e) {
         res.status(400).send("hubo un error en la precarga de datos")
     }
 });
-
-// ONLY FOR FIRST MANUAL POST
-router.post('/diets', async (req, res) => {
-    try {
-        res.json(await Diets.bulkCreate([
-            { title: "Gluten Free", },
-            { title: "Ketogenic" },
-            { title: "Vegetarian" },
-            { title: "Lacto-Vegetarian" },
-            { title: "Ovo-Vegetarian" },
-            { title: "Vegan" },
-            { title: "Pescetarian" },
-            { title: "Paleo" },
-            { title: "Primal" },
-            { title: "Low FODMAP" },
-            { title: "Whole30" }
-          ]))//.then(() => console.log("Users data have been saved")));
-    }
-    catch(e) {
-        res.status(400).send('Las dietas ya estan precargadas')
-    } 
-  });
 
 router.get('/diets', async (req, res) => {
     try {
         const diets = await Diets.findAll()
         res.status(200).send(diets)
-    }
-    catch (e) {
+    } catch(e) {
         res.status(400).send('No hay dietas disponibles...')      
     }
 });
-
-
 
 module.exports = router;
