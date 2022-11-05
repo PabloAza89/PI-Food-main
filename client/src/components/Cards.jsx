@@ -8,10 +8,13 @@ export default function Cards({foods}) {
   index === self.findIndex((e) => (
     e.id === value.id
   ))) */
-      
+  
   return (
-    <div className='cards'>
-      {console.log("TITLE", title)}
+    
+    <div className='cards'>      
+      
+      {console.log("CARDS PLURAL", foods)}
+      
       {/* {filterRepeat.map(c => <Card */}
       {foods.map(c => <Card
           key={c.id}
@@ -22,8 +25,7 @@ export default function Cards({foods}) {
           analyzedInstructions={c.analyzedInstructions}
           diets={c.diets}
 
-          //image={c.image}
-          //onClose={() => onClose(c.id)}
+      
         /> )}
     </div>
   );
