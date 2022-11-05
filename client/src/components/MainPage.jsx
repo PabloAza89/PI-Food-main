@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import './MainPage.css';
 import Cards from "./Cards.jsx";
+import Card from "./Card.jsx";
 //import Card from "./Card.jsx";
 
 function MainPage() {
@@ -21,7 +22,7 @@ function MainPage() {
         } */)
             .then((r) => r.json())
             .then((res) => {
-              foods.push(res)
+              res.forEach(e => foods.push(e))
               
               /*   //if (res !== undefined) {
                   const food = res.map(e => {
@@ -48,8 +49,12 @@ function MainPage() {
     <div className='mainPage'>
       {console.log('MAIN PAGE', foods)}
       {onSearch()}
+      <Cards foods={foods} />
       
-      <Route path="/recipes" render={() => (<Cards foods={foods} />)} />
+      {/* <Route path="/" render={() => (<Cards foods={foods} />)} /> */}
+      {/* <Route path="/" render={() => (<Cards />)} /> */}
+      
+      <Route path="/" render={() => (<Card foods={foods} />)} />
       {/* <Card onSearch={onSearch}/> */}
     </div>
   );
