@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import './MainPage.css';
 import Cards from "./Cards.jsx";
-import Card from "./Card.jsx";
+import City from "./City.jsx";
+
 
 function MainPage() {
 //  onSearch()
 const [foods, setFoods] = useState([]);
 
-
-//          setFoods((oldFoods) => oldFoods.filter((value, index, self) =>
-//      index === self.findIndex((e) => (
-//       e.id === value.id
-//    )))); 
 
 useEffect(() => {
     fetch('http://localhost:3001/recipes')
@@ -20,15 +16,16 @@ useEffect(() => {
     .then((res) => setFoods(res))  
 }, []); // [] -> MEANS RUN ONCE !
 
-    // let filterRepeat = foods.filter((value, index, self) =>
-    //   index === self.findIndex((e) => (
-    //     e.id === value.id
-    //   )))
+  function onFilter(ciudadId) {
+    let ciudad = foods.filter((c) => parseInt(ciudadId).toString() === ciudadId.toString() ? c.id === parseInt(ciudadId) : c.id === ciudadId);
+    return ciudad[0]   
+  }  
  
     
   return (
     <div className='mainPage'>   
       <Route exact path="/" render={ () => (<Cards foods={foods} />)} />
+      <Route exact path="/:ciudadId" render={() => (<City onFilter={onFilter}  />)}/>
       
     </div>
   );

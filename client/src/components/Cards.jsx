@@ -6,24 +6,20 @@ export default function Cards({  foods}) {
   
   return (
     
-    <div className='cards'>      
-    
-      {console.log("CARDS PLURAL", foods)}
-      
-      {/* <Card onSearch={onSearch}/> */}
+    <div className='cards'>
+      {/* {console.log("CARDS PLURAL", foods)} */}
       {
-      //filterRepeat.map(e => <Card
-  
         foods.map(e => <Card
           key={e.id}
           id={e.id}
           title={e.title}
           summary={e.summary}
           healthScore={e.healthScore}
-          image={e.image}
-          /* analyzedInstructions={c.analyzedInstructions} */
+          analyzedInstructions={e.analyzedInstructions}
+          image={e.image} // OPTION
           diets={e.diets}
-        
+          dishTypes={e.dishTypes} // OPTION
+          database={e.database} // OPTION
       
         /> )}
         
