@@ -1,4 +1,4 @@
-import './LandingPage.css';
+import '../styles/LandingPage.css';
 import { useDispatch } from 'react-redux';
 import { saveName } from '../actions';
 

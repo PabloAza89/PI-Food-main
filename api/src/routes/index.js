@@ -58,14 +58,27 @@ router.get('/recipes(|/:id)', async (req, res) => {
 });
 
 router.post('/recipes', async (req, res) => {
-    let title = ['Whole30', 'Pescetarian']
-    
+    //let title = ['whole 30', 'pescatarian']
+    //let title = ['whole 30', 'vegan']
+    //let title = ['pescatarian', 'vegan']
+
     try {
         const createRecipe = await Recipes.create({
-            title: "fake rice",
-            summary: "test summary",
-            healthScore: 10,
-            analyzedInstructions: 'these are the instructions'
+            // title: "fake title 1",
+            // summary: "test summary",
+            // healthScore: 9,
+            // analyzedInstructions: 'these are the instructions'
+
+            // title: "fake title 2",
+            // summary: "test summary",
+            // healthScore: 10,
+            // analyzedInstructions: 'these are the instructions'
+
+            // title: "fake rice 3",
+            // summary: "test summary",
+            // healthScore: 10,
+            // analyzedInstructions: 'these are the instructions'
+
           });
         const relatedDiets = await Diets.findAll({           
             where: { [Op.or]: [ { title: title } ] }

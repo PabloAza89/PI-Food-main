@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './Cards.css';
+import '../styles/Cards.css';
 import Card from './Card.jsx';
 
 export default function Cards({  foods}) {
