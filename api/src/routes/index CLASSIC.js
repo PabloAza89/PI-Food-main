@@ -6,11 +6,6 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
 const API_KEY = API_KEY1;
-// API_KEY_1 
-// API_KEY_2 
-// API_KEY_3 
-// API_KEY_4 
-// API_KEY_5 AL 03/11/22 15:00 AGOTADA
 const NUMBER = 1;
 
 const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED

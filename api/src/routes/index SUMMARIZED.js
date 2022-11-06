@@ -1,16 +1,30 @@
-// SUMMARIZED WITH OWN JSON
+// SUMMARIZED
 const { Router } = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
 const API_KEY = API_KEY5;
-const NUMBER = 1;
+const NUMBER = 2;
 const { Recipes , Diets , Op } = require('../db.js');
-let toAvoidKey = require('../../../toAvoidKey');
 
 const router = Router();
 
-
+let allApiResults = async () => {
+    const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
+    return apiRawData.data.results.map(e => {
+        return {
+            id: e.id,
+            title: e.title,
+            summary: e.summary,
+            healthScore: e.healthScore,
+            analyzedInstructions:
+                e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
+            image: e.image,
+            diets: e.diets,
+            dishTypes: e.dishTypes
+        }
+    })
+}
 
 router.get('/recipes(|/:id)', async (req, res) => {
     try {
@@ -23,7 +37,7 @@ router.get('/recipes(|/:id)', async (req, res) => {
             }]  
         }).catch(function(e){ console.log('NOT FOUND IN DB.. SCRIPT CONTINUED THANKS TO "foundInDB != null" ;)') }); 
 
-        let allApiResultsHelper = toAvoidKey
+        let allApiResultsHelper = await allApiResults() 
             
         if (foundInDB != null) {
             let dietsArray = foundInDB.map(e => e.Diets).map(e => e.map(e => e.title));
