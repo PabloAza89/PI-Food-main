@@ -11,7 +11,7 @@ export default function Card({  id, image, title, summary, healthScore, analyzed
         {/* {console.log("CARDS SINGURAL")} */}
             <div className="card-body">
                 <img  src={image ? image : noImage} alt=""></img>
-                {<Link to={`${id}`}> <h2 className="card-title">{title}</h2> </Link>}
+                <Link to={`${id}`}> <h2 className="card-title">{title}</h2> </Link>
                 <div className="row">
                 <h3>Diets: {diets}</h3>
                 <h3>Healt Score: {healthScore}</h3>
