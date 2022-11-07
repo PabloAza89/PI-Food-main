@@ -10,12 +10,29 @@ import Form from "./Form.jsx";
 function MainPage() {
 
 const [foods, setFoods] = useState([]); // ALL FOODS
+const [diets, setDiets] = useState([]); // ALL MAIN DIETS
 
-const [allFoods, setAllFoods] = useState(""); // ALL FOODS FOODS
-const [diets, setDiets] = useState([]); // ALL DIETS
-const [dietName, setDietName] = useState(''); // DIET NAME SELECTED
-const [healthLevel , setHealthLevel] = useState(''); // HEALTH LEVEL SELECTED
-const [sortName , setSortName] = useState(''); // SORT NAME SELECTED
+const [dietName, setDietName] = useState({ // DIET NAME SELECTED
+  name: "",
+  selected: false
+}); 
+
+const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
+  name: "",
+  selected: false
+}); 
+
+const [sortName , setSortName] = useState({ // SORT NAME SELECTED
+  name: "",
+  selected: false
+}); 
+
+console.log(" *** FRONT DIET NAME", dietName)
+console.log("FRONT HEALTH LEVEL", healthLevel)
+console.log("FRONT SORT NAME", sortName)
+console.log("FOODS", foods)
+console.log(" *** DIETS", diets)
+
 
 useEffect(() => {
     fetch('http://localhost:3001/recipes')
@@ -35,45 +52,47 @@ function onFilterID(foodId) {
 }  
 
 const handleDietNameChange = (dietName) => {
-  setDietName(dietName);
+  setSortName({name: "", selected: false});
+  setHealthLevel({name: "", selected: false});
+  setDietName({name: dietName, selected: true});
 }
 
 const handleHealthLevelChange = (healthLevel) => {
-  setHealthLevel(healthLevel);
+  setSortName({name: "", selected: false});
+  setHealthLevel({name: healthLevel, selected: true});
 }
 
 const handleSortNameChange = (sortName) => {
-  setSortName(sortName);
+  setHealthLevel({name: "", selected: false});
+  setSortName({name: sortName, selected: true});
 }
   
 function onDietFilter() {
-  return foods.filter(e => e.diets.includes(dietName));
-} 
+  //return foods.filter(e => e.diets.includes(dietName));
+  return foods.filter(e => e.diets.includes(dietName))
+  
+}
 
 function onHealthFilter() {
-  if (healthLevel === "Less Healthy") return foods.sort((a,b) => a.healthScore - b.healthScore);
-  if (healthLevel === "More Healthy") return foods.sort((a,b) => b.healthScore - a.healthScore);
-} 
+  if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) return foods.sort((a,b) => a.healthScore - b.healthScore);
+  if (healthLevel.name === "More Healthy" && healthLevel.selected === true) return foods.sort((a,b) => b.healthScore - a.healthScore);
+}
 
 function onSortNameFilter() {
-  if (sortName === "A-Z") return foods.sort((a, b) => a.title.localeCompare(b.title))
-  if (sortName === "Z-A") return foods.sort((a, b) => b.title.localeCompare(a.title))
-  
-} 
+  if (sortName.name === "A-Z" && sortName.selected === true) return foods.sort((a, b) => a.title.localeCompare(b.title))
+  if (sortName.name === "Z-A" && sortName.selected === true) return foods.sort((a, b) => b.title.localeCompare(a.title))
+}
 
- onDietFilter()
+
  onHealthFilter()
  onSortNameFilter()
-// {<Route exact path="/" render={ () => (<Nav diets={diets}  
-//       handleDietNameChange={handleDietNameChange}  handleHealthLevelChange={handleHealthLevelChange} handleSortNameChange={handleSortNameChange}
-//       onDietFilter={onDietFilter} onHealthFilter={onHealthFilter} onSortNameFilter={onSortNameFilter}
-//       />)} />}
 
   return (
     <div className='mainPage'>   
       {<Route exact path="/" render={ () => (<Nav diets={diets} foods={foods} handleDietNameChange={handleDietNameChange}  handleHealthLevelChange={handleHealthLevelChange} handleSortNameChange={handleSortNameChange} />)} />}
-      {/* <Route exact path="/" render={ () => (<Cards foods={ foods.length === onDietFilter().length ? foods : onDietFilter() } />)} /> */}
-      <Route exact path="/" render={ () => (<Cards foods={foods}   />)} />
+      
+      <Route exact path="/" render={ () => (<Cards foods={ dietName.name === "" ? foods : onDietFilter() } />)} />
+      {/* <Route exact path="/" render={ () => (<Cards foods={foods}   />)} /> */}
       
       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
