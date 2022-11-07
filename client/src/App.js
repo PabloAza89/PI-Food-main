@@ -1,7 +1,7 @@
 import React from 'react';
 import MainPage from './components/MainPage';
-import LandingPage from './components/LandingPage';
 import { useSelector } from 'react-redux';
+//import LandingPage from './components/LandingPage';
 
 export default function App() {
   function useShowMain() {
