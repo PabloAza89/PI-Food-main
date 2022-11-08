@@ -12,20 +12,20 @@ function MainPage() {
 const [foods, setFoods] = useState([]); // ALL FOODS
 const [diets, setDiets] = useState([]); // ALL MAIN DIETS
 
-let [toShow, setToShow] = useState(); // SET ARRAY TO SHOW
+const [toShow, setToShow] = useState([]); // SET ARRAY TO SHOW
 
 const [dietName, setDietName] = useState({ // DIET NAME SELECTED
-  name: "vegan",
+  name: "",
   selected: false
 }); 
 
 const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
-  name: "More Healthy",
+  name: "",
   selected: false
 }); 
 
 const [sortName , setSortName] = useState({ // SORT NAME SELECTED
-  name: "Z-A",
+  name: "",
   selected: false
 }); 
 
@@ -72,46 +72,18 @@ const handleSortNameChange = (sortName) => {
 
   
 function onDietFilter() {
-
-  let qq = foods.filter(e => e.diets.includes(dietName.name))
-  toShow = qq
-  return toShow
-
+  //return foods.filter(e => e.diets.includes(dietName));
+  return foods.filter(e => e.diets.includes(dietName))
 }
 
 function onHealthFilter() {
-  //if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) return foods.sort((a,b) => a.healthScore - b.healthScore);
-  if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) {
-    let qq =  foods.sort((a,b) => a.healthScore - b.healthScore);
-    qq = foods
-    return toShow = qq
-    //return toShow
-  }
-  //if (healthLevel.name === "More Healthy" && healthLevel.selected === true) return foods.sort((a,b) => b.healthScore - a.healthScore);
-  if (healthLevel.name === "More Healthy" && healthLevel.selected === true) {
-    let qq = foods.sort((a,b) => b.healthScore - a.healthScore);
-    qq = foods
-    return toShow = qq
-    //return toShow
-
-  }
+  if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) return foods.sort((a,b) => a.healthScore - b.healthScore);
+  if (healthLevel.name === "More Healthy" && healthLevel.selected === true) return foods.sort((a,b) => b.healthScore - a.healthScore);
 }
 
 function onSortNameFilter() {
-   // if (sortName.name === "A-Z" && sortName.selected === true) return foods.sort((a, b) => a.title.localeCompare(b.title))
-  if (sortName.name === "A-Z" && sortName.selected === true) {
-    let qq = foods.sort((a, b) => a.title.localeCompare(b.title))
-    qq = foods
-    return toShow = qq
-    //return toShow
-  }
-  //if (sortName.name === "Z-A" && sortName.selected === true) return foods.sort((a, b) => b.title.localeCompare(a.title))
-  if (sortName.name === "Z-A" && sortName.selected === true) {
-    let qq = foods.sort((a, b) => b.title.localeCompare(a.title))
-    qq = foods
-    return toShow = qq
-    //return toShow
-  }
+  if (sortName.name === "A-Z" && sortName.selected === true) return foods.sort((a, b) => a.title.localeCompare(b.title))
+  if (sortName.name === "Z-A" && sortName.selected === true) return foods.sort((a, b) => b.title.localeCompare(a.title))
 }
 
 
@@ -124,8 +96,7 @@ function onSortNameFilter() {
       {<Route exact path="/" render={ () => (<Nav diets={diets} foods={foods} handleDietNameChange={handleDietNameChange}  handleHealthLevelChange={handleHealthLevelChange} handleSortNameChange={handleSortNameChange} />)} />}
       
       {/* <Route exact path="/" render={ () => (<Cards foods={ dietName.name !== "" ? foods : onDietFilter() } />)} /> */}
-      <Route exact path="/" render={ () => (<Cards foods={toShow}   />)} />
-      {/* <Route exact path="/" render={ () => (<Cards foods={foods}   />)} /> */}
+      <Route exact path="/" render={ () => (<Cards foods={foods}   />)} />
       
       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>

@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 
 
 export default function Cards({diets , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
- 
+
   
+
+
   return (
     
     <div className='div'>
@@ -26,7 +28,6 @@ export default function Cards({diets , handleDietNameChange, handleHealthLevelCh
           <select  onChange={event => handleHealthLevelChange(event.target.value) }>
                   {/* <option  id="Less Healthy" key="Less Healthy">Less Healthy</option>
                   <option id="More Healthy" key="More Healthy">More Healthy</option> */}
-                
                      <option id="More Healthy" key="More Healthy">More Healthy</option>
                      <option id="Less Healthy" key="Less Healthy">Less Healthy</option>
 
@@ -37,6 +38,8 @@ export default function Cards({diets , handleDietNameChange, handleHealthLevelCh
                   <option id="A-Z" key="A-Z">A-Z</option>
                   <option id="Z-A" key="Z-A">Z-A</option>
           </select >
+
+      
 
           </div>
         

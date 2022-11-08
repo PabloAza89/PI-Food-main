@@ -10,5 +10,26 @@
   
 }
 
+.alert {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  color: red
 
+}
+
+.danger {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-left: 50%;
+  background-color: rgba(0, 255, 255, 0.164);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  left: 70%;
+}
 
