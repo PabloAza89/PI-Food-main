@@ -87,19 +87,25 @@ export default function Form() {
       <form className="form" onSubmit={handleSubmit}>
         <img className="image" src={noImage} alt=""></img>
         <div className="row">
-          <input className='danger' name="title" type="text" value={title} placeholder="Title.." onChange={(e) => validateTitle(e.target.value)}/>
+          Title:
+          <input className='danger' name="title" type="text" value={title} placeholder="e.g. Pasta.." onChange={(e) => validateTitle(e.target.value)}/>
+        </div>
+        
+        <div className="row">
+          Diets:
+          <input className='danger' name="diets" type="text" value={diets} placeholder="e.g. Vegan, primal.." onChange={(e) => validateDiets(e.target.value)}/>
         </div>
         <div className="row">
-          <input className='danger' name="diets" type="text" value={diets} placeholder="Diets.." onChange={(e) => validateDiets(e.target.value)}/>
+          Health Score:
+          <input className='danger' name="healthScore" type="text" value={healthScore} placeholder="e.g. 73" onChange={(e) => validateHealthScore(e.target.value)}/>
         </div>
         <div className="row">
-          <input className='danger' name="healthScore" type="text" value={healthScore} placeholder="Health Score" onChange={(e) => validateHealthScore(e.target.value)}/>
+          Summary:
+          <input className='danger' name="summary" type="text" value={summary} placeholder="e.g. Healthy pasta recipe" onChange={(e) => validateSummary(e.target.value)}/>
         </div>
         <div className="row">
-          <input className='danger' name="summary" type="text" value={summary} placeholder="Summary" onChange={(e) => validateSummary(e.target.value)}/>
-        </div>
-        <div className="row">
-          <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="Analyzed Instructions" onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
+          Instructions:
+          <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="e.g. Cut pasta, fry tomatoes.." onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
         </div>
         <input type="submit" value="CREATE !" />
         {!error ? null : <span className="alert">{error}</span>}

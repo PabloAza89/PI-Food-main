@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import '../styles/Nav.css';
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 
-
-export default function Cards({diets , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
+export default function Cards({diets , handleTitleMatchChange , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
 
   
-
+  const [city, setCity] = useState("");
 
   return (
     
     <div className='div'>
-        <div>
-        <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
+        <div className="firstRow">
+          <img className="image" src={logo} alt=""></img>
+          <form className="search" onSubmit={(e) => {
+              e.preventDefault();
+              handleTitleMatchChange({name: city, selected: true})
+              //onSearch(city);
+             }}>
+              <input className="findAdd"
+                  type="text"        
+                  placeholder="Find recipe..."
+                  /* onFocus={e => setCity("")} */
+                  /* value={city} */
+                  onChange={e => city.push(e.target.value)}
+              />
+              <input className="findAdd"
+              type="submit" value="SEARCH !" />
+          </form>
+          <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
         </div>
-        <div>
+        <div className="firstRow">
           <select  onChange={event => handleDietNameChange(event.target.value) }>
           
                 {diets.map(e =>(
