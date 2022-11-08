@@ -15,7 +15,7 @@ const [diets, setDiets] = useState([]); // ALL MAIN DIETS
 let [toShow, setToShow] = useState([]); // SET ARRAY TO SHOW
 
 const [dietName, setDietName] = useState({ // DIET NAME SELECTED
-  name: "vegan",
+  name: "",
   selected: false
 }); 
 
@@ -23,14 +23,15 @@ const [titleMatch, setTitleMatch] = useState({ // TITLE MATCH SELECTED
   name: "",
   selected: false
 }); 
+//console.log("FRONT TITLE", titleMatch)
 
 const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
-  name: "More Healthy",
+  name: "",
   selected: false
 }); 
 
 const [sortName , setSortName] = useState({ // SORT NAME SELECTED
-  name: "Z-A",
+  name: "",
   selected: false
 }); 
 
@@ -61,19 +62,22 @@ function onFilterID(foodId) {
   return food[0]   
 }  
 
+const handleTitleMatchChange = (titleMatch) => {
+  /* setDietName({name: "", selected: false});
+  setSortName({name: "", selected: false});
+  setHealthLevel({name: "", selected: false}); */
+  setTitleMatch({name: titleMatch, selected: true});
+}
+
 const handleDietNameChange = (dietName) => {
   setSortName({name: "", selected: false});
   setHealthLevel({name: "", selected: false});
   setDietName({name: dietName, selected: true});
 }
 
-const handleTitleMatchChange = (titleMatch) => {
-  setSortName({name: "", selected: false});
-  setHealthLevel({name: "", selected: false});
-  setTitleMatch({name: titleMatch, selected: true});
-}
 
-console.log("TEST", titleMatch)
+
+
 
 const handleHealthLevelChange = (healthLevel) => {
   setSortName({name: "", selected: false});
@@ -85,18 +89,41 @@ const handleSortNameChange = (sortName) => {
   setSortName({name: sortName, selected: true});
 }
 
+
+//console.log("TITLE", titleMatch.name === "")
+//console.log("*** FRONT OUTER TO SHOW", toShow)
 function onTitleMatch() {
-  let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch.toString().toLowerCase()))
-  toShow = qq
-  return toShow
+/*   console.log("*** FRONT TITLEMATCH", titleMatch)
+  console.log("FRONT FOODS", foods)
+  console.log("FRONT TOSHOW", toShow) */
+  if (titleMatch.name === undefined) {
+    let qq = foods
+    toShow = qq
+    return toShow
+  }
+  if (titleMatch.name !== "") {
+    let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch))
+    toShow = qq
+    return toShow
+  }
 }
+
 
 //qq.filter(e => e.title.toLowerCase().includes("D".toLowerCase()))
   
+console.log("DIETS NAME", dietName.name === "")
 function onDietFilter() {
-  let qq = foods.filter(e => e.diets.includes(dietName.name))
-  toShow = qq
-  return toShow
+  if (dietName.name === "") {
+    let qq = foods
+    toShow = qq
+    return toShow
+  }
+  if (dietName.name !== "") {
+    let qq = foods.filter(e => e.diets.includes(dietName.name))
+    return toShow = qq
+  }
+  
+  //return toShow
 }
 
 function onHealthFilter() {
@@ -140,7 +167,7 @@ onTitleMatch()
       {/* <Route exact path="/" render={ () => (<Cards foods={ dietName.name !== "" ? foods : onDietFilter() } />)} /> */}
       <Route exact path="/" render={ () => (<Cards foods={toShow}   />)} />
       {/* <Route exact path="/" render={ () => (<Cards foods={foods}   />)} /> */}
-      
+      {console.log("FINAL", toShow)}
       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
       <Route exact path="/create" render={() => (<Form/>)}/>

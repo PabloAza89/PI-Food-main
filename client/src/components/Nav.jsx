@@ -13,17 +13,17 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     <div className='div'>
         <div className="firstRow">
           <img className="image" src={logo} alt=""></img>
-          <form className="search" onSubmit={(e) => {
-              e.preventDefault();
-              handleTitleMatchChange({name: city, selected: true})
+          <form className="search" onSubmit={(event) => {
+              event.preventDefault();
+              handleTitleMatchChange(city)
               //onSearch(city);
              }}>
               <input className="findAdd"
                   type="text"        
                   placeholder="Find recipe..."
                   /* onFocus={e => setCity("")} */
-                  /* value={city} */
-                  onChange={e => city.push(e.target.value)}
+                  value={city} 
+                  onChange={event => setCity(event.target.value)}
               />
               <input className="findAdd"
               type="submit" value="SEARCH !" />
