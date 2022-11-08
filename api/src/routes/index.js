@@ -58,11 +58,16 @@ router.get('/recipes(|/:id)', async (req, res) => {
 });
 
 router.post('/recipes', async (req, res) => {
-    const { title , summary , healthScore , analyzedInstructions , diets} = req.body;
-    console.log(req.body.title)
+    const { diets , title , summary , healthScore , analyzedInstructions } = req.body;
+    
+    //console.log("TEST ROUTES", req.body.diets)
     // let title = ['whole 30', 'pescatarian']
     //let title = ['whole 30', 'vegan']
     //let title = ['pescatarian', 'vegan']
+
+    //let diets = ['pescatarian', 'vegan']
+    //console.log("TEST ROUTES", req.body)
+    console.log("TEST ROUTES", diets)
 
     try {
         const createRecipe = await Recipes.create({

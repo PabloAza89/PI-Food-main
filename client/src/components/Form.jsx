@@ -28,6 +28,9 @@ export default function Form() {
        headers: {
           'Content-type': 'application/json; charset=UTF-8',
        },
+    //    headers: {
+    //     'Content-type': 'application/json',
+    //  },
     }).then((res) => res.json())     
       .catch((err) => {
         console.log(err.message);
@@ -46,8 +49,14 @@ export default function Form() {
       if(value.length > 0) {
       setError('Special characters not allowed in diets !');
     } else { setError('') }
-    setDiets(value)
+    // vegan,pescatarian // EXAMPLE IN UI
+    let arr = value.split(",")
+    let qq = arr.map(e => e.trim())
+    setDiets(qq)
   }
+
+  // let ww = qq.split(",")
+  // ww.map(e => e.trim())
 
   function validateHealthScore(value) {
     if(value < 0 || value > 100) {
