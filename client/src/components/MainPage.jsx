@@ -26,7 +26,7 @@ const [titleMatch, setTitleMatch] = useState({ // TITLE MATCH SELECTED
 //console.log("FRONT TITLE", titleMatch)
 
 const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
-  name: "",
+  name: "More Healthy",
   selected: false
 }); 
 
@@ -99,19 +99,19 @@ function onTitleMatch() {
   if (titleMatch.name === undefined) {
     let qq = foods
     toShow = qq
-    return toShow
+    //return toShow
   }
   if (titleMatch.name !== "") {
-    let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch))
+    let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch.name.toLowerCase()))
     toShow = qq
-    return toShow
+    //return toShow
   }
 }
-
+console.log("TITLE MATCH", titleMatch)
 
 //qq.filter(e => e.title.toLowerCase().includes("D".toLowerCase()))
   
-console.log("DIETS NAME", dietName.name === "")
+console.log("DIETS NAME", dietName)
 function onDietFilter() {
   if (dietName.name === "") {
     let qq = foods
@@ -126,7 +126,14 @@ function onDietFilter() {
   //return toShow
 }
 
+console.log("TTTT", healthLevel.selected)
+
 function onHealthFilter() {
+  if (healthLevel.name === "More Healthy" && healthLevel.selected === false) { // FIRST INSTANCE HELPER
+    let qq = foods.sort((a,b) => b.healthScore - a.healthScore);
+    qq = foods
+    return toShow = qq
+  }
   if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) {
     let qq =  foods.sort((a,b) => a.healthScore - b.healthScore);
     qq = foods

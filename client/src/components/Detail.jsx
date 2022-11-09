@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import "../styles/Detail.css";
-import noImage from "../images/noImage.jpg";
+import noImage1 from "../images/noImage1.jpg";
 
 export default function Ciudad({onFilterID}) {
     var params = useParams()
@@ -15,7 +15,7 @@ export default function Ciudad({onFilterID}) {
     if (food) {
         return (
             <div className="ciudad">
-                <img className="image" src={food.image ? food.image : noImage} alt=""></img>
+                <img className="image" src={food.image ? food.image : noImage1} alt=""></img>
                 <text>title: {food.title}</text>
                 <text>diets: {food.diets}</text>
                 <text>healthScore: {food.healthScore}</text>

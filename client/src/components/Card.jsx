@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/Card.css";
 import { Link } from "react-router-dom";
-import noImage from "../images/noImage.jpg";
+import noImage1 from "../images/noImage1.jpg";
 
 export default function Card({  id, image, title, summary, healthScore, analyzedInstructions, diets, dishTypes }) {
     /* console.log("TITLE", title) */
@@ -10,7 +10,7 @@ export default function Card({  id, image, title, summary, healthScore, analyzed
         <div className="card">
         {/* {console.log("CARDS SINGURAL")} */}
             <div className="card-body">
-                <img  src={image ? image : noImage} alt=""></img>
+                <img  src={image ? image : noImage1} alt=""></img>
                 <Link to={`${id}`}> <h2 className="card-title">{title}</h2> </Link>
                 <div className="row">
                 <h3>Diets: {diets}</h3>

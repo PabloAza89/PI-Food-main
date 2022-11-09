@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Form.css";
-import noImage from "../images/noImage.jpg";
+import noImage1 from "../images/noImage1.jpg";
 
 export default function Form() {
 
@@ -85,7 +85,7 @@ export default function Form() {
   return (
       
       <form className="form" onSubmit={handleSubmit}>
-        <img className="image" src={noImage} alt=""></img>
+        <img className="image" src={noImage1} alt=""></img>
         <div className="row">
           Title:
           <input className='danger' name="title" type="text" value={title} placeholder="e.g. Pasta.." onChange={(e) => validateTitle(e.target.value)}/>
