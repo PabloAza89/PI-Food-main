@@ -2,14 +2,14 @@ import React from "react";
 import '../styles/Cards.css';
 import Card from './Card.jsx';
 
-export default function Cards({ foods}) {
+export default function Cards({ toShow }) {
   
   return (
     
     <div className='cards'>
       {/* {console.log("CARDS PLURAL", foods)} */}
       {
-        foods.map(e => <Card
+        toShow.map(e => <Card
           key={e.id}
           id={e.id}
           title={e.title}
