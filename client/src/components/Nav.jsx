@@ -8,6 +8,10 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
   
   const [city, setCity] = useState("");
 
+  function disabler() {
+      return true
+  }
+
   return (
     
     <div className='div'>
@@ -16,12 +20,10 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
           <form className="search" onSubmit={(event) => {
               event.preventDefault();
               handleTitleMatchChange(city)
-              //onSearch(city);
              }}>
               <input className="findAdd"
                   type="text"        
                   placeholder="Find recipe..."
-                  /* onFocus={e => setCity("")} */
                   value={city} 
                   onChange={event => setCity(event.target.value)}
               />
@@ -31,34 +33,21 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
           <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
         </div>
         <div className="firstRow">
-          <select  onChange={event => handleDietNameChange(event.target.value) }>
-          
+          <select  onChange={event => handleDietNameChange(event.target.value) }>          
                 {diets.map(e =>(
                   <option id={e.id} key={e.id}>{e.title}</option>
                 ))}
-
-            {/*       <option id="vegan" key="vegan">vegan</option>
-                  <option id="whole 30" key="whole 30">whole 30</option> */}
-
           </select >
-          <select  onChange={event => handleHealthLevelChange(event.target.value) }>
-                  {/* <option  id="Less Healthy" key="Less Healthy">Less Healthy</option>
-                  <option id="More Healthy" key="More Healthy">More Healthy</option> */}
-                     <option id="More Healthy" key="More Healthy">More Healthy</option>
-                     <option id="Less Healthy" key="Less Healthy">Less Healthy</option>
-
-                  {/* <option  id="Less Healthy" key="Less Healthy">Less Healthy</option> */}
-                  
+          <select  onChange={event => handleHealthLevelChange(event.target.value) } onClick={event => disabler(event.target.value)} >               
+                    <option id="-- select an option --" disabled={false} >-- select an option --</option>
+                     <option id="More Healthy" >More Healthy</option>
+                     <option id="Less Healthy" >Less Healthy</option>                  
           </select >
           <select  onChange={event => handleSortNameChange(event.target.value) }>
-                  <option id="A-Z" key="A-Z">A-Z</option>
-                  <option id="Z-A" key="Z-A">Z-A</option>
+                  <option id="A-Z" >A-Z</option>
+                  <option id="Z-A" >Z-A</option>
           </select >
-
-      
-
-          </div>
-        
+          </div>        
     </div>
 
     
