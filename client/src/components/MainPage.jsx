@@ -35,7 +35,8 @@ const [titleMatch, setTitleMatch] = useState({
 }); 
 
 const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
-  name: "-- select an option --", // FIRST INSTANCE DEFAULT VALUE
+  name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
+  //name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
   selected: false // FIRST INSTANCE DEFAULT VALUE
 }); 
 
@@ -52,7 +53,7 @@ function onFilterID(foodId) {
 //console.log("DIETS SELECTED", dietName.name) // LO PRIMERO A CORROBORAR
 //console.log("TITLEMATCH VALUE:", titleMatch.name) // LO SEGUNDO A CORROBORAR
 console.log("*** HEALTH LEVEL:", healthLevel.name, "SELECTED:", healthLevel.selected) 
-console.log("SORT NAME:", sortName.name, "SELECTED:", sortName.selected) 
+//console.log("SORT NAME:", sortName.name, "SELECTED:", sortName.selected) 
 
 const handleDietNameChange = (dietName) => { 
   setDietName({name: dietName}); 
@@ -98,6 +99,10 @@ function onHealthLevelFilter() {
     let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
     toShow = qq
   }
+  if (healthLevel.name === "More Healthy" && healthLevel.selected === false) { // FIRST INSTANCE
+    let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
+    toShow = qq
+  }
     if (healthLevel.name === "More Healthy" && healthLevel.selected === true) { // FIRST INSTANCE
       let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
       toShow = qq
@@ -124,7 +129,7 @@ onDietAndTitleFilter()
 onHealthLevelFilter()
 onSortNameFilter()
 
-console.log("*** TOSHOW:", toShow) // CONSOLE LOG FINAL
+//console.log("*** TOSHOW:", toShow) // CONSOLE LOG FINAL
 
   return (
     <div className='mainPage'>   
