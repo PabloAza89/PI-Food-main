@@ -15,9 +15,10 @@ export default function Cards({ toShow }) {
     arraySplitedBy9.push(toShow.slice(9,18))
   } 
   
-  console.log("DIVIDIDO EN 2", arraySplitedBy9)
-  console.log("TO SHOW", arraySplitedBy9[numberIndexToDisplay])
-  
+  //console.log("DIVIDIDO EN 2", arraySplitedBy9)
+  //console.log("TO SHOW", arraySplitedBy9[numberIndexToDisplay])
+  console.table(toShow)
+  console.table(arraySplitedBy9[numberIndexToDisplay])
 
   let arr0to2 = arraySplitedBy9[numberIndexToDisplay].slice(0,3)  // ARR 1 TO 3
   let arr3to5 = arraySplitedBy9[numberIndexToDisplay].slice(3,6) // ARR 4 TO 6

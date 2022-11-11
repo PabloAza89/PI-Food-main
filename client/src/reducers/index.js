@@ -1,16 +1,16 @@
 const initialState = {
-    name: false
+  showMain: false
+}
+  
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'SHOW_MAIN':
+      return {
+        showMain: action.payload
+      }
+    default:
+      return state;
   }
-  
-  const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'SHOW_MAIN':
-          return {
-            name: action.payload
-          }
-      default:
-        return state;
-    }
-  };
-  
-  export default reducer;
+};
+
+export default reducer;
