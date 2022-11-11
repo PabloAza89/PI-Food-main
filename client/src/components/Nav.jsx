@@ -3,22 +3,26 @@ import '../styles/Nav.css';
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
+
 export default function Cards({diets , handleTitleMatchChange , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
 
-  const [healthSelected, setHealthSelected] = useState("")
-  const [aZSelected, setAZSelected] = useState("")
+  let [healthSelected, setHealthSelected] = useState("")
+  let [aZSelected, setAZSelected] = useState("")
   
-  //console.log("SELECTED TEST", selected)
+
   const [city, setCity] = useState("");
 
   function disablerHealthy(event) {
-    if ( event === "-- select an option --") {
+    if ( event === "Sort by Healthy") {
+      setAZSelected(false)  
       setHealthSelected(true)    
     }
   }
 
   function disablerAZ(event) {
-    if ( event === "-- select an option --") {
+    //setHealthSelected({state: ""})
+    if ( event === "Sort alphabetically") {
+      setHealthSelected(false)    
       setAZSelected(true)    
     }
   }
@@ -49,16 +53,18 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
                   <option id={e.id} key={e.id}>{e.title}</option>
                 ))}
           </select >
-          <select  onChange={event => handleHealthLevelChange(event.target.value) } onClick={event => disablerHealthy(event.target.value)} >               
-                    <option id="-- select an option --" disabled={ healthSelected ? true : false }  >-- select an option --</option>
-                    <option id="More Healthy" >More Healthy</option>
-                    <option id="Less Healthy" >Less Healthy</option>                  
+          <select  onChange={event => handleHealthLevelChange(event.target.value) } onClick={event => disablerHealthy(event.target.value) } >
+                    <option id="-- select an option --" disabled={ healthSelected ? true : false }  >Sort by Healthy</option>
+                    <option id="More Healthy" >{aZSelected ? "Sort by Healthy" : "More Healthy"}</option>
+                    <option id="Less Healthy" >{aZSelected ? "Sort by Healthy" : "Less Healthy"}</option>                  
           </select >
-          <select  onChange={event => handleSortNameChange(event.target.value) } onClick={event => disablerAZ(event.target.value)} >
-                  <option id="-- select an option --" disabled={ aZSelected ? true : false }  >-- select an option --</option>
-                  <option id="A-Z" >A-Z</option>
-                  <option id="Z-A" >Z-A</option>
+          <select onChange={event => handleSortNameChange(event.target.value) } onClick={event => disablerAZ(event.target.value)} >
+          <option id="-- select an option --" disabled={ aZSelected ? true : false } >Sort alphabetically</option>
+                  <option id="A-Z" >{healthSelected ? "Sort alphabetically" : "A-Z"}</option>
+                  <option id="Z-A" >{healthSelected ? "Sort alphabetically" : "Z-A"}</option>
           </select >
+          
+          
           </div>        
     </div>
 

@@ -2,8 +2,17 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import "../styles/Detail.css";
 import noImage1 from "../images/noImage1.jpg";
+import noImage2 from "../images/noImage2.jpg";
+import noImage3 from "../images/noImage3.jpg";
+
+
 
 export default function Ciudad({onFilterID}) {
+
+    let arrImages = [noImage1, noImage2, noImage3]
+    //let randomNumber = Math.floor(Math.random() * (3 - 0 + 0) + 0)
+    let randomNumber = Math.floor(Math.random() * 3)
+
     var params = useParams()
     
     var food = onFilterID(params.foodId)
@@ -15,7 +24,8 @@ export default function Ciudad({onFilterID}) {
     if (food) {
         return (
             <div className="ciudad">
-                <img className="image" src={food.image ? food.image : noImage1} alt=""></img>
+                {/* <img className="image" src={food.image ? food.image : noImage1} alt=""></img> */}
+                <img className="image" src={food.image ? food.image : arrImages[randomNumber]} alt=""></img>
                 <text>title: {food.title}</text>
                 <text>diets: {food.diets}</text>
                 <text>healthScore: {food.healthScore}</text>
