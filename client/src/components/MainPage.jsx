@@ -133,6 +133,10 @@ onSortNameFilter()
         handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
       />}
+      <div className="paginate">
+        <button className='left' /* onClick={() => dispatch(saveName(true))}  */>&lt;&lt;</button>
+        <button className='rigth' /* onClick={() => dispatch(saveName(true))}  */>&gt;&gt;</button>
+      </div>
       <Route exact path="/" render={ () => (<Cards toShow={toShow}   />)} />
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
       <Route exact path="/create" render={() => (<Form/>)}/>

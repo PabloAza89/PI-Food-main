@@ -4,16 +4,20 @@ import noImage1 from "../images/noImage1.jpg";
 
 export default function Form() {
 
-  const [created, setCreated] = useState(0)
+  let [created, setCreated] = useState(0)
   const [dietSelected, setDietSelected] = useState([])
-  const uniqueNamesDiets = Array.from(new Set(dietSelected));
+  let uniqueNamesDiets = Array.from(new Set(dietSelected));
 
   let handleDietSelected = (event) => {   
     setDietSelected(current => [...current, event])
   }
   
   function handleNewRecipe() {
+    setDietSelected([])
     setCreated(0)
+    //uniqueNamesDiets = Array.from(new Set(dietSelected));
+    
+    //created = 0
     setTitle("")
     setHealthScore("")
     setSummary("")
@@ -45,7 +49,7 @@ export default function Form() {
 
    const handleSubmit = async (e) => {
     e.preventDefault();
-    if (created === 0 && title && healthScore && summary && analyzedInstructions) {
+    if (created === 0) {
       
       await fetch('http://localhost:3001/recipes', {
        method: 'POST',
@@ -108,7 +112,7 @@ export default function Form() {
 
 
   return (
-      
+      <div>
       <form className="form" onSubmit={handleSubmit}>
         
         <img className="image" src={noImage1} alt=""></img>
@@ -151,10 +155,17 @@ export default function Form() {
             
           </select >
         </div>
+        <div>
+          Diets choosen:
+      {uniqueNamesDiets.map(e => (e + " ,"))}
+
+        </div>
         <input type="submit" disabled={handleSubmitButton()} value="CREATE !" />
-        <input type="submit" onClick={handleNewRecipe} value="CREATE NEW RECIPE!" />
+        
         {!error ? null : <span className="alert">{error}</span>}
         
       </form>
+      <input type="submit" onClick={handleNewRecipe} value="CREATE NEW RECIPE!" />
+      </div>
     );
 }
