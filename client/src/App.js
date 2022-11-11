@@ -1,7 +1,7 @@
 import React from 'react';
 import MainPage from './components/MainPage';
 import { useSelector } from 'react-redux';
-//import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingPage';
 
 export default function App() {
   function useShowMain() {
@@ -10,8 +10,8 @@ export default function App() {
 
   return (
     <div className='main'>
-      {/* { useShowMain() ? <MainPage /> : <LandingPage /> } */}
-      { useShowMain() ? <MainPage /> : <MainPage /> }
+      { useShowMain() ? <MainPage /> : <LandingPage /> }
+      {/* { useShowMain() ? <MainPage /> : <MainPage /> } */}
     </div>
   )
 }

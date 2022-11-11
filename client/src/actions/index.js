@@ -1,3 +1,3 @@
 export const saveName = (payload) => {
-    return { type: 'SAVE_NAME', payload };
+    return { type: 'SHOW_MAIN', payload };
   };

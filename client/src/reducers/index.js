@@ -4,7 +4,7 @@ const initialState = {
   
   const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SAVE_NAME':
+        case 'SHOW_MAIN':
           return {
             name: action.payload
           }

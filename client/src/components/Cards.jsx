@@ -4,13 +4,24 @@ import Card from './Card.jsx';
 
 export default function Cards({ toShow }) {
 
-  // let arr0to2 = [] // ARR 1 TO 3
-  // let arr3to5 = [] // ARR 4 TO 6
-  // let arr6to8 = [] // ARR 7 TO 9
+  let arraySplitedBy9 = []
+  let numberIndexToDisplay = 1
+ 
 
-  let arr0to2 = toShow.slice(0,3) // ARR 1 TO 3
-  let arr3to5 = toShow.slice(3,6)
-  let arr6to8 = toShow.slice(6,9)
+  if ((toShow.length / 9 ) > 0 || (toShow.length / 9 ) <= 1) {
+    arraySplitedBy9.push(toShow.slice(0,9))
+  }
+  if ((toShow.length / 9 ) > 1 || (toShow.length / 9 ) <= 2) {
+    arraySplitedBy9.push(toShow.slice(9,18))
+  } 
+  
+  console.log("DIVIDIDO EN 2", arraySplitedBy9)
+  console.log("TO SHOW", arraySplitedBy9[numberIndexToDisplay])
+  
+
+  let arr0to2 = arraySplitedBy9[numberIndexToDisplay].slice(0,3)  // ARR 1 TO 3
+  let arr3to5 = arraySplitedBy9[numberIndexToDisplay].slice(3,6) // ARR 4 TO 6
+  let arr6to8 = arraySplitedBy9[numberIndexToDisplay].slice(6,9) // ARR 7 TO 9
 
   
   return (
@@ -28,7 +39,14 @@ export default function Cards({ toShow }) {
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
           /> )} */}
-          {arr0to2.map(e => <Card
+
+          
+
+          {/* {arr0to2.map(e => <Card */}
+
+          { 
+          arr0to2.map(e => <Card
+
             key={e.id}
             id={e.id}
             title={e.title}
