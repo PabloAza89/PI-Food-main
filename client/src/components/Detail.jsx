@@ -10,8 +10,9 @@ import noImage3 from "../images/noImage3.jpg";
 export default function Ciudad({onFilterID}) {
 
     let arrImages = [noImage1, noImage2, noImage3]
+    //Math.floor(Math.random() * (max - min + 1)) + min;
     //let randomNumber = Math.floor(Math.random() * (3 - 0 + 0) + 0)
-    let randomNumber = Math.floor(Math.random() * 3)
+    let randomNumber = Math.floor(Math.random() * 3) // BETWEEN 0 AND 2
 
     var params = useParams()
     

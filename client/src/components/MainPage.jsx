@@ -50,10 +50,6 @@ function onFilterID(foodId) {
   return food[0]   
 }  
 
-//console.log("DIETS SELECTED", dietName.name) // LO PRIMERO A CORROBORAR
-//console.log("TITLEMATCH VALUE:", titleMatch.name) // LO SEGUNDO A CORROBORAR
-console.log("*** HEALTH LEVEL:", healthLevel.name, "SELECTED:", healthLevel.selected) 
-//console.log("SORT NAME:", sortName.name, "SELECTED:", sortName.selected) 
 
 const handleDietNameChange = (dietName) => { 
   setDietName({name: dietName}); 
