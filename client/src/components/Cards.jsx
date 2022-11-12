@@ -1,14 +1,17 @@
-import React ,{ useEffect } from "react";
+import React /* , { useEffect } */ from "react";
 import '../styles/Cards.css';
-//import Card from './Card.jsx';
+import Card from './Card.jsx';
 import { useSelector } from 'react-redux';
 //import store from '../store/store.js';
+//import store from '../reducers/index.js';
 
 export default function Cards({ toShow }) {
 
+  // const stateStore = () => {
+  //   return store.getState();    
+  // }
   
-  //console.log("TEST LEFT", useSelector((state) => state.left))
-  //console.log("TEST RIGHT", useSelector((state) => state.right))
+  
   
 
   let arraySplitedBy9 = []
@@ -18,74 +21,22 @@ export default function Cards({ toShow }) {
   
   
 
-  
-
-   
-  
-
   function qq() {
-    //if (toShow.length > 0) {
-      for (let i = 0; i < toShow.length; i += 9) {
-           
-            let pedazo = toShow.slice(i, i + 9);
-            arraySplitedBy9.push(pedazo);
-            }
-      }
-      //return arraySplitedBy9
-      // arr0to2 = arraySplitedBy9[numberIndexToDisplay]//.slice(0,3)  // ARR 1 TO 3
-      // arr3to5 = arraySplitedBy9[numberIndexToDisplay]//.slice(3,6) // ARR 4 TO 6
-      // arr6to8 = arraySplitedBy9[numberIndexToDisplay]//.slice(6,9) // ARR 7 TO 9
-      /*  else {
-        alert("ciudad")
-      } */  
-    //}
-  //qq() 
+    for (let i = 0; i < toShow.length; i += 9) {
+          let pedazo = toShow.slice(i, i + 9);
+          arraySplitedBy9.push(pedazo);
+    }
+  }
 
   let arr0to2
   let arr3to5
   let arr6to8  
 
   function two () {
-    
-    
     arr0to2 = arraySplitedBy9
     arr3to5 = arraySplitedBy9
     arr6to8 = arraySplitedBy9
-
   }
-  
-
-
-  //arr0to2 = arraySplitedBy9[0].slice(0,3)  // ARR 1 TO 3
-  //arr3to5 = arraySplitedBy9[0].slice(3,6) // ARR 4 TO 6
-  //arr6to8 = arraySplitedBy9[0].slice(6,9) // ARR 7 TO 9
-
-
-  // const a = arr0to2
-  // const b = arr3to5
-  // const c = arr6to8
-
-  
-    
-    
-  
-  // function spliter() {
-    
-
-  // }
-  // spliter()
-
-
-  
-
-  // console.log("A", arr0to2)
-  // console.log("B", arr3to5)
-  // console.log("C", arr6to8)
-  // // console.log("A", a)
-  // console.log("B", b)
-  // console.log("C", c)
-
-
 //pp()
 
 //   async function ww () {
@@ -105,9 +56,7 @@ export default function Cards({ toShow }) {
   
  
 
-//  const stateStore = () => {
-//     return store.getState();    
-//   }
+ 
   
   // function qq() {
   //   if (!stateStore().left && !stateStore().right) {
@@ -123,50 +72,65 @@ export default function Cards({ toShow }) {
 
   // qq()
 
-  // console.log("STORE LEFT", stateStore().left)
-  // console.log("STORE RIGHT", stateStore().right)
-  // console.log("NUMBER DISPLAYED", numberIndexToDisplay)
- 
-  
+  console.log("TEST LEFT", useSelector((state) => state.left))
+  console.log("TEST RIGHT", useSelector((state) => state.right))
+
+  //  function qqqq() {
+  //   if (!stateStore().left && !stateStore().right) {
+  //     numberIndexToDisplay = 0
+  //   }
+  //   if (stateStore().left) {
+  //     numberIndexToDisplay = 0
+  //   }
+  //   if (stateStore().right) {
+  //     numberIndexToDisplay = 1
+  //   }
+  // }
+
+  function Qqqq() {
+    useSelector(state => {
+     if (!state.left && !state.right) {
+      numberIndexToDisplay = 0
+    }
+    if (state.left) {
+      numberIndexToDisplay = 0
+    }
+    if (state.right) {
+      numberIndexToDisplay = 1
+    }
+
+    })
+
+    
+  }
+
+  Qqqq()
+
 
   
-  //let ee = [...arraySplitedBy9]
-
-
-
-  // let arr0to2 = arraySplitedBy9[numberIndexToDisplay].slice(0,3)  // ARR 1 TO 3
-  // let arr3to5 = arraySplitedBy9[numberIndexToDisplay].slice(3,6) // ARR 4 TO 6
-  // let arr6to8 = arraySplitedBy9[numberIndexToDisplay].slice(6,9) // ARR 7 TO 9
-
-  
-  // console.log(arraySplitedBy9)
-  // console.log(arraySplitedBy9.length)
-
-//console.log("TO SHOW", toShow)
-//console.log("ESTE", arraySplitedBy9)
-  let iop
   Promise.all([qq()])
   .then(two())
-  //.then(console.log("AA", arraySplitedBy9[0], "BB",arraySplitedBy9[1]))
   .then(second = [].concat(arraySplitedBy9))
-  //.then(console.log("SECOND", second))
   .then(second[0]?(
-    arr0to2 = second[0].slice(0,3),
-    arr3to5 = second[0].slice(3,6),
-    arr6to8 = second[0].slice(6,9)
-    
-    ):[])
+    arr0to2 = second[numberIndexToDisplay].slice(0,3),
+    arr3to5 = second[numberIndexToDisplay].slice(3,6),
+    arr6to8 = second[numberIndexToDisplay].slice(6,9)
+  ):[])
   
-    console.log("SECOND",second[0])
-    console.log("SPLITED 1", arr0to2)
-    console.log("SPLITED 2", arr3to5)
-    console.log("SPLITED 3", arr6to8)
+  
+    // console.log("SECOND",second[numberIndexToDisplay])
+    // console.log("SPLITED 1", arr0to2)
+    // console.log("SPLITED 2", arr3to5)
+    // console.log("SPLITED 3", arr6to8)
 
-  //var array2 = 
-  
-  //.then((res) => asd = res)
-  //.then((res) => console.log("ASD", res))
-  
+    // console.table(second[numberIndexToDisplay])
+    // console.table(arr0to2)
+    // console.table(arr3to5)
+    // console.table(arr6to8)
+
+    
+  //console.log("STORE LEFT", stateStore().left)
+  //console.log("STORE RIGHT", stateStore().right)
 
   return (
     <div>
@@ -185,9 +149,7 @@ export default function Cards({ toShow }) {
           /> )} */}
            
 
-       {/*     {arr0to2.map(e => <Card
-          
-
+           {arr0to2.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -198,14 +160,13 @@ export default function Cards({ toShow }) {
             image={e.image} // OPTION
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
-          /> )}  */}
+          /> )} 
 
       </div>
 
       <div className='cards'>
 
-    {/*   {arr3to5.map(e => <Card
-      
+      {arr3to5.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -216,12 +177,26 @@ export default function Cards({ toShow }) {
             image={e.image} // OPTION
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
-          /> )}  */}
+          /> )} 
 
       </div>
       <div className='cards'>
 
-    {/*   {arr6to8.map(e => <Card
+      {arr6to8.map(e => <Card
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            summary={e.summary}
+            healthScore={e.healthScore}
+            analyzedInstructions={e.analyzedInstructions}
+            diets={e.diets}
+            image={e.image} // OPTION
+            dishTypes={e.dishTypes} // OPTION
+            database={e.database} // OPTION
+          /> )} 
+
+
+         {/*  {arraySplitedBy9.map(e => <Card
       
             key={e.id}
             id={e.id}
@@ -233,22 +208,7 @@ export default function Cards({ toShow }) {
             image={e.image} // OPTION
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
-          /> )}  */}
-
-
-          {/* {arraySplitedBy9.map(e => <Card
-      
-            key={e.id}
-            id={e.id}
-            title={e.title}
-            summary={e.summary}
-            healthScore={e.healthScore}
-            analyzedInstructions={e.analyzedInstructions}
-            diets={e.diets}
-            image={e.image} // OPTION
-            dishTypes={e.dishTypes} // OPTION
-            database={e.database} // OPTION
-          /> )}  */}
+          /> )} */} 
 
       </div>
     </div>

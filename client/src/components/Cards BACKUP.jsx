@@ -53,12 +53,12 @@ export default function Cards({ toShow }) {
   // const b = arr3to5
   // const c = arr6to8
 
-  setTimeout(() => {
-    arr0to2 = arraySplitedBy9[0].slice(0,3)  // ARR 1 TO 3
-    arr3to5 = arraySplitedBy9[0].slice(3,6) // ARR 4 TO 6
-    arr6to8 = arraySplitedBy9[0].slice(6,9) // ARR 7 TO 9
+  // setTimeout(() => {
+  //   arr0to2 = arraySplitedBy9[0].slice(0,3)  // ARR 1 TO 3
+  //   arr3to5 = arraySplitedBy9[0].slice(3,6) // ARR 4 TO 6
+  //   arr6to8 = arraySplitedBy9[0].slice(6,9) // ARR 7 TO 9
     
-  }, 500);
+  // }, 500);
   function spliter() {
     
 
