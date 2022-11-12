@@ -9,7 +9,7 @@ function LandingPage() {
       <div className='bgImageLanding'></div>
       <div className='landingContainer'>
         <h1 className='welcomeText'>Welcome ! bla bla bla</h1>
-        <button className='welcomeButton' onClick={() => dispatch(saveName(true))}>ENTER</button>
+        <button className='welcomeButton' onClick={() => dispatch(saveName(true))} >ENTER</button>
       </div>
     </div>
   );

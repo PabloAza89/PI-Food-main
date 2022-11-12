@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { left , right } from '../actions';
 import '../styles/MainPage.css';
 import Cards from "./Cards.jsx";
 import Detail from "./Detail.jsx";
@@ -7,6 +9,10 @@ import Nav from "./Nav.jsx";
 import Form from "./Form.jsx";
 
 function MainPage() {
+
+const dispatch = useDispatch()
+
+
 
 const [foods, setFoods] = useState([]); // ALL MAIN FOODS
 const [diets, setDiets] = useState([]); // ALL MAIN DIETS
@@ -134,8 +140,8 @@ onSortNameFilter()
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
       />}
       <div className="paginate">
-        <button className='left' /* onClick={() => dispatch(saveName(true))}  */>&lt;&lt;</button>
-        <button className='rigth' /* onClick={() => dispatch(saveName(true))}  */>&gt;&gt;</button>
+        <button className='left' onClick={() => dispatch(left(true))} >&lt;&lt;</button>
+        <button className='rigth' onClick={() => dispatch(right(true))} >&gt;&gt;</button>
       </div>
       <Route exact path="/" render={ () => (<Cards toShow={toShow}   />)} />
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
