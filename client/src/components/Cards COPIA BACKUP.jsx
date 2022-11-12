@@ -1,27 +1,23 @@
-import React ,{ useEffect } from "react";
+import React from "react";
 import '../styles/Cards.css';
-//import Card from './Card.jsx';
+import Card from './Card.jsx';
 import { useSelector } from 'react-redux';
-//import store from '../store/store.js';
+import store from '../store/store.js';
 
 export default function Cards({ toShow }) {
 
   
-  //console.log("TEST LEFT", useSelector((state) => state.left))
-  //console.log("TEST RIGHT", useSelector((state) => state.right))
+  console.log("TEST LEFT", useSelector((state) => state.left))
+  console.log("TEST RIGHT", useSelector((state) => state.right))
   
 
   let arraySplitedBy9 = []
-  let second = [];
 
   let numberIndexToDisplay = 0
   
-  
-
-  
-
-   
-  
+  // let arr0to2  
+  // let arr3to5 
+  // let arr6to8 
 
   function qq() {
     //if (toShow.length > 0) {
@@ -31,7 +27,6 @@ export default function Cards({ toShow }) {
             arraySplitedBy9.push(pedazo);
             }
       }
-      //return arraySplitedBy9
       // arr0to2 = arraySplitedBy9[numberIndexToDisplay]//.slice(0,3)  // ARR 1 TO 3
       // arr3to5 = arraySplitedBy9[numberIndexToDisplay]//.slice(3,6) // ARR 4 TO 6
       // arr6to8 = arraySplitedBy9[numberIndexToDisplay]//.slice(6,9) // ARR 7 TO 9
@@ -39,41 +34,36 @@ export default function Cards({ toShow }) {
         alert("ciudad")
       } */  
     //}
-  //qq() 
+  qq() 
 
   let arr0to2
   let arr3to5
-  let arr6to8  
+  let arr6to8
 
   function two () {
-    
-    
-    arr0to2 = arraySplitedBy9
-    arr3to5 = arraySplitedBy9
-    arr6to8 = arraySplitedBy9
+    arr0to2 = arraySplitedBy9[0]
+    arr3to5 = arraySplitedBy9[0]
+    arr6to8 = arraySplitedBy9[0]
 
   }
   
-
-
-  //arr0to2 = arraySplitedBy9[0].slice(0,3)  // ARR 1 TO 3
-  //arr3to5 = arraySplitedBy9[0].slice(3,6) // ARR 4 TO 6
-  //arr6to8 = arraySplitedBy9[0].slice(6,9) // ARR 7 TO 9
-
+  two()
 
   // const a = arr0to2
   // const b = arr3to5
   // const c = arr6to8
 
-  
+  setTimeout(() => {
+    arr0to2 = arraySplitedBy9[0].slice(0,3)  // ARR 1 TO 3
+    arr3to5 = arraySplitedBy9[0].slice(3,6) // ARR 4 TO 6
+    arr6to8 = arraySplitedBy9[0].slice(6,9) // ARR 7 TO 9
     
-    
-  
-  // function spliter() {
+  }, 500);
+  function spliter() {
     
 
-  // }
-  // spliter()
+  }
+  spliter()
 
 
   
@@ -142,32 +132,9 @@ export default function Cards({ toShow }) {
   // console.log(arraySplitedBy9)
   // console.log(arraySplitedBy9.length)
 
-//console.log("TO SHOW", toShow)
-//console.log("ESTE", arraySplitedBy9)
-  let iop
-  Promise.all([qq()])
-  .then(two())
-  //.then(console.log("AA", arraySplitedBy9[0], "BB",arraySplitedBy9[1]))
-  .then(second = [].concat(arraySplitedBy9))
-  //.then(console.log("SECOND", second))
-  .then(second[0]?(
-    arr0to2 = second[0].slice(0,3),
-    arr3to5 = second[0].slice(3,6),
-    arr6to8 = second[0].slice(6,9)
-    
-    ):[])
+console.log("TO SHOW", toShow)
+console.log("ESTE", arraySplitedBy9)
   
-    console.log("SECOND",second[0])
-    console.log("SPLITED 1", arr0to2)
-    console.log("SPLITED 2", arr3to5)
-    console.log("SPLITED 3", arr6to8)
-
-  //var array2 = 
-  
-  //.then((res) => asd = res)
-  //.then((res) => console.log("ASD", res))
-  
-
   return (
     <div>
       <div className='cards'>
