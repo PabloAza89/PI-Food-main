@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <div className='main'>
-      {/* { useShowMain() ? <MainPage /> : <LandingPage /> } */}
+      {/* { useShowMain() ?  <MainPage /> : <LandingPage />  } */}
       { useShowMain() ? <MainPage /> : <MainPage /> }
     </div>
   )
