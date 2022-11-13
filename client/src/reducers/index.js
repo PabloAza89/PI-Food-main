@@ -1,7 +1,9 @@
 const initialState = {
   showMain: false,
   left: false,
-  right: false
+  right: false,
+  allIndexes: 0,
+  indexChoosen: 0
 }
   
 const reducer = (state = initialState, action) => {
@@ -17,7 +19,15 @@ const reducer = (state = initialState, action) => {
     case 'RIGHT':
         return {
           right: action.payload
-        }    
+        };
+    case 'ALL_INDEXES':
+        return {
+          allIndexes: action.payload
+        };
+    case 'INDEX_CHOOSEN':
+        return {
+          indexChoosen: action.payload
+        };   
     default:
       return state;
   }

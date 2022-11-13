@@ -9,9 +9,17 @@ const left = (payload) => {
 const right = (payload) => {
   return { type: 'RIGHT', payload };
 };
+const allIndexes = (payload) => {
+  return { type: "ALL_INDEXES", payload}
+};
+const indexChoosen = (payload) => {
+  return { type: "INDEX_CHOOSEN", payload}
+};
 
 module.exports = {
   saveName,
   left,
-  right
+  right,
+  allIndexes,
+  indexChoosen
 };

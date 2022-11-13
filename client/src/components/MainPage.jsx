@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { left , right } from '../actions';
+import { /* useSelector */ /* , useDispatch */ } from 'react-redux';
+import { /* left , right , allIndexes, indexChoosen */ } from '../actions';
 import '../styles/MainPage.css';
 import Cards from "./Cards.jsx";
 import Detail from "./Detail.jsx";
+import Paginate from "./Paginate.jsx";
 import Nav from "./Nav.jsx";
 import Form from "./Form.jsx";
 
 function MainPage() {
 
-const dispatch = useDispatch()
+  
 
-
+//const dispatch = useDispatch()
 
 const [foods, setFoods] = useState([]); // ALL MAIN FOODS
 const [diets, setDiets] = useState([]); // ALL MAIN DIETS
@@ -96,6 +97,8 @@ function onDietAndTitleFilter() {
 }
 
 
+
+
 function onHealthLevelFilter() {
   if (healthLevel.name === "-- select an option --" && healthLevel.selected === false) { // FIRST INSTANCE
     let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
@@ -115,6 +118,8 @@ function onHealthLevelFilter() {
     }
 }
 
+
+
 function onSortNameFilter() {
   if (sortName.name === "A-Z" && sortName.selected === true) {
     let qq = dietsAndTitleFilter.sort((a, b) => a.title.localeCompare(b.title))
@@ -127,10 +132,31 @@ function onSortNameFilter() {
   }
  }
 
-onDietAndTitleFilter()
-onHealthLevelFilter()
-onSortNameFilter()
 
+
+
+
+
+
+
+
+
+
+Promise.all([onDietAndTitleFilter()])
+.then(onHealthLevelFilter())
+.then(onSortNameFilter())
+// .then(AllIndexesButtons())
+// .then(AllIndexesButtons())
+// .then(AllIndexesButtons())
+
+
+
+
+//console.log("INDEXSHOOSEN", useSelector(state => state.indexChoosen))
+//console.log("TEST", useSelector(state => state.allIndexes))
+
+//console.log("FONT INDEX CHOOSEN", useSelector(state => state.indexChoosen))
+//console.log("FONT INDEX CHOOSEN", useSelector(state => state.indexChoosen))
 //console.log("*** TOSHOW:", toShow) // CONSOLE LOG FINAL
 
   return (
@@ -138,12 +164,10 @@ onSortNameFilter()
       {<Route exact path="/" render={ () => (<Nav diets={diets} foods={foods} 
         handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
-      />}
-      <div className="paginate">
-        <button className='left' onClick={() => dispatch(left(true))} >&lt;&lt;</button>
-        <button className='rigth' onClick={() => dispatch(right(true))} >&gt;&gt;</button>
-      </div>
-      <Route exact path="/" render={ () => (<Cards toShow={toShow}   />)} />
+      />} 
+      <Route exact path="/" render={ () => (<Paginate   />)} /> 
+      <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } /> 
+      
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
       <Route exact path="/create" render={() => (<Form/>)}/>
          

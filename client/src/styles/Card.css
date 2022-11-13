@@ -2,6 +2,7 @@
   margin: 20px;
   width: 18rem;
   background-color: rgba(230, 46, 175, 0.765);
+  z-index: 1;
 }
 
 .card-body {

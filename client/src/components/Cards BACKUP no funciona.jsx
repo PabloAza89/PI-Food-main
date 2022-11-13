@@ -7,8 +7,8 @@ import store from '../store/store.js';
 export default function Cards({ toShow }) {
 
   
-  console.log("TEST LEFT", useSelector((state) => state.left))
-  console.log("TEST RIGHT", useSelector((state) => state.right))
+  //console.log("TEST LEFT", useSelector((state) => state.left))
+  //console.log("TEST RIGHT", useSelector((state) => state.right))
   
 
   let arraySplitedBy9 = []
