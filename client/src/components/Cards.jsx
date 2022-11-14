@@ -2,7 +2,7 @@ import React , { useEffect } from "react";
 import '../styles/Cards.css';
 import Card from './Card.jsx';
 import {  useSelector , useDispatch } from 'react-redux';
-import { allIndexes  } from '../actions';
+import { allIndexes , indexChoosen } from '../actions';
 //import store from '../store/store.js';
 //import store from '../reducers/index.js';
 
@@ -23,7 +23,7 @@ export default function Cards({ toShow }) {
 
   let numberIndexToDisplay = 0
   
-  
+  //console.log("arrray", arraySplitedBy9)
 
   function qq() {
     for (let i = 0; i < toShow.length; i += 9) {
@@ -114,13 +114,17 @@ export default function Cards({ toShow }) {
  
   //console.log("BACK INDEX CHOOSEN", useSelector(state => state.indexChoosen))
   
-
+  
   
 
 
   qq()
-  
+ 
+
   two()
+
+ 
+ 
 
   // let ww = arraySplitedBy9.length
 
@@ -128,39 +132,69 @@ export default function Cards({ toShow }) {
   //     dispatch(allIndexes(ww))
   // }, [dispatch, ww]);
 
-  function Asddd() {
-    if (useSelector(state => state.allIndexes) === undefined) {
-      let ww = arraySplitedBy9.length
+  // function Asddd() {
+  //   if (useSelector(state => state.allIndexes) === undefined) {
+  //     let ww = arraySplitedBy9.length
 
-      //useEffect(() => {
-          dispatch(allIndexes(ww))
-      //}, [dispatch, ww]);
-      //});
+  //     //useEffect(() => {
+  //         dispatch(allIndexes(2))
+  //     //}, [dispatch, ww]);
+  //     //});
 
-    }
-    let ww = arraySplitedBy9.length
+  //   }
+  //   let ww = arraySplitedBy9.length
 
-      useEffect(() => {
-          dispatch(allIndexes(ww))
-      //}, [dispatch, ww]);
-      });
+  //     //useEffect(() => {
+  //         dispatch(allIndexes(2))
+  //     //});
+
+  //     //});
     
-  }
-  Asddd()
+  // }
+
+ 
+
+  // Asddd()
+
+  //PROBANDO
+
+
+
+
   //dispatchArrayLength()
   
 
   
-  console.log("ARRAY LENGTH FROM CARDS", arraySplitedBy9.length)
+  //console.log("ARRAY LENGTH FROM CARDS", arraySplitedBy9.length)
   //console.log("ALL INDEXES LENGTH", useSelector((state) => state.allIndexes))
   //Promise.all([qq(), two()])
+
+
+  
 
   return (
     <div>
       <div className='cards'>   
            
 
-           {arr0to2.map(e => <Card
+          {/*  {arr0to2.map(e => <Card
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            summary={e.summary}
+            healthScore={e.healthScore}
+            analyzedInstructions={e.analyzedInstructions}
+            diets={e.diets}
+            image={e.image} // OPTION
+            dishTypes={e.dishTypes} // OPTION
+            database={e.database} // OPTION
+          /> )}  */}
+
+      </div>
+
+      <div className='cards'>
+
+      {/* {arr3to5.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -174,10 +208,21 @@ export default function Cards({ toShow }) {
           /> )} 
 
       </div>
+      <div className='cards'> */}
 
-      <div className='cards'>
-
-      {arr3to5.map(e => <Card
+     {/*  {arr6to8.map(e => <Card
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            summary={e.summary}
+            healthScore={e.healthScore}
+            analyzedInstructions={e.analyzedInstructions}
+            diets={e.diets}
+            image={e.image} // OPTION
+            dishTypes={e.dishTypes} // OPTION
+            database={e.database} // OPTION
+          /> )}  */}
+      {arraySplitedBy9.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -189,23 +234,6 @@ export default function Cards({ toShow }) {
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
           /> )} 
-
-      </div>
-      <div className='cards'>
-
-      {arr6to8.map(e => <Card
-            key={e.id}
-            id={e.id}
-            title={e.title}
-            summary={e.summary}
-            healthScore={e.healthScore}
-            analyzedInstructions={e.analyzedInstructions}
-            diets={e.diets}
-            image={e.image} // OPTION
-            dishTypes={e.dishTypes} // OPTION
-            database={e.database} // OPTION
-          /> )} 
-
        
 
       </div>

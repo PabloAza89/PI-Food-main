@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { /* useSelector */ /* , useDispatch */ } from 'react-redux';
-import { /* left , right , allIndexes, indexChoosen */ } from '../actions';
+import { /* left , right , allIndexes */ } from '../actions';
 import '../styles/MainPage.css';
 import Cards from "./Cards.jsx";
 import Detail from "./Detail.jsx";
