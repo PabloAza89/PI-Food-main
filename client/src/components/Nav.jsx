@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import '../styles/Nav.css';
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
+import { useSelector , useDispatch } from 'react-redux';
+import {setIndexChoosen } from '../actions';
 
 
 export default function Cards({diets , handleTitleMatchChange , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
+
+  const dispatch = useDispatch()
 
   let [healthSelected, setHealthSelected] = useState("")
   let [aZSelected, setAZSelected] = useState("")
@@ -48,7 +52,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
           <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
         </div>
         <div className="firstRow">
-          <select  onChange={event => handleDietNameChange(event.target.value) }>          
+          <select  onChange={event => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) }>          
                 {diets.map(e =>(
                   <option id={e.id} key={e.id}>{e.title}</option>
                 ))}

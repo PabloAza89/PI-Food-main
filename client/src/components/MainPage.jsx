@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
-import { /* useSelector */ /* , useDispatch */ } from 'react-redux';
-import { /* left , right , allIndexes */ } from '../actions';
 import '../styles/MainPage.css';
 import Cards from "./Cards.jsx";
 import Detail from "./Detail.jsx";
@@ -10,10 +8,6 @@ import Nav from "./Nav.jsx";
 import Form from "./Form.jsx";
 
 function MainPage() {
-
-  
-
-//const dispatch = useDispatch()
 
 const [foods, setFoods] = useState([]); // ALL MAIN FOODS
 const [diets, setDiets] = useState([]); // ALL MAIN DIETS
@@ -43,7 +37,6 @@ const [titleMatch, setTitleMatch] = useState({
 
 const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
   name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
-  //name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
   selected: false // FIRST INSTANCE DEFAULT VALUE
 }); 
 
@@ -96,9 +89,6 @@ function onDietAndTitleFilter() {
   }
 }
 
-
-
-
 function onHealthLevelFilter() {
   if (healthLevel.name === "-- select an option --" && healthLevel.selected === false) { // FIRST INSTANCE
     let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
@@ -118,8 +108,6 @@ function onHealthLevelFilter() {
     }
 }
 
-
-
 function onSortNameFilter() {
   if (sortName.name === "A-Z" && sortName.selected === true) {
     let qq = dietsAndTitleFilter.sort((a, b) => a.title.localeCompare(b.title))
@@ -132,32 +120,14 @@ function onSortNameFilter() {
   }
  }
 
-
-
-
-
-
-
-
-
-
+ 
 
 Promise.all([onDietAndTitleFilter()])
 .then(onHealthLevelFilter())
 .then(onSortNameFilter())
-// .then(AllIndexesButtons())
-// .then(AllIndexesButtons())
-// .then(AllIndexesButtons())
 
 
 
-
-//console.log("INDEXSHOOSEN", useSelector(state => state.indexChoosen))
-//console.log("TEST", useSelector(state => state.allIndexes))
-
-//console.log("FONT INDEX CHOOSEN", useSelector(state => state.indexChoosen))
-//console.log("FONT INDEX CHOOSEN", useSelector(state => state.indexChoosen))
-//console.log("*** TOSHOW:", toShow) // CONSOLE LOG FINAL
 
   return (
     <div className='mainPage'>   
@@ -165,7 +135,7 @@ Promise.all([onDietAndTitleFilter()])
         handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
       />} 
-      <Route exact path="/" render={ () => (<Paginate   />)} /> 
+      <Route exact path="/" render={ () => (<Paginate dietName={dietName}  />)} /> 
       <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } /> 
       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>

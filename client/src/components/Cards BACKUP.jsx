@@ -6,7 +6,7 @@ import { setAllIndexes } from '../actions';
 import store from '../store/store';
 
 export default function Cards({ toShow }) {
-  // FUNCIONA PERO NO REACCIONA
+    // FUNCIONA PERO NO REACCIONA
   // const stateStore = () => {return store.getState() }
   // console.log("INDEX CHOOSEN FROM STORE", stateStore().indexChoosen)
 
@@ -15,7 +15,7 @@ export default function Cards({ toShow }) {
   console.log("INDICE ELEGIDO", indexChoosen )
 
   const allIndexes = useSelector( state => state.allIndexes )
-  //console.log("ALL INDEXES", allIndexes )
+  console.log("ALL INDEXES", allIndexes )
 
   const dispatch = useDispatch()  
 
@@ -41,13 +41,10 @@ export default function Cards({ toShow }) {
   }
 
   qq() 
-
-  
-
   two() 
 
-  //console.log("ARRAY LENGTH", arraySplitedBy9.length)
-  //console.log("ARRAY LENGTH", arraySplitedBy9)
+  console.log("ARRAY LENGTH", arraySplitedBy9.length)
+  console.log("ARRAY LENGTH", arraySplitedBy9)
 
   dispatch(setAllIndexes(arraySplitedBy9.length))
 

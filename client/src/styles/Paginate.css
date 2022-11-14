@@ -7,3 +7,12 @@
  
   
 }
+
+[id='0'] {
+  background-color: rgba(46, 230, 163, 0.765);
+}
+
+.asd:not([id='0'])
+{
+  background-color: rgba(230, 46, 175, 0.765);
+}

@@ -11,11 +11,7 @@ const initialState = {
   
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SHOW_MAIN':      
-      return {
-        /* showMain: action.payload */
-        
-      }  
+    
     
     case 'LEFT':
         return {
@@ -25,6 +21,12 @@ const reducer = (state = initialState, action) => {
         return {
           /* right: action.payload */
         }
+    case 'SET_SHOW_MAIN':      
+        return {
+          ...state,
+          showMain: action.payload
+        }    
+
     case 'SET_ALL_INDEXES':
       return {
         ...state,
