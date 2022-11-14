@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../styles/Form.css";
 import noImage1 from "../images/noImage1.jpg";
+import logo from "../images/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Form() {
 
@@ -113,6 +115,9 @@ export default function Form() {
 
   return (
       <div>
+        <Link id="background" to="/">
+               <img className="image" src={logo} alt=""></img>
+        </Link>
       <form className="form" onSubmit={handleSubmit}>
         
         <img className="image" src={noImage1} alt=""></img>

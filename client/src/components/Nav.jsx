@@ -35,7 +35,10 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     
     <div className='div'>
         <div className="firstRow">
-          <img className="image" src={logo} alt=""></img>
+            <Link id="background" to="/">
+               <img className="image" src={logo} alt=""></img>
+            </Link>
+
           <form className="search" onSubmit={(event) => {
               event.preventDefault();
               handleTitleMatchChange(city)
