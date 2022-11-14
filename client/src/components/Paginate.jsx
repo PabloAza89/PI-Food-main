@@ -1,6 +1,6 @@
 import React  , { /* useState, */ useEffect } from "react";
 import {  useStore , shallowEqual, useSelector , useDispatch } from 'react-redux';
-import { getIndexChoosen , setIndexChoosen /* , indexChoosen  */ } from '../actions';
+import { getIndexChoosen , setIndexChoosen } from '../actions';
 import '../styles/Paginate.css';
 
 import store from '../store/store';
@@ -9,14 +9,11 @@ import store from '../store/store';
 function Paginate() {
 
   // FUNCIONA ES EL QUE VA !!!
-  const stateStore = () => {
-    return store.getState();    
-    //return qq
-  }
+  const indexChoosen = useSelector( state => state.indexChoosen )
+  console.log("INDICE ELEGIDO", indexChoosen )
 
- 
-console.log("INDEX CHOOSEN FROM STORE", stateStore().indexChoosen)
-console.log("STORE GENERAL", stateStore())
+  const allIndexes = useSelector( state => state.allIndexes )
+  console.log("ALL INDEXES", allIndexes )
 
 //console.log("TEST LEFT", useSelector((state) => state.getIndexChoosen))
 const dispatch = useDispatch()
@@ -56,24 +53,24 @@ console.log(state) */
 //   }
 // }
 
-// function AllIndexesButtons() {
-//   //let maxNumber = useSelector(state => state.allIndexes)
-//   //let www = useSelector(state => state.allIndexes)
-//   let www = asd
-//   let maxNumber = www
-//   let helper = 1
-//   let arrayOfButtons = []
-//   do {
+function AllIndexesButtons() {
+  //let maxNumber = useSelector(state => state.allIndexes)
+  //let www = useSelector(state => state.allIndexes)
+  let www = allIndexes
+  let maxNumber = www
+  let helper = 1
+  let arrayOfButtons = []
+  do {
 
-//     arrayOfButtons.push( <button id={helper} key={helper}  onClick={() => ayudaDispatch()} >{helper}</button>)
-//     helper++
+    arrayOfButtons.push( helper)
+    helper++
     
-//   } while (helper <= maxNumber)
+  } while (helper <= maxNumber)
 
     
-//   return arrayOfButtons
+  return arrayOfButtons
     
-// }
+}
 
 /* dispatch(indexChoosen(e)) */  
 //let qq 
@@ -145,21 +142,21 @@ console.log(state) */
   return (
     <div className='mainPagee'>   
    
-      
-      {/* AllIndexesButtons().map(e => (
-      <button id={e} key={e}  onClick={() => dispatch(indexChoosen(e))} >{e}</button>
+     { 
+      AllIndexesButtons().map(e => (
+      <button id={e} key={e}  onClick={() => dispatch(setIndexChoosen(e - 1))} >{e}</button>
 
-    )) */}
+    ))
     
 
-   
+      }
         
 
-     <button id={1} key={1}  onClick={() => dispatch(setIndexChoosen(2))} >1</button>
+     {/* <button id={1} key={1}  onClick={() => dispatch(setIndexChoosen(2))} >1</button>
      
       <button id={2} key={2}  onClick={() => dispatch(setIndexChoosen(4))} >4</button>
 
-      <button id={3} key={3}  onClick={() => dispatch(getIndexChoosen())} >3</button>
+      <button id={3} key={3}  onClick={() => dispatch(getIndexChoosen())} >3</button> */}
      
      
 

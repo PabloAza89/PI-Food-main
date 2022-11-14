@@ -2,16 +2,20 @@ import React , { useEffect } from "react";
 import '../styles/Cards.css';
 import Card from './Card.jsx';
 import {  useSelector , useDispatch } from 'react-redux';
-import { allIndexes , indexChoosen } from '../actions';
-//import store from '../store/store.js';
-//import store from '../reducers/index.js';
+import { allIndexes/*  , indexChoosen , */ , setAllIndexes } from '../actions';
+import store from '../store/store';
 
 export default function Cards({ toShow }) {
+    // FUNCIONA PERO NO REACCIONA
+  // const stateStore = () => {return store.getState() }
+  // console.log("INDEX CHOOSEN FROM STORE", stateStore().indexChoosen)
 
-  // const stateStore = () => {
-  //   let qq = store.getState();    
-  //   return qq
-  // }
+  // FUNCIONA Y REACCIONA BIEN !!
+  const indexChoosen = useSelector( state => state.indexChoosen )
+  console.log("INDICE ELEGIDO", indexChoosen )
+
+  const allIndexes = useSelector( state => state.allIndexes )
+  console.log("ALL INDEXES", allIndexes )
 
   const dispatch = useDispatch()
   
@@ -21,9 +25,9 @@ export default function Cards({ toShow }) {
   
   //let arrayLength = 0
 
-  let numberIndexToDisplay = 0
+  let numberIndexToDisplay = indexChoosen
   
-  //console.log("arrray", arraySplitedBy9)
+  
 
   function qq() {
     for (let i = 0; i < toShow.length; i += 9) {
@@ -48,31 +52,10 @@ export default function Cards({ toShow }) {
     arr6to8 = arraySplitedBy9[0]?arraySplitedBy9[numberIndexToDisplay].slice(6,9):[]
   }
 
-// function three() {
-//   arr0to2 = arraySplitedBy9[numberIndexToDisplay].slice(0,3)
-//   arr3to5 = arraySplitedBy9[numberIndexToDisplay].slice(3,6)
-//   arr6to8 = arraySplitedBy9[numberIndexToDisplay].slice(6,9)
-// }
- 
 
- 
-  
-
-
-  //console.log("TEST LEFT", useSelector((state) => state.left))
-  //console.log("TEST RIGHT", useSelector((state) => state.right))
-
-
-
-
-
- 
-
-  // function setArrayLength() {
-  //   arrayLength = arraySplitedBy9.length
-  //   return arrayLength
-    
-  // }
+ /*  function indexes() {    
+    return dispatch(indexChoosen(1))
+  } */
 
   
 
@@ -170,14 +153,17 @@ export default function Cards({ toShow }) {
   //Promise.all([qq(), two()])
 
 
-  
+  console.log("ARRAY LENGTH", arraySplitedBy9.length)
+  console.log("ARRAY LENGTH", arraySplitedBy9)
+
+  dispatch(setAllIndexes(arraySplitedBy9.length))
 
   return (
     <div>
       <div className='cards'>   
            
 
-          {/*  {arr0to2.map(e => <Card
+           {arr0to2.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -188,13 +174,13 @@ export default function Cards({ toShow }) {
             image={e.image} // OPTION
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
-          /> )}  */}
+          /> )} 
 
       </div>
 
       <div className='cards'>
 
-      {/* {arr3to5.map(e => <Card
+      {arr3to5.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -208,21 +194,9 @@ export default function Cards({ toShow }) {
           /> )} 
 
       </div>
-      <div className='cards'> */}
+      <div className='cards'>
 
-     {/*  {arr6to8.map(e => <Card
-            key={e.id}
-            id={e.id}
-            title={e.title}
-            summary={e.summary}
-            healthScore={e.healthScore}
-            analyzedInstructions={e.analyzedInstructions}
-            diets={e.diets}
-            image={e.image} // OPTION
-            dishTypes={e.dishTypes} // OPTION
-            database={e.database} // OPTION
-          /> )}  */}
-      {arraySplitedBy9.map(e => <Card
+      {arr6to8.map(e => <Card
             key={e.id}
             id={e.id}
             title={e.title}
@@ -234,6 +208,19 @@ export default function Cards({ toShow }) {
             dishTypes={e.dishTypes} // OPTION
             database={e.database} // OPTION
           /> )} 
+
+      {/* {arraySplitedBy9.map(e => <Card
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            summary={e.summary}
+            healthScore={e.healthScore}
+            analyzedInstructions={e.analyzedInstructions}
+            diets={e.diets}
+            image={e.image} // OPTION
+            dishTypes={e.dishTypes} // OPTION
+            database={e.database} // OPTION
+          /> )}  */}
        
 
       </div>

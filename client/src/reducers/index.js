@@ -25,10 +25,16 @@ const reducer = (state = initialState, action) => {
         return {
           /* right: action.payload */
         }
-    case 'ALL_INDEXES':
-        return {
-          allIndexes: action.payload
-        }
+    case 'SET_ALL_INDEXES':
+      return {
+        ...state,
+        allIndexes: action.payload
+      }
+    case 'GET_ALL_INDEXES':
+      return {
+        ...state,
+        response: console.log(state.allIndexes)
+      }
     case 'SET_INDEX_CHOOSEN':
 
       return {
