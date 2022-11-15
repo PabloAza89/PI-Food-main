@@ -14,9 +14,14 @@ export default function Card({  id, image, title, summary, healthScore, analyzed
 
     return (
         <div className="card">
+           
             {/* <img  src={image ? image : noImage1} alt=""></img> */}
-            <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
-            <Link to={`${id}`}> <p className="card-text">{title}</p> </Link>
+            <Link to={`${id}`}>
+                <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
+             </Link> 
+            <Link to={`${id}`}> 
+                <p className="card-text">{title}</p> 
+            </Link>
             <div className="card-text">
                 {/* <p className="card-text">Diets: {diets.map(e => e + " + ")}</p> */}
                 <p className="card-text">Diet: {diets.map(function(e) {

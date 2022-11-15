@@ -3,7 +3,7 @@ import '../styles/Nav.css';
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import { useSelector , useDispatch } from 'react-redux';
-import {setIndexChoosen } from '../actions';
+import { setIndexChoosen } from '../actions';
 
 
 export default function Cards({diets , handleTitleMatchChange , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
@@ -41,13 +41,14 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
 
           <form className="search" onSubmit={(event) => {
               event.preventDefault();
-              handleTitleMatchChange(city)
+              handleTitleMatchChange(city);
+              
              }}>
               <input className="findAdd"
                   type="text"        
                   placeholder="Find recipe..."
                   value={city} 
-                  onChange={event => setCity(event.target.value)}
+                  onChange={event => setCity(event.target.value) + dispatch(setIndexChoosen(0)) }
               />
               <input className="findAdd"
               type="submit" value="SEARCH !" />

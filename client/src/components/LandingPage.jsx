@@ -9,7 +9,7 @@ function LandingPage() {
     <div >
       <div className='bgImageLanding'></div>
       <div className='landingContainer'>
-        <h1 className='welcomeText'>Welcome ! bla bla bla</h1>
+        <h1 className='welcomeText'>Welcome to Foodify !</h1>
         <button className='welcomeButton' onClick={() => dispatch(setShowMain(true))} >ENTER</button>
       </div>
     </div>

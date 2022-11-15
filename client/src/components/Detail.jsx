@@ -4,6 +4,9 @@ import "../styles/Detail.css";
 import noImage1 from "../images/noImage1.jpg";
 import noImage2 from "../images/noImage2.jpg";
 import noImage3 from "../images/noImage3.jpg";
+import descargar from "../images/descargar.png";
+import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 
 
 
@@ -20,27 +23,48 @@ export default function Ciudad({onFilterID}) {
     function regexInSummary(text) {
         return text.replaceAll(/(<[/]b>|<b>|<[/]a>|<a\b[^>]*>|[/]a>)/g, '');
     }
+
+    // <Link to="/">
+    //     <img className="iconImageForm" src={logo} alt=""></img>
+    // </Link>
+    // <Link id="iconText" to="/">
+    //     <h2 >Go Back !</h2> 
+    // </Link>
     
     if (food) {
         return (
             <div className="detail-body">
-                {/* <img className="image" src={food.image ? food.image : noImage1} alt=""></img> */}
-                <img className="image-detail" src={food.image ? food.image : arrImages[randomNumber]} alt=""></img>
-                <p className="text-style">Title: {food.title}</p>
-                <p className="text-style">Diets: {food.diets.map(function(e) {
-                    if ((food.diets.indexOf(e) !== food.diets.length - 1)) {
-                        return e + " + "
-                    } else return e
-                    })}</p>
-                <p className="text-style">Health Score: {food.healthScore}</p>
-                {food.dishTypes ? <>Dish Types: {food.dishTypes.map(function(e) {
-                    if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
-                        return e + " + "
-                    } else return e
-                    })}</> : <div></div>}
-                
-                <p className="text-smaller-style"><b>Summary: </b>{regexInSummary(food.summary)} </p>
-                {food.analyzedInstructions[0] ? <p className="text-smaller-style">Instructions: {food.analyzedInstructions}</p> : <div></div>}
+                <div className="main-upper">
+                    <div className="main-upper">
+                    <Link to="/">
+                        <img className="iconImageForm" src={logo} alt=""></img>
+                    </Link>
+                    <Link id="iconText" to="/">
+                        <h2 >Go Back !</h2> 
+                    </Link>
+
+                    </div>
+                    {/* <img className="image" src={food.image ? food.image : noImage1} alt=""></img> */}
+                    <img className="image-detail" src={food.image ? food.image : arrImages[randomNumber]} alt=""></img>
+                    
+                </div>
+                <p className="text-smaller-stylee">
+                    <p className="text-smaller-style"><b>Title: </b>{food.title}</p>
+                    <p className="text-smaller-style"><b>Diets: </b>{food.diets.map(function(e) {
+                        if ((food.diets.indexOf(e) !== food.diets.length - 1)) {
+                            return e + " + "
+                        } else return e
+                        })}</p>
+                    <p className="text-smaller-style"><b>Health Score: </b>{food.healthScore}</p>
+                    {food.dishTypes ? <p className="text-smaller-style"><b>Dish Types: </b>{food.dishTypes.map(function(e) {
+                        if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
+                            return e + " + "
+                        } else return e
+                        })}</p> : <div></div>}
+                    
+                    <p className="text-smaller-style" id="backgroundColor"><b>Summary: </b>{regexInSummary(food.summary)} </p>
+                    {food.analyzedInstructions[0] ? <p className="text-smaller-style" id="backgroundColor"><b>Instructions: </b>{food.analyzedInstructions}</p> : <div></div>}
+                </p>    
             </div>
         )
     } else if (params.foodId === "create") {

@@ -48,8 +48,7 @@ const [sortName , setSortName] = useState({ // SORT NAME SELECTED
 function onFilterID(foodId) {
   let food = foods.filter((c) => parseInt(foodId).toString() === foodId.toString() ? c.id === parseInt(foodId) : c.id === foodId);
   return food[0]   
-}  
-
+}
 
 const handleDietNameChange = (dietName) => { 
   setDietName({name: dietName}); 
