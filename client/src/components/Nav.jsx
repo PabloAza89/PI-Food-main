@@ -36,7 +36,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     <div className='div'>
         <div className="firstRow">
             <Link id="background" to="/">
-               <img className="image" src={logo} alt=""></img>
+               <img className="iconImage" src={logo} alt=""></img>
             </Link>
 
           <form className="search" onSubmit={(event) => {

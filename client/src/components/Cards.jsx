@@ -40,11 +40,8 @@ export default function Cards({ toShow }) {
     arr6to8 = arraySplitedBy9[0]?arraySplitedBy9[numberIndexToDisplay].slice(6,9):[]
   }
 
-  qq() 
-
-  
-
-  two() 
+  qq()
+  two()
 
   //console.log("ARRAY LENGTH", arraySplitedBy9.length)
   //console.log("ARRAY LENGTH", arraySplitedBy9)
@@ -62,9 +59,9 @@ export default function Cards({ toShow }) {
         healthScore={e.healthScore}
         analyzedInstructions={e.analyzedInstructions}
         diets={e.diets}
-        image={e.image} // OPTION
-        dishTypes={e.dishTypes} // OPTION
-        database={e.database} // OPTION
+        image={e.image} 
+        dishTypes={e.dishTypes} 
+        database={e.database} 
         /> )} 
       </div>
       <div className='cards'>
@@ -76,9 +73,9 @@ export default function Cards({ toShow }) {
           healthScore={e.healthScore}
           analyzedInstructions={e.analyzedInstructions}
           diets={e.diets}
-          image={e.image} // OPTION
-          dishTypes={e.dishTypes} // OPTION
-          database={e.database} // OPTION
+          image={e.image} 
+          dishTypes={e.dishTypes} 
+          database={e.database}
           /> )}
       </div>
       <div className='cards'>

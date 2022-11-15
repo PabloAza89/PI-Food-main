@@ -1,5 +1,4 @@
-
-.ciudad {
+.detail-body {
   display: flex;
   flex-direction: column;  
   align-items: center;
@@ -10,5 +9,20 @@
   
 }
 
+.image-detail {
+  display: flex;
+  margin-top: 20px;
+}
 
+.text-style {
+  margin: 0 0 0 0;
+}
 
+.text-smaller-style {
+  margin: 0 0 0 0;
+  font-size: smaller;
+}
+
+.title-style {
+  
+}

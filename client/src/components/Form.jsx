@@ -114,63 +114,53 @@ export default function Form() {
 
 
   return (
-      <div>
-        <Link id="background" to="/">
-               <img className="image" src={logo} alt=""></img>
-        </Link>
-      <form className="form" onSubmit={handleSubmit}>
-        
-        <img className="image" src={noImage1} alt=""></img>
-        <div className="row">
-          Title:
-          <input className='danger' name="title" type="text" value={title} placeholder="e.g. Pasta.." onChange={(e) => validateTitle(e.target.value)}/>
-        </div>
-        
-        
-        <div className="row">
-          Health Score:
-          <input className='danger' name="healthScore" type="text" value={healthScore} placeholder="e.g. 73" onChange={(e) => validateHealthScore(e.target.value)}/>
-        </div>
-        <div className="row">
-          Summary:
-          <input className='danger' name="summary" type="text" value={summary} placeholder="e.g. Healthy pasta recipe" onChange={(e) => validateSummary(e.target.value)}/>
-        </div>
-        <div className="row">
-          Instructions:
-          <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="e.g. Cut pasta, fry tomatoes.." onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
-        </div>
-        {/* <div className="row">
-          Diets:
-          <input className='danger' name="diets" type="text" value={diets} placeholder="e.g. Vegan, primal.." onChange={(e) => validateDiets(e.target.value)}/>
-        </div> */}
-        <div className="row">
-          Diets:
-          <select onChange={event => handleDietSelected(event.target.value) }  >
-            <option id="-- select an option --"  >choose</option>
-            <option >gluten free</option>
-            <option >ketogenic</option>
-            <option >vegan</option>
-            <option >lacto ovo vegetarian</option>
-            <option >pescatarian</option>
-            <option >paleolithic</option>
-            <option >primal</option>
-            <option >fodmap friendly</option>
-            <option >whole 30</option>
-            <option >dairy free</option>
-            
-          </select >
+    <div className="form-body">
+      <Link to="/">
+        <img className="iconImageForm" src={logo} alt=""></img>
+      </Link>
+      <Link id="iconText" to="/">
+        <h2 >Go Back !</h2> 
+      </Link>
+      <form className="form" onSubmit={handleSubmit}>        
+        <img className="image-form" src={noImage1} alt=""></img>
+        <div className="options-main-align">
+          <div className="options-main-left">
+            <div>Title:</div>
+            <div>Health Score:</div>
+            <div>Summary:</div>
+            <div>Instructions:</div>
+            <div>Diets:</div>
+          </div>
+          <div className="options-main-right">           
+            <input className='danger' name="title" type="text" value={title} placeholder="e.g. Pasta.." onChange={(e) => validateTitle(e.target.value)}/>
+            <input className='danger' name="healthScore" type="text" value={healthScore} placeholder="e.g. 73" onChange={(e) => validateHealthScore(e.target.value)}/>
+            <input className='danger' name="summary" type="text" value={summary} placeholder="e.g. Healthy pasta recipe" onChange={(e) => validateSummary(e.target.value)}/>
+            <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="e.g. Cut pasta, fry tomatoes.." onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
+            <select onChange={event => handleDietSelected(event.target.value) }  >
+              <option id="-- select an option --"  >choose</option>
+              <option >gluten free</option>
+              <option >ketogenic</option>
+              <option >vegan</option>
+              <option >lacto ovo vegetarian</option>
+              <option >pescatarian</option>
+              <option >paleolithic</option>
+              <option >primal</option>
+              <option >fodmap friendly</option>
+              <option >whole 30</option>
+              <option >dairy free</option>
+            </select >
+          </div>
         </div>
         <div>
-          Diets choosen:
-      {uniqueNamesDiets.map(e => (e + " ,"))}
-
+           {uniqueNamesDiets.map(e => (e + " ,"))}
         </div>
         <input type="submit" disabled={handleSubmitButton()} value="CREATE !" />
-        
-        {!error ? null : <span className="alert">{error}</span>}
+        <input type="submit" onClick={handleNewRecipe} value="CREATE NEW RECIPE!" />  
+        {!error ? null : <span className="alert">{error}</span>}    
         
       </form>
-      <input type="submit" onClick={handleNewRecipe} value="CREATE NEW RECIPE!" />
-      </div>
+      </div>      
+      
+      
     );
 }
