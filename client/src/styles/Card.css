@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   width: 25vw;
-  height: 25vh;
+  height: 25.5vh;
   /* flex-wrap: wrap; */
   /* margin-top: 0px !important; */
   /* padding-top: 0px !important; */
@@ -70,9 +70,10 @@
 } */
 
 .card-text {
+  
   text-align: center;
   width: 23vw;
-/*   outline: 1px solid #000; */
+  /* outline: 1px solid #000; */
   margin: 0 0 2em 0;
   color: antiquewhite;
   /**
@@ -90,4 +91,13 @@
 
 .p {
     overflow: hidden;
+}
+
+.titleLink {
+  text-decoration: none;
+   
+}
+
+.title {
+  font-size:larger;
 }

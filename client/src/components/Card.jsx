@@ -19,19 +19,19 @@ export default function Card({  id, image, title, summary, healthScore, analyzed
             <Link to={`${id}`}>
                 <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
              </Link> 
-            <Link to={`${id}`}> 
-                <p className="card-text">{title}</p> 
+            <Link to={`${id}`} className="titleLink"> 
+                <p className="card-text"><b className="title">{title}</b></p> 
             </Link>
             <div className="card-text">
                 {/* <p className="card-text">Diets: {diets.map(e => e + " + ")}</p> */}
-                <p className="card-text">Diet: {diets.map(function(e) {
+                <p className="card-text"><b>Diet: </b>{diets.map(function(e) {
                     if ((diets.indexOf(e) !== diets.length - 1)) {
                         return e + " + "
                     } else return e
                     })}
                 </p>
-                <p className="card-text">Healt Score: {healthScore}</p>
-                {dishTypes?<p className="card-text">{dishTypes}</p>:<div></div>}
+                <p className="card-text"><b>Healt Score: </b>{healthScore}</p>
+                {dishTypes?<p className="card-text"><b>Dish Types: </b>{dishTypes}</p>:<div></div>}
             </div>
         </div>
     );
