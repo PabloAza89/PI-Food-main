@@ -51,7 +51,7 @@ export default function Cards({ toShow }) {
   return (
     <div>
       <div className='cards'>              
-        {/* {arr0to2.map(e => <Card
+       {arr0to2.map(e => <Card
         key={e.id}
         id={e.id}
         title={e.title}
@@ -62,10 +62,10 @@ export default function Cards({ toShow }) {
         image={e.image} 
         dishTypes={e.dishTypes} 
         database={e.database} 
-        /> )} */} 
+        /> )} 
       </div>
       <div className='cards'>
-        {/* {arr3to5.map(e => <Card
+        {arr3to5.map(e => <Card
           key={e.id}
           id={e.id}
           title={e.title}
@@ -76,10 +76,10 @@ export default function Cards({ toShow }) {
           image={e.image} 
           dishTypes={e.dishTypes} 
           database={e.database}
-          /> )} */}
+          /> )}
       </div>
       <div className='cards'>
-     {/*    {arr6to8.map(e => <Card
+        {arr6to8.map(e => <Card
           key={e.id}
           id={e.id}
           title={e.title}
@@ -90,9 +90,9 @@ export default function Cards({ toShow }) {
           image={e.image} // OPTION
           dishTypes={e.dishTypes} // OPTION
           database={e.database} // OPTION
-          /> )} */}
+          /> )}
           
-               {arr0to2.map(e => <Card
+               {/* {arr0to2.map(e => <Card
           key={e.id ? e.id : 0}
           id={e.id ? e.id : []}
           title={e.title ? e.title : []}
@@ -103,7 +103,7 @@ export default function Cards({ toShow }) {
           image={e.image ? e.image : []} // OPTION
           dishTypes={e.dishTypes ? e.dishTypes : []} // OPTION
           database={e.database ? e.database : []} // OPTION
-          /> )}
+          /> )} */}
           
       </div>
     </div>

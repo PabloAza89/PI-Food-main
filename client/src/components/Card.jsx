@@ -23,8 +23,8 @@ export default function Card({ id, image, title, healthScore , diets, dishTypes 
                 <p className="card-text"><b /* className="title" */>{title}</b></p> 
             </Link>
             <div /* className="card-text" */>
-                {/* <p className="card-text">Diets: {diets.map(e => e + " + ")}</p> */}
-                {<p className="card-text"><b>Diets: </b>{diets.map(function(e) {
+                {/* {<p className="card-text">Diets: {diets.map(e => e + " + ")}</p>} */}
+                {diets[0]&&<p className="card-text"><b>Diets: </b>{diets.map(function(e) {
                     if ((diets.indexOf(e) !== diets.length - 1)) {
                         return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ") + " + "
                     } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")

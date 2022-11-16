@@ -11,36 +11,7 @@ let toAvoidKey = require('../../../toAvoidKey');
 
 const router = Router();
 
-let allApiResults = () => {
-    //const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
-    return toAvoidKey.results.map(e => {
-        return {
-            id: e.id,
-            title: e.title,
-            summary: e.summary,
-            healthScore: e.healthScore,
-            analyzedInstructions:
-                e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
-            image: e.image,
-            /* diets: e.diets, */
-            /* diets: console.log(e.diets), */
-          /*   diets: console.log(e.diets.map(function(e) {
-                if ((e.indexOf(e) !== e.length - 1)) {
-                    return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                })), */
 
-                diets: e.diets.map(function(e) {
-                    if ((e.indexOf(e) !== e.length - 1)) {
-                        return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                    } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                    }),
-            
-          
-            dishTypes: e.dishTypes
-        }
-    })
-}
 
 router.get('/recipes(|/:id)', async (req, res) => {
     try {
@@ -53,7 +24,7 @@ router.get('/recipes(|/:id)', async (req, res) => {
             }]  
         }).catch(function(e){ console.log('NOT FOUND IN DB.. SCRIPT CONTINUED THANKS TO "foundInDB != null" ;)') }); 
 
-        let allApiResultsHelper = allApiResults()
+        let allApiResultsHelper = toAvoidKey
             
         if (foundInDB != null) {
             let dietsArray = foundInDB.map(e => e.Diets).map(e => e.map(e => e.title));
@@ -145,7 +116,7 @@ router.post('/diets', async (req, res) => {
             { title: "Low FODMAP" },
             { title: "Whole30" } */
 
-            /* { title: "all", },
+            { title: "all", },
             { title: "gluten free", },
             { title: "ketogenic" },
             { title: "vegan" },
@@ -156,8 +127,8 @@ router.post('/diets', async (req, res) => {
             { title: "fodmap friendly" },
             { title: "whole 30" },
             { title: "dairy free" }
- */
-            { title: "All Diets", },
+
+            /* { title: "All Diets", },
             { title: "Gluten Free", },
             { title: "Ketogenic" },
             { title: "Vegan" },
@@ -167,7 +138,7 @@ router.post('/diets', async (req, res) => {
             { title: "Primal" },
             { title: "Fodmap Friendly" },
             { title: "Whole 30" },
-            { title: "Dairy Free" }
+            { title: "Dairy Free" } */
           ]))//.then(() => console.log("Users data have been saved")));
     }
     catch(e) {
