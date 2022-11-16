@@ -115,17 +115,29 @@ router.post('/diets', async (req, res) => {
             { title: "Low FODMAP" },
             { title: "Whole30" } */
 
-            { title: "all", },
-            { title: "gluten free", },
-            { title: "ketogenic" },
-            { title: "vegan" },
-            { title: "lacto ovo vegetarian" },
-            { title: "pescatarian" },
-            { title: "paleolithic" },
-            { title: "primal" },
-            { title: "fodmap friendly" },
-            { title: "whole 30" },
-            { title: "dairy free" }
+            // { title: "all", },
+            // { title: "gluten free", },
+            // { title: "ketogenic" },
+            // { title: "vegan" },
+            // { title: "lacto ovo vegetarian" },
+            // { title: "pescatarian" },
+            // { title: "paleolithic" },
+            // { title: "primal" },
+            // { title: "fodmap friendly" },
+            // { title: "whole 30" },
+            // { title: "dairy free" }
+
+            { title: "All Diets", },
+            { title: "Gluten Free", },
+            { title: "Ketogenic" },
+            { title: "Vegan" },
+            { title: "Lacto Ovo Vegetarian" },
+            { title: "Pescatarian" },
+            { title: "Paleolithic" },
+            { title: "Primal" },
+            { title: "Fodmap Friendly" },
+            { title: "Whole 30" },
+            { title: "Dairy Free" }
           ]))//.then(() => console.log("Users data have been saved")));
     }
     catch(e) {

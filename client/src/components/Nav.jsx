@@ -33,12 +33,17 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
 
   return (
     
-    <div className='div'>
-        <div className="firstRow">
+    <div className='main-nav-div'>
+        <div className="main-left">
             <Link id="background" to="/">
                <img className="iconImage" src={logo} alt=""></img>
             </Link>
-
+        </div>
+        <div className="main-center">
+          Foodify !
+        </div>
+        <div className="main-right">
+          <div className="right-upper">
           <form className="search" onSubmit={(event) => {
               event.preventDefault();
               handleTitleMatchChange(city);
@@ -54,8 +59,9 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
               type="submit" value="SEARCH !" />
           </form>
           <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
-        </div>
-        <div className="firstRow">
+
+          </div>
+          <div className="right-lower">
           <select  onChange={event => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) }>          
                 {diets.map(e =>(
                   <option id={e.id} key={e.id}>{e.title}</option>
@@ -71,6 +77,15 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
                   <option id="A-Z" >{healthSelected ? "Sort alphabetically" : "A-Z"}</option>
                   <option id="Z-A" >{healthSelected ? "Sort alphabetically" : "Z-A"}</option>
           </select >
+
+          </div>
+          
+        
+
+
+
+        
+          
           
           
           </div>        

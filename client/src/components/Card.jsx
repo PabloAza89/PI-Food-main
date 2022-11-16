@@ -6,7 +6,7 @@ import noImage2 from "../images/noImage2.jpg";
 import noImage3 from "../images/noImage3.jpg";
 
 
-export default function Card({  id, image, title, summary, healthScore, analyzedInstructions, diets, dishTypes }) {
+export default function Card({ id, image, title, healthScore , diets, dishTypes }) {
 
     let arrImages = [noImage1, noImage2, noImage3]
 
@@ -24,7 +24,7 @@ export default function Card({  id, image, title, summary, healthScore, analyzed
             </Link>
             <div className="card-text">
                 {/* <p className="card-text">Diets: {diets.map(e => e + " + ")}</p> */}
-                <p className="card-text"><b>Diet: </b>{diets.map(function(e) {
+                <p className="card-text"><b>Diets: </b>{diets.map(function(e) {
                     if ((diets.indexOf(e) !== diets.length - 1)) {
                         return e + " + "
                     } else return e

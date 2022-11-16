@@ -28,7 +28,7 @@ let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1ยบ DIETS --> 2ย
 let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
 
 const [dietName, setDietName] = useState({ 
-  name: "all", // FIRST INSTANCE DEFAULT VALUE
+  name: "All Diets", // FIRST INSTANCE DEFAULT VALUE
 });
 
 const [titleMatch, setTitleMatch] = useState({ 
@@ -69,7 +69,7 @@ const handleSortNameChange = (sortName) => {
 }
 
 function onDietAndTitleFilter() {
-  if (dietName.name === "all") {
+  if (dietName.name === "All Diets") {
     if (titleMatch.name === "") {
       dietsAndTitleFilter =  foods
     } else {   
@@ -134,7 +134,7 @@ Promise.all([onDietAndTitleFilter()])
         handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
       />} 
-      <Route exact path="/" render={ () => (<Paginate dietName={dietName}  />)} /> 
+      <Route exact path="/" render={ () => (<Paginate />)} /> 
       <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } /> 
       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>

@@ -138,16 +138,16 @@ export default function Form() {
             <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="e.g. Cut pasta, fry tomatoes.." onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
             <select id="choose" classname="choose" onChange={event => handleDietSelected(event.target.value) }  >
               <option id="-- select an option --"  >-- select an option --</option>
-              <option >gluten free</option>
-              <option >ketogenic</option>
-              <option >vegan</option>
-              <option >lacto ovo vegetarian</option>
-              <option >pescatarian</option>
-              <option >paleolithic</option>
-              <option >primal</option>
-              <option >fodmap friendly</option>
-              <option >whole 30</option>
-              <option >dairy free</option>
+              <option >Gluten Free</option>
+              <option >Ketogenic</option>
+              <option >Vegan</option>
+              <option >Lacto Ovo Vegetarian</option>
+              <option >Pescatarian</option>
+              <option >Paleolithic</option>
+              <option >Primal</option>
+              <option >Fodmap Friendly</option>
+              <option >Whole 30</option>
+              <option >Dairy Free</option>
             </select >
           </div>
         </div>

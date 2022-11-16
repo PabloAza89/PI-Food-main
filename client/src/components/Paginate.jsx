@@ -4,7 +4,7 @@ import {setIndexChoosen } from '../actions';
 import '../styles/Paginate.css';
 import store from '../store/store';
 
-function Paginate({ dietName }) {
+function Paginate() {
   
   
   // FUNCIONA ES EL QUE VA !!!
