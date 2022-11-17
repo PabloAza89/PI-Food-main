@@ -20,11 +20,10 @@
 }
 
 #iconText {
-  text-decoration: none;  
-
+  text-decoration: none;
   color: white;
-  padding: 3px;
-  margin-left: 15px !important;
+  /* padding: 3px; */
+  margin-left: 3px !important;
 }
 
 .main-upper {
@@ -114,13 +113,13 @@
 
 
 
-.iconAndText {
+/* .iconAndText {
   display: flex;
   flex-direction: row;
   padding: 20px;
 
   
-}
+} */
 
 
 

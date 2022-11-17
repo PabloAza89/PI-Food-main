@@ -33,7 +33,7 @@ export default function Ciudad({onFilterID}) {
                             <img className="iconImageForm" src={logo} alt=""></img>
                         </Link>
                         <Link id="iconText" to="/">
-                            <h2 >Go Back !</h2> 
+                            <h2 id="textGoBack">Go Back !</h2> 
                         </Link>
                     </div>
                     <div className="main-upper-right">
