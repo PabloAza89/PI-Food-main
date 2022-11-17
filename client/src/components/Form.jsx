@@ -17,9 +17,6 @@ export default function Form() {
   function handleNewRecipe() {
     setDietSelected([])
     setCreated(0)
-    //uniqueNamesDiets = Array.from(new Set(dietSelected));
-    
-    //created = 0
     setTitle("")
     setHealthScore("")
     setSummary("")
@@ -33,26 +30,20 @@ export default function Form() {
   
   const [error, setError] = useState('');
 
-  console.log("QQ", created)
-
-  function handleSubmitButton(value) {
-    //if (value === 1) return true
+  function handleSubmitButton() {
     if (title.length === 0) return true
     if (uniqueNamesDiets.length === 0) return true
     if (healthScore === "") return true
     if (summary.length === 0) return true
-    if (analyzedInstructions.length === 0) return true 
-    
+    if (analyzedInstructions.length === 0) return true
     else {
-          
       return false
     }
   }
 
    const handleSubmit = async (e) => {
     e.preventDefault();
-    if (created === 0) {
-      
+    if (created === 0) {      
       await fetch('http://localhost:3001/recipes', {
        method: 'POST',
        body: JSON.stringify({
@@ -64,19 +55,15 @@ export default function Form() {
        }),
        headers: {
           'Content-type': 'application/json; charset=UTF-8',
-       },    
-       
+       },       
     }).then((res) => res.json())     
       .then(setCreated(1))
       .catch((err) => {
-        console.log(err.message);
-      });
-      
+        if (err.message === "Unexpected token 'T', \"THERE WAS \"... is not valid JSON") setCreated(0)
+      });      
     } else {
       alert("La receta ya fue cargada !");
-      //handleDietSelected(1)
     }
-      
  };
 
   function validateTitle(value) {
@@ -109,9 +96,25 @@ export default function Form() {
     } else { setError('') }
     setAnalyzedInstructions(value)
   }
-  
-  
 
+  let [dietChoosen, setDietChoosen] = useState({
+    name: "-- select an option --",
+    hidden: false
+  })
+
+  function formHandler(event) {
+    setDietChoosen({
+      name: event,
+      hidden: true
+    }) 
+  }
+
+  function createHandler() {  
+    setDietChoosen({
+      name: "-- select an option --",
+      hidden: false
+    })
+  }
 
   return (
     <div className="form-body">
@@ -136,38 +139,33 @@ export default function Form() {
             <input className='danger' name="healthScore" type="text" value={healthScore} placeholder="e.g. 73" onChange={(e) => validateHealthScore(e.target.value)}/>
             <input className='danger' name="summary" type="text" value={summary} placeholder="e.g. Healthy pasta recipe" onChange={(e) => validateSummary(e.target.value)}/>
             <input className='danger' name="analyzedInstructions" type="text" value={analyzedInstructions} placeholder="e.g. Cut pasta, fry tomatoes.." onChange={(e) => validateAnalyzedInstructions(e.target.value)}/>
-            <select id="choose" classname="choose" onChange={event => handleDietSelected(event.target.value) }  >
-              <option id="-- select an option --"  >-- select an option --</option>
-              <option >Gluten Free</option>
-              <option >Ketogenic</option>
-              <option >Vegan</option>
-              <option >Lacto Ovo Vegetarian</option>
-              <option >Pescatarian</option>
-              <option >Paleolithic</option>
-              <option >Primal</option>
-              <option >Fodmap Friendly</option>
-              <option >Whole 30</option>
-              <option >Dairy Free</option>
+
+            <select id="choose" className="choose" onChange={event => handleDietSelected(event.target.value)  } onClick={event => formHandler(event.target.value) } >
+              <option id="-- select an option --" disabled={ dietChoosen.hidden ? true : false } >{dietChoosen.hidden && dietChoosen.name !== "-- select an option --" ?  "-- select an option --" : dietChoosen.name }</option>
+              <option >{ dietChoosen.hidden ? "Gluten Free" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Ketogenic" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Vegan" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Lacto Ovo Vegetarian" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Pescatarian" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Paleolithic" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Primal" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Fodmap Friendly" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Whole 30" : "-- select an option --" }</option>
+              <option >{ dietChoosen.hidden ? "Dairy Free" : "-- select an option --" }</option>
             </select >
           </div>
         </div>
         <div>
-      {/*   {!uniqueNamesDiets?"asd":null} */}
       {uniqueNamesDiets[0]&&"Diets choosen: "}{uniqueNamesDiets.map(function(e) {
                         if ((uniqueNamesDiets.indexOf(e) !== uniqueNamesDiets.length - 1)) {
                             return e + " + "
                         } else return e
                         })}
-          
-                 
         </div>
         <input type="submit" disabled={handleSubmitButton()} value="CREATE !" />
-        <input type="submit" onClick={handleNewRecipe} value="CREATE NEW RECIPE!" />  
-        {!error ? null : <span className="alert">{error}</span>}    
-        
+        <input type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
+        {!error ? null : <span className="alert">{error}</span>}
       </form>
-      </div>      
-      
-      
+      </div>
     );
 }

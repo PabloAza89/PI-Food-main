@@ -4,7 +4,6 @@ import "../styles/Detail.css";
 import noImage1 from "../images/noImage1.jpg";
 import noImage2 from "../images/noImage2.jpg";
 import noImage3 from "../images/noImage3.jpg";
-import descargar from "../images/descargar.png";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
@@ -50,17 +49,17 @@ export default function Ciudad({onFilterID}) {
                 </div>
                 <p className="text-smaller-stylee">
                     <p className="text-smaller-style"><b>Title: </b>{food.title}</p>
-                    <p className="text-smaller-style"><b>Diets: </b>{food.diets.map(function(e) {
+                    <p className="text-smaller-style"><b>{food.diets[0]&&"Diets: "}</b>{food.diets.map(function(e) {
                         if ((food.diets.indexOf(e) !== food.diets.length - 1)) {
                             return e + " + "
                         } else return e
                         })}</p>
-                    <p className="text-smaller-style"><b>Health Score: </b>{food.healthScore}</p>
-                    {food.dishTypes ? <p className="text-smaller-style"><b>Dish Types: </b>{food.dishTypes.map(function(e) {
-                        if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
-                            return e + " + "
-                        } else return e
-                        })}</p> : <div></div>}
+                    <p className="text-smaller-style"><b>Health Score: </b>{food.healthScore}</p>                    
+                    {food.dishTypes && <p className="text-smaller-style"><b>Dish Types: </b>{food.dishTypes.map(function(e) {
+                    if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
+                        return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join("  ") + " + "
+                    } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                    })}</p>}    
                     
                     <p className="text-smaller-style" id="backgroundColor"><b>Summary: </b>{regexInSummary(food.summary)} </p>
                     {food.analyzedInstructions[0] ? <p className="text-smaller-style" id="backgroundColor"><b>Instructions: </b>{food.analyzedInstructions}</p> : <div></div>}

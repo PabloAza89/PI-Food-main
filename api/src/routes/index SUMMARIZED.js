@@ -49,8 +49,7 @@ router.get('/recipes(|/:id)', async (req, res) => {
                     title: foundInDB[dietsArray.indexOf(e)].title,
                     summary: foundInDB[dietsArray.indexOf(e)].summary,
                     healthScore: foundInDB[dietsArray.indexOf(e)].healthScore,
-                    analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,
-                    database: foundInDB[dietsArray.indexOf(e)].database,
+                    analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,                  
                     diets: e
                 })
             })

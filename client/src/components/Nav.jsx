@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../styles/Nav.css';
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
-import { useSelector , useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setIndexChoosen } from '../actions';
 
 
@@ -11,10 +11,9 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
   const dispatch = useDispatch()
 
   let [healthSelected, setHealthSelected] = useState("")
-  let [aZSelected, setAZSelected] = useState("")
-  
+  let [aZSelected, setAZSelected] = useState("")  
 
-  const [city, setCity] = useState("");
+  const [foodSearch, setFoodSearch] = useState("");
 
   function disablerHealthy(event) {
     if ( event === "Sort by Healthy") {
@@ -24,7 +23,6 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
   }
 
   function disablerAZ(event) {
-    //setHealthSelected({state: ""})
     if ( event === "Sort alphabetically") {
       setHealthSelected(false)    
       setAZSelected(true)    
@@ -46,14 +44,14 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
           <div className="right-upper">
           <form className="search" onSubmit={(event) => {
               event.preventDefault();
-              handleTitleMatchChange(city);
+              handleTitleMatchChange(foodSearch);
               
              }}>
               <input className="findAdd"
                   type="text"        
                   placeholder="Find recipe..."
-                  value={city} 
-                  onChange={event => setCity(event.target.value) + dispatch(setIndexChoosen(0)) }
+                  value={foodSearch} 
+                  onChange={event => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
               />
               <input className="findAdd"
               type="submit" value="SEARCH !" />

@@ -4,17 +4,11 @@
   align-items: center;
   width: 25vw;
   height: 25.5vh;
-  /* flex-wrap: wrap; */
-  /* margin-top: 0px !important; */
-  /* padding-top: 0px !important; */
 
   margin-top: 0vh;
   margin-left: 2vh;
-  margin-bottom: 2vh;
-  /* margin: 20px; */
-  
+  margin-bottom: 2vh;  
   background-color: rgba(196, 34, 147, 0.253);
-  /* z-index: 1; */
   
 }
 
@@ -27,37 +21,27 @@
 
 .card-text {
   width: 23vw;
-  height: 2vh;
+  height: 2.8vh;
   /* outline: 1px solid #000; */
   /* margin: 0 0 2em 0; */
   margin: 0 0 0 0;
   color: antiquewhite;
   text-align:center;
-  font-size:medium;
+  font-size:medium;  
   
-  /**
-   * Required properties to achieve text-overflow
-   */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 5px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0px !important;
 }
 
-/* .h4 {
-  height: 0px;
-} */
 
-/* .p {
-    overflow: hidden;
-} */
-
-.titleLink {
+/* .titleLink {
   text-decoration: none;
    
-}
+} */
 
 .title {
   font-size:larger;
-/*   height: 3vh; */
+  text-decoration: none;
 }

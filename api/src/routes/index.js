@@ -7,7 +7,6 @@ const API_KEY = API_KEY5;
 const NUMBER = 1;
 const { Recipes , Diets , Op } = require('../db.js');
 let toAvoidKey = require('../../../toAvoidKey');
-//let toAvoidKey = require('../../../toAvoidKey');
 
 const router = Router();
 
@@ -22,21 +21,11 @@ let allApiResults = () => {
             analyzedInstructions:
                 e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
             image: e.image,
-            /* diets: e.diets, */
-            /* diets: console.log(e.diets), */
-          /*   diets: console.log(e.diets.map(function(e) {
+            diets: e.diets.map(function(e) {
                 if ((e.indexOf(e) !== e.length - 1)) {
                     return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
                 } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                })), */
-
-                diets: e.diets.map(function(e) {
-                    if ((e.indexOf(e) !== e.length - 1)) {
-                        return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                    } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                    }),
-            
-          
+                }),          
             dishTypes: e.dishTypes
         }
     })
@@ -66,7 +55,6 @@ router.get('/recipes(|/:id)', async (req, res) => {
                     summary: foundInDB[dietsArray.indexOf(e)].summary,
                     healthScore: foundInDB[dietsArray.indexOf(e)].healthScore,
                     analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,
-                    database: foundInDB[dietsArray.indexOf(e)].database,
                     diets: e
                 })
             })
@@ -90,36 +78,12 @@ router.get('/recipes(|/:id)', async (req, res) => {
 router.post('/recipes', async (req, res) => {
     const { diets , title , summary , healthScore , analyzedInstructions } = req.body;    
     
-    //let diets = ['whole 30', 'pescatarian']
-    //let diets = ['whole 30', 'vegan']
-    //let diets = ['pescatarian', 'vegan']
-
-    //let diets = ['pescatarian', 'vegan']
-    //console.log("TEST ROUTES", req.body)
-    //console.log("TEST ROUTES", diets)
-
     try {
         const createRecipe = await Recipes.create({
             title: title,
             summary: summary,
             healthScore: parseInt(healthScore),
             analyzedInstructions: analyzedInstructions
-
-            //  title: "fake title 1",
-            // summary: "test summary 1",
-            // healthScore: 3,
-            // analyzedInstructions: 'these are the instructions'
-
-            // title: "fake title 2",
-            // summary: "test summary 2",
-            // healthScore: 80,
-            // analyzedInstructions: 'these are the instructions'
-
-            // title: "fake rice 3",
-            // summary: "test summary 3",
-            // healthScore: 70,
-            // analyzedInstructions: 'these are the instructions'
-
           });
         const relatedDiets = await Diets.findAll({           
             where: { [Op.or]: [ { title: diets } ] }
@@ -133,30 +97,7 @@ router.post('/recipes', async (req, res) => {
 
 router.post('/diets', async (req, res) => {
     try {
-        res.json(await Diets.bulkCreate([
-           /*  { title: "Gluten Free", },
-            { title: "Ketogenic" },
-            { title: "Vegetarian" },
-            { title: "Lacto-Vegetarian" },
-            { title: "Vegan" },
-            { title: "Pescetarian" },
-            { title: "Paleo" },
-            { title: "Primal" },
-            { title: "Low FODMAP" },
-            { title: "Whole30" } */
-
-            /* { title: "all", },
-            { title: "gluten free", },
-            { title: "ketogenic" },
-            { title: "vegan" },
-            { title: "lacto ovo vegetarian" },
-            { title: "pescatarian" },
-            { title: "paleolithic" },
-            { title: "primal" },
-            { title: "fodmap friendly" },
-            { title: "whole 30" },
-            { title: "dairy free" }
- */
+        res.json(await Diets.bulkCreate([      
             { title: "All Diets", },
             { title: "Gluten Free", },
             { title: "Ketogenic" },
@@ -168,7 +109,7 @@ router.post('/diets', async (req, res) => {
             { title: "Fodmap Friendly" },
             { title: "Whole 30" },
             { title: "Dairy Free" }
-          ]))//.then(() => console.log("Users data have been saved")));
+          ]))
     }
     catch(e) {
         res.status(400).send('Las dietas ya estan precargadas')

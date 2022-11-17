@@ -41,8 +41,9 @@
 .welcomeButton {
   display: flex;
   justify-content: center;
+  padding-top: 0.1%;
   align-items: center;
-  margin-top: 2%;    
+  margin-top: 0.9%;    
   background-color: rgba(139, 0, 139, 0.285);
   border-color: aliceblue;
   color: beige;
@@ -54,7 +55,8 @@
   margin-left: 30px;
   border-radius: 15%;
   font-size: 1rem;
-  z-index: 2;  
+  z-index: 2;
+  
 }
 
 .welcomeButton:hover {

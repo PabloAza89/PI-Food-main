@@ -3,19 +3,10 @@ import '../styles/Cards.css';
 import Card from './Card.jsx';
 import { useSelector , useDispatch } from 'react-redux';
 import { setAllIndexes } from '../actions';
-import store from '../store/store';
 
 export default function Cards({ toShow }) {
-  // FUNCIONA PERO NO REACCIONA
-  // const stateStore = () => {return store.getState() }
-  // console.log("INDEX CHOOSEN FROM STORE", stateStore().indexChoosen)
 
-  // FUNCIONA Y REACCIONA BIEN !!
   const indexChoosen = useSelector( state => state.indexChoosen )
-  console.log("INDICE ELEGIDO", indexChoosen )
-
-  const allIndexes = useSelector( state => state.allIndexes )
-  //console.log("ALL INDEXES", allIndexes )
 
   const dispatch = useDispatch()  
 
@@ -60,8 +51,7 @@ export default function Cards({ toShow }) {
         analyzedInstructions={e.analyzedInstructions}
         diets={e.diets}
         image={e.image} 
-        dishTypes={e.dishTypes} 
-        database={e.database} 
+        dishTypes={e.dishTypes}
         /> )} 
       </div>
       <div className='cards'>
@@ -74,8 +64,7 @@ export default function Cards({ toShow }) {
           analyzedInstructions={e.analyzedInstructions}
           diets={e.diets}
           image={e.image} 
-          dishTypes={e.dishTypes} 
-          database={e.database}
+          dishTypes={e.dishTypes}
           /> )}
       </div>
       <div className='cards'>
@@ -87,24 +76,9 @@ export default function Cards({ toShow }) {
           healthScore={e.healthScore}
           analyzedInstructions={e.analyzedInstructions}
           diets={e.diets}
-          image={e.image} // OPTION
-          dishTypes={e.dishTypes} // OPTION
-          database={e.database} // OPTION
-          /> )}
-          
-               {/* {arr0to2.map(e => <Card
-          key={e.id ? e.id : 0}
-          id={e.id ? e.id : []}
-          title={e.title ? e.title : []}
-          summary={e.summary ? e.summary : []}
-          healthScore={e.healthScore ? e.healthScore : []}
-          analyzedInstructions={e.analyzedInstructions ? e.analyzedInstructions : []}
-          diets={e.diets ? e.diets : []}
-          image={e.image ? e.image : []} // OPTION
-          dishTypes={e.dishTypes ? e.dishTypes : []} // OPTION
-          database={e.database ? e.database : []} // OPTION
-          /> )} */}
-          
+          image={e.image}
+          dishTypes={e.dishTypes}
+          /> )} 
       </div>
     </div>
   );

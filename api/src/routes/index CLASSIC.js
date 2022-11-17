@@ -65,8 +65,7 @@ router.get('/recipes', async (req, res) => {
                 title: searchDBRecipes[dietsArray.indexOf(e)].title,
                 summary: searchDBRecipes[dietsArray.indexOf(e)].summary,
                 healthScore: searchDBRecipes[dietsArray.indexOf(e)].healthScore,
-                analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,
-                database: searchDBRecipes[dietsArray.indexOf(e)].database,
+                analyzedInstructions: searchDBRecipes[dietsArray.indexOf(e)].analyzedInstructions,            
                 diets: e
             })
         })
@@ -107,8 +106,7 @@ router.get('/recipes/:id', async (req, res) => {
                     title: findByIDinDB.title,
                     summary: findByIDinDB.summary,
                     healthScore: findByIDinDB.healthScore,
-                    analyzedInstructions: findByIDinDB.analyzedInstructions,
-                    database: findByIDinDB.database,
+                    analyzedInstructions: findByIDinDB.analyzedInstructions,                   
                     diets: dietsArray
                 }
                 return res.status(200).send(modifiedDBObj)

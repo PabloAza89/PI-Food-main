@@ -25,11 +25,6 @@ module.exports = (sequelize) => {
     analyzedInstructions: {
       type: DataTypes.TEXT,
       allowNull: true
-    },
-    database: {
-      type : DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
     }
   }, {
     timestamps: false
