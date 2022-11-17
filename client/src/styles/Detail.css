@@ -9,7 +9,7 @@
   
 }
 
-.iconImageDetail {
+/* .iconImageDetail {
   display: flex;
   width: 50px;
   height: 50px;
@@ -19,7 +19,7 @@
   margin-top: 15px !important;
   margin-left: 15px !important;
   padding: 3px;
-}
+} */
 
 #iconText {
   text-decoration: none;  
@@ -41,13 +41,7 @@
 
 .text-smaller-style {
   margin: 0 0 0 0;
-  
-  /* background-color: rgba(64, 117, 117, 0.641); */
 }
-
-/* #backgroundColor {
-  background-color: rgba(64, 117, 117, 0.641);
-} */
 
 .text-smaller-stylee {
   width: 100vw;
@@ -57,3 +51,25 @@
   background-color: rgba(64, 117, 117, 0.641);
 }
 
+.main-upper {
+  display: flex;
+  flex-direction: row;
+}
+
+.main-lower {
+  display: flex;
+  flex-direction: row;
+}
+
+.main-upper-left {
+  display: flex;
+  flex-direction: row;
+  width: 30vw;
+}
+
+.main-upper-right {
+  display: flex;
+  flex-direction: row;
+  width: 70vw;
+  justify-content: center;
+}

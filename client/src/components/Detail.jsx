@@ -23,47 +23,42 @@ export default function Ciudad({onFilterID}) {
         return text.replaceAll(/(<[/]b>|<b>|<[/]a>|<a\b[^>]*>|[/]a>)/g, '');
     }
 
-    // <Link to="/">
-    //     <img className="iconImageForm" src={logo} alt=""></img>
-    // </Link>
-    // <Link id="iconText" to="/">
-    //     <h2 >Go Back !</h2> 
-    // </Link>
-    
+      
     if (food) {
         return (
             <div className="detail-body">
                 <div className="main-upper">
-                    <div className="main-upper">
-                    <Link to="/">
-                        <img className="iconImageForm" src={logo} alt=""></img>
-                    </Link>
-                    <Link id="iconText" to="/">
-                        <h2 >Go Back !</h2> 
-                    </Link>
-
+                    <div className="main-upper-left">
+                        <Link to="/">
+                            <img className="iconImageForm" src={logo} alt=""></img>
+                        </Link>
+                        <Link id="iconText" to="/">
+                            <h2 >Go Back !</h2> 
+                        </Link>
                     </div>
-                    {/* <img className="image" src={food.image ? food.image : noImage1} alt=""></img> */}
-                    <img className="image-detail" src={food.image ? food.image : arrImages[randomNumber]} alt=""></img>
-                    
+                    <div className="main-upper-right">
+                        <img className="image-detail" src={food.image ? food.image : arrImages[randomNumber]} alt=""></img>
+                    </div>
                 </div>
-                <p className="text-smaller-stylee">
-                    <p className="text-smaller-style"><b>Title: </b>{food.title}</p>
-                    <p className="text-smaller-style"><b>{food.diets[0]&&"Diets: "}</b>{food.diets.map(function(e) {
-                        if ((food.diets.indexOf(e) !== food.diets.length - 1)) {
-                            return e + " + "
-                        } else return e
-                        })}</p>
-                    <p className="text-smaller-style"><b>Health Score: </b>{food.healthScore}</p>                    
-                    {food.dishTypes && <p className="text-smaller-style"><b>Dish Types: </b>{food.dishTypes.map(function(e) {
-                    if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
-                        return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join("  ") + " + "
-                    } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
-                    })}</p>}    
-                    
-                    <p className="text-smaller-style" id="backgroundColor"><b>Summary: </b>{regexInSummary(food.summary)} </p>
-                    {food.analyzedInstructions[0] ? <p className="text-smaller-style" id="backgroundColor"><b>Instructions: </b>{food.analyzedInstructions}</p> : <div></div>}
-                </p>    
+                <div className="main-lower">
+                    <p className="text-smaller-stylee">
+                        <p className="text-smaller-style"><b>Title: </b>{food.title}</p>
+                        <p className="text-smaller-style"><b>{food.diets[0]&&"Diets: "}</b>{food.diets.map(function(e) {
+                            if ((food.diets.indexOf(e) !== food.diets.length - 1)) {
+                                return e + " + "
+                            } else return e
+                            })}</p>
+                        <p className="text-smaller-style"><b>Health Score: </b>{food.healthScore}</p>                    
+                        {food.dishTypes && <p className="text-smaller-style"><b>Dish Types: </b>{food.dishTypes.map(function(e) {
+                        if ((food.dishTypes.indexOf(e) !== food.dishTypes.length - 1)) {
+                            return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join("  ") + " + "
+                        } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                        })}</p>}    
+                        
+                        <p className="text-smaller-style" id="backgroundColor"><b>Summary: </b>{regexInSummary(food.summary)} </p>
+                        {food.analyzedInstructions[0] ? <p className="text-smaller-style" id="backgroundColor"><b>Instructions: </b>{food.analyzedInstructions}</p> : <div></div>}
+                    </p>    
+                </div>   
             </div>
         )
     } else if (params.foodId === "create") {
