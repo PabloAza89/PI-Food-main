@@ -1,19 +1,15 @@
 .detail-body {
   display: flex;
   flex-direction: column;  
-  align-items: center;
-  /* font-size:x-large; */
+  align-items:flex-start;
   color: white;
 }
 
 
 #iconText {
-  text-decoration: none;  
-
+  text-decoration: none;
   color: white;
-  /* padding: 3px; */
-  margin-top: 15px !important;
-  margin-left: 15px !important;
+  height: 12vh;
 }
 
 .image-detail {
@@ -46,31 +42,18 @@
 .main-lower {
   display: flex;
   flex-direction: row;
+  font-size:x-large;
 }
 
 .main-upper-left {
   display: flex;
   flex-direction: row;
   width: 30vw;
-  /* height: 10px; */
-}
-
-#textGoBack{
-  display: flex;
-  flex-direction: row;
-/*   width: 10vh;
-  height: 10vh; */
-  padding: 0.9vh;
-
-  text-decoration: none;
-  color: white;
-  /* padding: 3px; */
-  margin: 0 0 0 0 !important;
 }
 
 .main-upper-right {
   display: flex;
   flex-direction: row;
-  width: 70vw;
+  width: 40vw;
   justify-content: center;
 }

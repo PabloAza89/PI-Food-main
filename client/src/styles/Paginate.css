@@ -5,15 +5,22 @@
   display: flex;
   justify-content: center;
   /* margin-top: 0px !important; */
-  padding: 1vh
+  padding: 1vh;
+  height: 2.2vh;
   
 }
 
 [id='0'] {
   background-color: rgba(46, 230, 163, 0.377);
+  height: 2vh;
+}
+
+[id='0'].asd {
+  height: 2.2vh;
 }
 
 .asd:not([id='0'])
 {
   background-color: rgba(230, 46, 175, 0.363);
+  height: 2.2vh;
 }

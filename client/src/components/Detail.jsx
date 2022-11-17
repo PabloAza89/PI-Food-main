@@ -29,11 +29,11 @@ export default function Ciudad({onFilterID}) {
             <div className="detail-body">
                 <div className="main-upper">
                     <div className="main-upper-left">
-                        <Link to="/">
+                        <Link id="iconImageDiv" to="/">
                             <img className="iconImageForm" src={logo} alt=""></img>
                         </Link>
                         <Link id="iconText" to="/">
-                            <h2 id="textGoBack">Go Back !</h2> 
+                            <h2>Go Back !</h2> 
                         </Link>
                     </div>
                     <div className="main-upper-right">

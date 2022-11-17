@@ -10,13 +10,19 @@
 .main-left {
   display: flex;
   flex-direction: row;
-  padding: 0.9vh;
+ justify-content: center;
+ align-content: center;
+ width: 9vh;
 }
 
 .iconImage {
   display: flex;
-  width: 10vh;
-  height: 10vh;
+  flex-direction: row;
+  width: 8vh;
+  height: 8vh;
+  align-self: center;
+  margin-left: 0.5vh;
+  
 }
 
 .main-center {
@@ -29,10 +35,14 @@
 }
 
 #iconText {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: white;
+  justify-content: center;
+  padding-left: 1vh;
   /* padding: 3px; */
-  margin-left: 3px !important;
+  /* margin-left: 10px !important; */
 }
 
 .main-right {

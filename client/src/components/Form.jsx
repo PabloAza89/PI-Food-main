@@ -118,7 +118,7 @@ export default function Form() {
 
   return (
     <div className="form-body">
-      <Link to="/">
+      <Link id="iconImageDiv"  to="/">
         <img className="iconImageForm" src={logo} alt=""></img>
       </Link>
       <Link id="iconText" to="/">
@@ -162,8 +162,8 @@ export default function Form() {
                         } else return e
                         })}
         </div>
-        <input type="submit" disabled={handleSubmitButton()} value="CREATE !" />
-        <input type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
+        <input id="submmitButton" type="submit" disabled={handleSubmitButton()} value="CREATE !" />
+        <input id="createNewButton" type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
         {!error ? null : <span className="alert">{error}</span>}
       </form>
       </div>

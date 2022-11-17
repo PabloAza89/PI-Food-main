@@ -33,11 +33,11 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     
     <div className='main-nav-div'>
         <div className="main-left">
-            <Link id="background" to="/">
-               <img className="iconImage" src={logo} alt=""></img>
+            <Link className="iconImage" to="/">
+               <img  className="iconImage" src={logo} alt=""></img>
             </Link>
         </div>
-        <Link id="iconText">
+        <Link id="iconText" to="/">
           <h2>Foodify !</h2>
         </Link>
         <div className="main-right">
