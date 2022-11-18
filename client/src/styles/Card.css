@@ -4,12 +4,10 @@
   align-items: center;
   width: 25vw;
   height: 25.5vh;
-
   margin-top: 0vh;
   margin-left: 2vh;
   margin-bottom: 2vh;  
   background-color: rgba(196, 34, 147, 0.253);
-  
 }
 
 .image {
@@ -27,21 +25,20 @@
   margin: 0 0 0 0;
   color: antiquewhite;
   text-align:center;
-  font-size:medium;  
-  
+  font-size:medium;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 0px !important;
 }
 
-
-/* .titleLink {
-  text-decoration: none;
-   
-} */
-
 .title {
   font-size:larger;
   text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+  .card-text {
+    font-size:xx-small; 
+  }  
 }

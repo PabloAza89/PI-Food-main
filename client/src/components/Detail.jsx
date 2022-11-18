@@ -9,7 +9,7 @@ import logo from "../images/logo.png";
 
 
 
-export default function Ciudad({onFilterID}) {
+export default function Detail({onFilterID}) {
 
     let arrImages = [noImage1, noImage2, noImage3]
     
@@ -22,7 +22,6 @@ export default function Ciudad({onFilterID}) {
     function regexInSummary(text) {
         return text.replaceAll(/(<[/]b>|<b>|<[/]a>|<a\b[^>]*>|[/]a>)/g, '');
     }
-
       
     if (food) {
         return (

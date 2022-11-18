@@ -29,64 +29,49 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     }
   }
 
-  return (
-    
-    <div className='main-nav-div'>
-        <div className="main-left">
-            <Link className="iconImage" to="/">
-               <img  className="iconImage" src={logo} alt=""></img>
-            </Link>
-        </div>
-        <Link id="iconText" to="/">
-          <h2>Foodify !</h2>
+  return (    
+   <div className='main-nav-div'>
+      <div className="main-left">
+        <Link className="iconImage" to="/">
+          <img  className="iconImage" src={logo} alt=""></img>
         </Link>
-        <div className="main-right">
-          <div className="right-upper">
-          <form className="search" onSubmit={(event) => {
-              event.preventDefault();
-              handleTitleMatchChange(foodSearch);
-              
-             }}>
-              <input className="findAdd"
-                  type="text"        
-                  placeholder="Find recipe..."
-                  value={foodSearch} 
-                  onChange={event => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
-              />
-              <input className="findAdd"
-              type="submit" value="SEARCH !" />
+      </div>
+      <Link id="iconText" to="/">
+        <h2>Foodify !</h2>
+      </Link>
+      <div className="main-right">
+        <div className="right-upper">
+          <form className="search" onSubmit={(event) => {event.preventDefault(); handleTitleMatchChange(foodSearch) }}>
+            <input className="findAdd"
+                type="text"        
+                placeholder="Find recipe..."
+                value={foodSearch} 
+                onChange={event => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
+            />
+            <input className="findAdd"
+              type="submit" value="SEARCH !"
+            />
           </form>
-          <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
-
-          </div>
-          <div className="right-lower">
+        <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
+        </div>
+        <div className="right-lower">
           <select  onChange={event => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) }>          
-                {diets.map(e =>(
-                  <option id={e.id} key={e.id}>{e.title}</option>
-                ))}
+            {diets.map(e =>(
+              <option id={e.id} key={e.id}>{e.title}</option>
+            ))}
           </select >
           <select  onChange={event => handleHealthLevelChange(event.target.value) } onClick={event => disablerHealthy(event.target.value) } >
-                    <option id="-- select an option --" disabled={ healthSelected ? true : false }  >Sort by Healthy</option>
-                    <option id="More Healthy" >{aZSelected ? "Sort by Healthy" : "More Healthy"}</option>
-                    <option id="Less Healthy" >{aZSelected ? "Sort by Healthy" : "Less Healthy"}</option>                  
+            <option id="-- select an option --" disabled={ healthSelected ? true : false }  >Sort by Healthy</option>
+            <option id="More Healthy" >{aZSelected ? "Sort by Healthy" : "More Healthy"}</option>
+            <option id="Less Healthy" >{aZSelected ? "Sort by Healthy" : "Less Healthy"}</option>                  
           </select >
           <select onChange={event => handleSortNameChange(event.target.value) } onClick={event => disablerAZ(event.target.value)} >
-          <option id="-- select an option --" disabled={ aZSelected ? true : false } >Sort alphabetically</option>
-                  <option id="A-Z" >{healthSelected ? "Sort alphabetically" : "A-Z"}</option>
-                  <option id="Z-A" >{healthSelected ? "Sort alphabetically" : "Z-A"}</option>
+            <option id="-- select an option --" disabled={ aZSelected ? true : false } >Sort alphabetically</option>
+            <option id="A-Z" >{healthSelected ? "Sort alphabetically" : "A-Z"}</option>
+            <option id="Z-A" >{healthSelected ? "Sort alphabetically" : "Z-A"}</option>
           </select >
-
-          </div>
-          
-        
-
-
-
-        
-          
-          
-          
-          </div>        
+        </div>          
+      </div>        
     </div>
 
     

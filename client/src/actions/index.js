@@ -1,23 +1,7 @@
-// const saveName = (payload) => {
-//   return { type: 'SHOW_MAIN', payload };
-// };
-
 export function setShowMain(payload) {
   return {
     type: 'SET_SHOW_MAIN',
     payload
-  }
-};
-
-export function left() {
-  return {
-    type: 'LEFT',
-  }
-};
-
-export function right() {
-  return {
-    type: 'RIGHT',
   }
 };
 

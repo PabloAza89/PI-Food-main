@@ -1,4 +1,3 @@
-
 .main-nav-div {
   display: flex;
   flex-direction: row;
@@ -22,7 +21,6 @@
   height: 8vh;
   align-self: center;
   margin-left: 0.5vh;
-  
 }
 
 .main-center {
@@ -31,7 +29,6 @@
   justify-content: center;
   color: antiquewhite;
   font-size:x-large;
-  /* font-weight: 600; */
 }
 
 #iconText {
@@ -41,8 +38,6 @@
   color: white;
   justify-content: center;
   padding-left: 1vh;
-  /* padding: 3px; */
-  /* margin-left: 10px !important; */
 }
 
 .main-right {
@@ -59,7 +54,6 @@
   align-items: center;
   margin-left: 17vw;
   margin-right: 18vw;
-
 }
 
 .right-lower {
@@ -69,5 +63,4 @@
   align-content: center;
   margin-left: 15vw;
   margin-right: 15vw;
-
 }

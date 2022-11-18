@@ -1,13 +1,8 @@
-/* background-color: rgba(0, 255, 255, 0.264); */
-
 .paginate {
-  /* position: relative; */
   display: flex;
   justify-content: center;
-  /* margin-top: 0px !important; */
   padding: 1vh;
   height: 2.2vh;
-  
 }
 
 [id='0'] {
@@ -24,3 +19,19 @@
   background-color: rgba(230, 46, 175, 0.363);
   height: 2.2vh;
 }
+
+@media (max-width: 1024px) {
+  [id='0'] {
+    font-size: xx-small;
+    padding-bottom: 10px;
+  }
+  [id='0'].asd {
+    font-size: xx-small;
+    padding-bottom: 10px;
+  }
+  .asd:not([id='0']) {
+    font-size: xx-small;
+    padding-bottom: 10px;
+  }
+}
+

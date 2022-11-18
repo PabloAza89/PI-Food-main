@@ -15,10 +15,10 @@
 #iconImageDiv {
   display: flex;
   flex-direction: row;
- justify-content: center;
- align-content: center;
- width: 9vh;
- height: 12vh;
+  justify-content: center;
+  align-content: center;
+  width: 9vh;
+  height: 12vh;
 }
 
 #choose {
@@ -39,6 +39,7 @@
   text-decoration: none;
   color: white;
   height: 12vh;
+  width: 12vw;
 }
 
 .main-upper {
@@ -52,13 +53,9 @@
   align-items: center;
   justify-self: center;
   width: 88vw;
-  /* padding-left: 25vw; */
   padding-top: 1vw;
-  
-  
   font-size:x-large;
   color: white;
-    
 }
 
 .options-main-align {
@@ -88,10 +85,7 @@
   display: flex;
   flex-direction: row;
   align-content:space-between
-  
 }
-
-
 
 .alert {
   position: relative;
@@ -106,9 +100,6 @@
   padding-right: 1vh;
   padding-top: 0.5vh;
   padding-bottom: 0.5vh;
-  
-  
-
 }
 
 .danger {
@@ -119,14 +110,12 @@
   background-color: rgba(196, 34, 147, 0.253);
   height: 27px;
   margin-bottom: 3px;
-  
 }
 
 .danger::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgb(233, 232, 232);
   opacity: 1; /* Firefox */
   padding-left: 2px;
-  
 }
 
 .options-left {
@@ -143,6 +132,16 @@
   margin-right: 2vh;
 }
 
-
+@media (max-width: 1024px) {
+  .form {
+   font-size: large;
+  }  
+  .danger {
+    height: 18px;  
+  }
+  #choose {
+    height: 24px;
+  }
+}
 
 

@@ -14,8 +14,7 @@ export default function Card({ id, image, title, healthScore , diets, dishTypes 
 
     return (
         <div className="card">
-           
-            {/* <img  src={image ? image : noImage1} alt=""></img> */}
+            
             <Link to={`${id}`}>
                 <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
              </Link> 

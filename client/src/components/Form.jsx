@@ -62,7 +62,7 @@ export default function Form() {
         if (err.message === "Unexpected token 'T', \"THERE WAS \"... is not valid JSON") setCreated(0)
       });      
     } else {
-      alert("La receta ya fue cargada !");
+      alert("Recipe was already created !");
     }
  };
 

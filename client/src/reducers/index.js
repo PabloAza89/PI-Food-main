@@ -2,8 +2,6 @@
 
 const initialState = {
   showMain: false,
-  left: false,
-  right: false,
   indexChoosen: 0,
   allIndexes: 0,
   
@@ -11,22 +9,11 @@ const initialState = {
   
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    
-    
-    case 'LEFT':
-        return {
-          /* left: action.payload */
-        }
-    case 'RIGHT':
-        return {
-          /* right: action.payload */
-        }
     case 'SET_SHOW_MAIN':      
-        return {
-          ...state,
-          showMain: action.payload
-        }    
-
+      return {
+        ...state,
+        showMain: action.payload
+      }
     case 'SET_ALL_INDEXES':
       return {
         ...state,
@@ -38,18 +25,15 @@ const reducer = (state = initialState, action) => {
         response: console.log(state.allIndexes)
       }
     case 'SET_INDEX_CHOOSEN':
-
       return {
         ...state,
         indexChoosen: action.payload
       }
-        
     case 'GET_INDEX_CHOOSEN': 
-    return {
-      ...state,
-      response: console.log(state.indexChoosen)
-    }
-      
+      return {
+        ...state,
+        response: console.log(state.indexChoosen)
+    } 
     default:
       return state
   }

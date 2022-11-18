@@ -34,9 +34,6 @@ export default function Cards({ toShow }) {
   qq()
   two()
 
-  //console.log("ARRAY LENGTH", arraySplitedBy9.length)
-  //console.log("ARRAY LENGTH", arraySplitedBy9)
-
   dispatch(setAllIndexes(arraySplitedBy9.length))
 
   return (

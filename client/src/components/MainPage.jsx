@@ -9,124 +9,119 @@ import Form from "./Form.jsx";
 
 function MainPage() {
 
-const [foods, setFoods] = useState([]); // ALL MAIN FOODS
-const [diets, setDiets] = useState([]); // ALL MAIN DIETS
+  const [foods, setFoods] = useState([]); // ALL MAIN FOODS
+  const [diets, setDiets] = useState([]); // ALL MAIN DIETS
 
-useEffect(() => {
-  fetch('http://localhost:3001/recipes')
-  .then((r) => r.json())
-  .then((res) => setFoods(res))  
-}, []); // [] -> MEANS RUN ONCE !
+  useEffect(() => {
+    fetch('http://localhost:3001/recipes')
+    .then((r) => r.json())
+    .then((res) => setFoods(res))  
+  }, []); // [] -> MEANS RUN ONCE !
 
-useEffect(() => {
-fetch('http://localhost:3001/diets')
-.then(r => r.json())
-.then(res => setDiets(res))  
-}, []); // [] -> MEANS RUN ONCE !
+  useEffect(() => {
+  fetch('http://localhost:3001/diets')
+  .then(r => r.json())
+  .then(res => setDiets(res))  
+  }, []); // [] -> MEANS RUN ONCE !
 
-let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
-let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
+  let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
+  let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
 
-const [dietName, setDietName] = useState({ 
-  name: "All Diets", // FIRST INSTANCE DEFAULT VALUE
-});
+  const [dietName, setDietName] = useState({ 
+    name: "All Diets", // FIRST INSTANCE DEFAULT VALUE
+  });
 
-const [titleMatch, setTitleMatch] = useState({ 
-  name: "",
-}); 
+  const [titleMatch, setTitleMatch] = useState({ 
+    name: "",
+  }); 
 
-const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
-  name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
-  selected: false // FIRST INSTANCE DEFAULT VALUE
-}); 
+  const [healthLevel , setHealthLevel] = useState({ // HEALTH LEVEL SELECTED
+    name: "More Healthy", // FIRST INSTANCE DEFAULT VALUE
+    selected: false // 
+  }); 
 
-const [sortName , setSortName] = useState({ // SORT NAME SELECTED
-  name: "A-Z",
-  selected: false
-});
+  const [sortName , setSortName] = useState({ // SORT NAME SELECTED
+    name: "A-Z",
+    selected: false
+  });
 
-function onFilterID(foodId) {
-  let food = foods.filter((c) => parseInt(foodId).toString() === foodId.toString() ? c.id === parseInt(foodId) : c.id === foodId);
-  return food[0]   
-}
+  function onFilterID(foodId) {
+    let food = foods.filter((c) => parseInt(foodId).toString() === foodId.toString() ? c.id === parseInt(foodId) : c.id === foodId);
+    return food[0]   
+  }
 
-const handleDietNameChange = (dietName) => { 
-  setDietName({name: dietName}); 
-}
+  const handleDietNameChange = (dietName) => { 
+    setDietName({name: dietName}); 
+  }
 
-const handleTitleMatchChange = (titleMatch) => {
-  setTitleMatch({name: titleMatch}); 
-}
+  const handleTitleMatchChange = (titleMatch) => {
+    setTitleMatch({name: titleMatch}); 
+  }
 
-const handleHealthLevelChange = (healthLevel) => {
-  setHealthLevel({name: healthLevel, selected: true}); // CORRECTO
-  setSortName({name: "", selected: false}); // CORRECTO
-}
+  const handleHealthLevelChange = (healthLevel) => {
+    setHealthLevel({name: healthLevel, selected: true});
+    setSortName({name: "", selected: false}); 
+  }
 
-const handleSortNameChange = (sortName) => {
-  setHealthLevel({name: "", selected: false}); // CORRECTO
-  setSortName({name: sortName, selected: true}); // CORRECTO
-}
+  const handleSortNameChange = (sortName) => {
+    setHealthLevel({name: "", selected: false}); 
+    setSortName({name: sortName, selected: true}); 
+  }
 
-function onDietAndTitleFilter() {
-  if (dietName.name === "All Diets") {
-    if (titleMatch.name === "") {
-      dietsAndTitleFilter =  foods
-    } else {   
-      let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch.name.toLowerCase()))
-      dietsAndTitleFilter = qq
-    }
-  } else {
-    if (titleMatch.name === "") {
-      let qq = foods.filter(e => e.diets.includes(dietName.name))
-      dietsAndTitleFilter = qq
+  function onDietAndTitleFilter() {
+    if (dietName.name === "All Diets") {
+      if (titleMatch.name === "") {
+        dietsAndTitleFilter =  foods
+      } else {   
+        let qq = foods.filter(e => e.title.toLowerCase().includes(titleMatch.name.toLowerCase()))
+        dietsAndTitleFilter = qq
+      }
     } else {
-      let qq = foods.filter(e => e.diets.includes(dietName.name))
-      let ww = qq.filter(e => e.title.toLowerCase().includes(titleMatch.name.toLowerCase()))
-      dietsAndTitleFilter = ww
+      if (titleMatch.name === "") {
+        let qq = foods.filter(e => e.diets.includes(dietName.name))
+        dietsAndTitleFilter = qq
+      } else {
+        let qq = foods.filter(e => e.diets.includes(dietName.name))
+        let ww = qq.filter(e => e.title.toLowerCase().includes(titleMatch.name.toLowerCase()))
+        dietsAndTitleFilter = ww
+      }
     }
   }
-}
 
-function onHealthLevelFilter() {
-  if (healthLevel.name === "-- select an option --" && healthLevel.selected === false) { // FIRST INSTANCE
-    let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
-    toShow = qq
-  }
-  if (healthLevel.name === "More Healthy" && healthLevel.selected === false) { // FIRST INSTANCE
-    let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
-    toShow = qq
-  }
-    if (healthLevel.name === "More Healthy" && healthLevel.selected === true) { // FIRST INSTANCE
+  function onHealthLevelFilter() {
+    if (healthLevel.name === "-- select an option --" && healthLevel.selected === false) {
       let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
       toShow = qq
     }
-    if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) {
-      let qq = dietsAndTitleFilter.sort((a,b) => a.healthScore - b.healthScore);
+    if (healthLevel.name === "More Healthy" && healthLevel.selected === false) { 
+      let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
       toShow = qq
     }
-}
-
-function onSortNameFilter() {
-  if (sortName.name === "A-Z" && sortName.selected === true) {
-    let qq = dietsAndTitleFilter.sort((a, b) => a.title.localeCompare(b.title))
-    toShow = qq
+      if (healthLevel.name === "More Healthy" && healthLevel.selected === true) {
+        let qq = dietsAndTitleFilter.sort((a,b) => b.healthScore - a.healthScore);
+        toShow = qq
+      }
+      if (healthLevel.name === "Less Healthy" && healthLevel.selected === true) {
+        let qq = dietsAndTitleFilter.sort((a,b) => a.healthScore - b.healthScore);
+        toShow = qq
+      }
   }
 
-  if (sortName.name === "Z-A" && sortName.selected === true) {
-    let qq = dietsAndTitleFilter.sort((a, b) => b.title.localeCompare(a.title))
-    toShow = qq
-  }
- }
+  function onSortNameFilter() {
+    if (sortName.name === "A-Z" && sortName.selected === true) {
+      let qq = dietsAndTitleFilter.sort((a, b) => a.title.localeCompare(b.title))
+      toShow = qq
+    }
 
- 
+    if (sortName.name === "Z-A" && sortName.selected === true) {
+      let qq = dietsAndTitleFilter.sort((a, b) => b.title.localeCompare(a.title))
+      toShow = qq
+    }
+  } 
 
-Promise.all([onDietAndTitleFilter()])
-.then(onHealthLevelFilter())
-.then(onSortNameFilter())
-
-
-
+  Promise.all([onDietAndTitleFilter()])
+  .then(onHealthLevelFilter())
+  .then(onSortNameFilter())
 
   return (
     <div className='mainPage'>   
@@ -135,12 +130,9 @@ Promise.all([onDietAndTitleFilter()])
         handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
       />} 
       <Route exact path="/" render={ () => (<Paginate />)} /> 
-      <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } /> 
-      
+      <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
       <Route exact path="/create" render={() => (<Form/>)}/>
-         
-      
     </div>
   );
 }
