@@ -4,7 +4,7 @@ import noImage1 from "../images/noImage1.jpg";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 
-export default function Form() {
+export default function Form({ GetAfterCreated }) {
 
   let [created, setCreated] = useState(0)
   const [dietSelected, setDietSelected] = useState([])
@@ -62,13 +62,13 @@ export default function Form() {
         if (err.message === "Unexpected token 'T', \"THERE WAS \"... is not valid JSON") setCreated(0)
       });      
     } else {
-      alert("Recipe was already created !");
+      alert("Recipe was already created ! Please select 'CREATE NEW RECIPE!' to create a new one !");
     }
  };
 
   function validateTitle(value) {
     if(/(!|¡|@|[?]|¡|<|>|[/]|[\\]|%|[[]|]|[|]|°|#|[$]|&|[()]|[)]|=|_|[*]|¿|[+]|~|{|}|`|\^)/.test(value) && value.length !== 0) {
-      setError('Special characters not allowed in title !');
+      setError('Special characters not allowed in "Title" !');
     } else { setError('') }
     setTitle(value);
   }
@@ -78,21 +78,21 @@ export default function Form() {
       setError('Allowed numbers are between 0 and 100 !');
     }
     else if(!/^[0-9]*$/.test(value) && value.length !== 0) {
-      setError('Only numbers allowed in health score !');
+      setError('Only numbers allowed in "Health Score" !');
     } else { setError('') }
     setHealthScore(value)
   }
 
   function validateSummary(value) {
     if(/(!|¡|@|[?]|¡|<|>|[/]|[\\]|%|[[]|]|[|]|°|#|[$]|&|[()]|[)]|=|_|[*]|¿|[+]|~|{|}|`|\^)/.test(value) && value.length !== 0) {
-      setError('Special characters not allowed in Summary !');
+      setError('Special characters not allowed in "Summary" !');
     } else { setError('') }
     setSummary(value)
   }
 
   function validateAnalyzedInstructions(value) {
     if(/(!|¡|@|[?]|¡|<|>|[/]|[\\]|%|[[]|]|[|]|°|#|[$]|&|[()]|[)]|=|_|[*]|¿|[+]|~|{|}|`|\^)/.test(value) && value.length !== 0) {
-      setError('Special characters not allowed in Analyzed Instructions !');
+      setError('Special characters not allowed in "Instructions" !');
     } else { setError('') }
     setAnalyzedInstructions(value)
   }
@@ -118,11 +118,11 @@ export default function Form() {
 
   return (
     <div className="form-body">
-      <Link id="iconImageDiv"  to="/">
-        <img className="iconImageForm" src={logo} alt=""></img>
+      <Link onClick={GetAfterCreated()} id="iconImageDiv"  to="/" >
+        <img onClick={GetAfterCreated()} className="iconImageForm" src={logo} alt=""></img>
       </Link>
-      <Link id="iconText" to="/">
-        <h2 >Go Back !</h2> 
+      <Link onClick={GetAfterCreated()} id="iconText" to="/">
+        <h2 onClick={GetAfterCreated()}>Go Back !</h2> 
       </Link>
       <form className="form" onSubmit={handleSubmit}>        
         <img className="image-form" src={noImage1} alt=""></img>
@@ -162,7 +162,7 @@ export default function Form() {
                         } else return e
                         })}
         </div>
-        <input id="submmitButton" type="submit" disabled={handleSubmitButton()} value="CREATE !" />
+        <input id="submmitButton" type="submit" disabled={handleSubmitButton()}  value="CREATE !" />
         <input id="createNewButton" type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
         {!error ? null : <span className="alert">{error}</span>}
       </form>

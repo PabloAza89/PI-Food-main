@@ -24,6 +24,16 @@ function MainPage() {
   .then(res => setDiets(res))  
   }, []); // [] -> MEANS RUN ONCE !
 
+  function GetAfterCreated() {
+    const [users, getUsers] = useState(() => {
+      fetch('http://localhost:3001/recipes')
+      .then((r) => r.json())
+      .then((res) => getUsers(res))  
+    });
+    return users
+  }
+    
+
   let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
   let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
 
@@ -132,7 +142,7 @@ function MainPage() {
       <Route exact path="/" render={ () => (<Paginate />)} /> 
       <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
       <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
-      <Route exact path="/create" render={() => (<Form/>)}/>
+      <Route exact path="/create" render={() => (<Form GetAfterCreated={GetAfterCreated} />)}/>
     </div>
   );
 }
