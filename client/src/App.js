@@ -11,7 +11,7 @@ export default function App() {
     <div className='main'>
       
       { showMain ? <MainPage /> : <MainPage /> }
-      {/* { showMain ? <MainPage /> : <LandingPage />} */}
+     {/*  { showMain ? <MainPage /> : <LandingPage />} */}
     </div>
   )
 }
