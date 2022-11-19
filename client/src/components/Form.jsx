@@ -78,26 +78,18 @@ export default function Form({ GetAfterCreated }) {
     if(/(!|¡|@|[?]|¡|<|>|[/]|[\\]|%|[[]|]|[|]|°|#|[$]|&|[()]|[)]|=|_|[*]|¿|[+]|~|{|}|`|\^)/.test(value) && value.length !== 0) {
       setError( error, error.title = 'Special characters not allowed in "Title" !');
     } else { setError(error, error.title = '') }
-    setTitle(value);
-  }
- 
-  function validateHealthScore(value) {
     
-    if (value / value === 1) setError( error, error.health.one = '', error.health.two = '');
-    if (Number.isInteger(value)) setError( error, error.health.one = '', error.health.two = '');
-    if (parseInt(value).toString().length === value.toString().length && parseInt(value).toString().length === "NaN" ) {
-      setError( error, error.health.one = '', error.health.two = '');
+  }
+
+  function validateHealthScore(value) {
+    if (value.toString().length === 0 ) setError( error, error.health.one = '', error.health.two = '');
+    else {
+      if (!/^\d+$/.test(value)) setError( error, error.health.one = 'Only numbers allowed in "Health Score" !', error.health.two = '');
+        else {
+          if (value > 100 ) setError( error, error.health.two = '', error.health.two = 'Allowed numbers are between 0 and 100 !');
+          else setError( error, error.health.two = '', error.health.two = '');        
+        }
     }
-    if (parseInt(value).toString().length !== value.toString().length && parseInt(value).toString().length !== "NaN") {
-      setError( error, error.health.one = '', error.health.two = 'Only numbers allowed in "Health Score" !');
-    }
-    else if (value > 100 ) {
-      setError( error, error.health.one = 'Allowed numbers are between 0 and 100 !', error.health.two = "");
-    } 
-    else if (value <= 100 ) {
-      setError( error, error.health.one = '')
-    }
-    if (document.getElementById("checkerHealth")&&document.getElementById("checkerHealth").value.length === 0) setError( error, error.health.one = '', error.health.two = '')
     setHealthScore(value)
   }
 
