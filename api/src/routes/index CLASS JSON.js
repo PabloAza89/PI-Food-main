@@ -1,4 +1,4 @@
-// CLASSIC
+// INDEX CLASSIC WITH JSON
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -6,10 +6,10 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
 const API_KEY = API_KEY1;
-const NUMBER = 1;
+const NUMBER = 3;
 
-const { Recipes , Diets , Recipes_Diets , Op } = require('../db.js'); // ADDED
-//const { DatabaseError } = require('sequelize');
+const { Recipes , Diets , Op } = require('../db.js'); 
+let toAvoidKey = require('../../../toAvoidKey');
 
 const router = Router();
 
@@ -17,8 +17,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 let allApiResults = async () => {
-    const apiRawData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${NUMBER}&addRecipeInformation=true`);
-    return apiRawData.data.results.map(e => {
+    return await toAvoidKey.results.map(e => {
         return {
             id: e.id,
             title: e.title,
@@ -42,7 +41,6 @@ router.get('/recipes', async (req, res) => {
 
     try {
         const searchDBRecipes = await Recipes.findAll({
-            //attributes: [ 'id' , 'title', 'summary', 'healthScore', 'analyzedInstructions' ],
             where: 
             ifTitleExists()
             ,
@@ -122,51 +120,24 @@ router.get('/recipes/:id', async (req, res) => {
 });
 
 router.post('/recipes', async (req, res) => {
-    let title = ['Whole30', 'Pescetarian']
-    // WORKING
+    const { diets , title , summary , healthScore , analyzedInstructions } = req.body;    
+    
     try {
         const createRecipe = await Recipes.create({
-            title: "fake rice",
-            summary: "test summary",
-            healthScore: 10,
-            analyzedInstructions: 'these are the instructions'
+            title: title,
+            summary: summary,
+            healthScore: parseInt(healthScore),
+            analyzedInstructions: analyzedInstructions
           });
         const relatedDiets = await Diets.findAll({           
-            where: {
-                [Op.or]: [
-                    { title: title }                   
-                  ]
-            }
+            where: { [Op.or]: [ { title: diets } ] }
         })
         createRecipe.addDiets(relatedDiets)
         res.status(200).send(createRecipe)
-    }
-    catch(e) {
-        res.status(400).send("hubo un error en la precarga de datos")
+    } catch(e) {
+        res.status(400).send("THERE WAS AND ERROR WHILE CHARGING DATA..")
     }
 });
-
-// ONLY FOR FIRST MANUAL POST
-router.post('/diets', async (req, res) => {
-    try {
-        res.json(await Diets.bulkCreate([
-            { title: "Gluten Free", },
-            { title: "Ketogenic" },
-            { title: "Vegetarian" },
-            { title: "Lacto-Vegetarian" },
-            { title: "Ovo-Vegetarian" },
-            { title: "Vegan" },
-            { title: "Pescetarian" },
-            { title: "Paleo" },
-            { title: "Primal" },
-            { title: "Low FODMAP" },
-            { title: "Whole30" }
-          ]))//.then(() => console.log("Users data have been saved")));
-    }
-    catch(e) {
-        res.status(400).send('Las dietas ya estan precargadas')
-    } 
-  });
 
 router.get('/diets', async (req, res) => {
     try {
@@ -177,7 +148,5 @@ router.get('/diets', async (req, res) => {
         res.status(400).send('No hay dietas disponibles...')      
     }
 });
-
-
 
 module.exports = router;

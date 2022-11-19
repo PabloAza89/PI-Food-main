@@ -1,10 +1,10 @@
-// SUMMARIZED
+// INDEX SUMMARIZED WITH API
 const { Router } = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY1 , API_KEY2 , API_KEY3 , API_KEY4 , API_KEY5 } = process.env;
-const API_KEY = API_KEY5;
-const NUMBER = 2;
+const API_KEY = API_KEY1;
+const NUMBER = 3;
 const { Recipes , Diets , Op } = require('../db.js');
 
 const router = Router();
@@ -20,7 +20,11 @@ let allApiResults = async () => {
             analyzedInstructions:
                 e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
             image: e.image,
-            diets: e.diets,
+            diets: e.diets.map(function(e) {
+                if ((e.indexOf(e) !== e.length - 1)) {
+                    return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                }),          
             dishTypes: e.dishTypes
         }
     })
@@ -37,7 +41,7 @@ router.get('/recipes(|/:id)', async (req, res) => {
             }]  
         }).catch(function(e){ console.log('NOT FOUND IN DB.. SCRIPT CONTINUED THANKS TO "foundInDB != null" ;)') }); 
 
-        let allApiResultsHelper = await allApiResults() 
+        let allApiResultsHelper = await allApiResults()
             
         if (foundInDB != null) {
             let dietsArray = foundInDB.map(e => e.Diets).map(e => e.map(e => e.title));
@@ -49,7 +53,7 @@ router.get('/recipes(|/:id)', async (req, res) => {
                     title: foundInDB[dietsArray.indexOf(e)].title,
                     summary: foundInDB[dietsArray.indexOf(e)].summary,
                     healthScore: foundInDB[dietsArray.indexOf(e)].healthScore,
-                    analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,                  
+                    analyzedInstructions: foundInDB[dietsArray.indexOf(e)].analyzedInstructions,
                     diets: e
                 })
             })
@@ -71,17 +75,17 @@ router.get('/recipes(|/:id)', async (req, res) => {
 });
 
 router.post('/recipes', async (req, res) => {
-    let title = ['Whole30', 'Pescetarian']
+    const { diets , title , summary , healthScore , analyzedInstructions } = req.body;    
     
     try {
         const createRecipe = await Recipes.create({
-            title: "fake rice",
-            summary: "test summary",
-            healthScore: 10,
-            analyzedInstructions: 'these are the instructions'
+            title: title,
+            summary: summary,
+            healthScore: parseInt(healthScore),
+            analyzedInstructions: analyzedInstructions
           });
         const relatedDiets = await Diets.findAll({           
-            where: { [Op.or]: [ { title: title } ] }
+            where: { [Op.or]: [ { title: diets } ] }
         })
         createRecipe.addDiets(relatedDiets)
         res.status(200).send(createRecipe)
