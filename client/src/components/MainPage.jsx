@@ -24,15 +24,14 @@ function MainPage() {
   .then(res => setDiets(res))  
   }, []); // [] -> MEANS RUN ONCE !
 
-  function GetAfterCreated() {
-    const [users, getUsers] = useState(() => {
-      fetch('http://localhost:3001/recipes')
+  const GetAfterCreated = () => { 
+    const [helperToUpdate, setHelperToUpdate] = useState(() => {
+      fetch('http://localhost:3001/diets')
       .then((r) => r.json())
-      .then((res) => getUsers(res))  
+      .then((res) => setHelperToUpdate(res))  
     });
-    return users
-  }
-    
+    return helperToUpdate
+  }  
 
   let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
   let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW

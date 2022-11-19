@@ -21,10 +21,7 @@ export default function Form({ GetAfterCreated }) {
   
   const [error, setError] = useState({
     title: "",
-    health: {
-      one: "",
-      two: ""
-    },
+    health: "",
     summary: "",
     instructions: ""
   });
@@ -36,11 +33,11 @@ export default function Form({ GetAfterCreated }) {
     setHealthScore("")
     setSummary("")
     setAnalyzedInstructions("")
-    setError(error.title = "", error.health.one = "", error.health.two = "", error.summary= "", error.instructions= "") 
+    setError(error.title = "", error.health = "", error.summary= "", error.instructions= "") 
   }
   
   function handleSubmitButton() {
-    if (error.title || error.health.one || error.health.two || error.summary || error.instructions ||
+    if (error.title || error.health || error.summary || error.instructions ||
       (document.getElementById("checkerTitle")&&document.getElementById("checkerTitle").value.length === 0) ||
       (document.getElementById("checkerHealth")&&document.getElementById("checkerHealth").value.length === 0) ||
       (document.getElementById("checkerSummary")&&document.getElementById("checkerSummary").value.length === 0) ||
@@ -82,22 +79,12 @@ export default function Form({ GetAfterCreated }) {
   }
  
   function validateHealthScore(value) {
-    
-    if (value / value === 1) setError( error, error.health.one = '', error.health.two = '');
-    if (Number.isInteger(value)) setError( error, error.health.one = '', error.health.two = '');
-    if (parseInt(value).toString().length === value.toString().length && parseInt(value).toString().length === "NaN" ) {
-      setError( error, error.health.one = '', error.health.two = '');
+    if(value < 0 || value > 100) {
+      setError( error, error.health = 'Allowed numbers are between 0 and 100 !');
     }
-    if (parseInt(value).toString().length !== value.toString().length && parseInt(value).toString().length !== "NaN") {
-      setError( error, error.health.one = '', error.health.two = 'Only numbers allowed in "Health Score" !');
-    }
-    else if (value > 100 ) {
-      setError( error, error.health.one = 'Allowed numbers are between 0 and 100 !', error.health.two = "");
-    } 
-    else if (value <= 100 ) {
-      setError( error, error.health.one = '')
-    }
-    if (document.getElementById("checkerHealth")&&document.getElementById("checkerHealth").value.length === 0) setError( error, error.health.one = '', error.health.two = '')
+    else if(!/^[0-9]*$/.test(value) && value.length !== 0) {
+      setError( error, error.health = 'Only numbers allowed in "Health Score" !');
+    } else { setError( error, error.health = '') }
     setHealthScore(value)
   }
 
@@ -134,9 +121,12 @@ export default function Form({ GetAfterCreated }) {
     })
   }  
 
+  console.log("ERROR TITLE", error.title)
+  console.log("ERROR HEALTH", error.health)
+  console.log("ERROR SUMMARY", error.summary)
+  console.log("ERROR INSTRUCTIONS", error.instructions)
   console.log("ALL ERRORS", error)
-  console.log("ERROR ONE PARSE", parseInt(error.health.one).length)
-  console.log("ERROR TWO", error.health.two.length)
+
   return (
     <div className="form-body">
       <Link id="iconImageDiv"  to="/" >
@@ -185,7 +175,7 @@ export default function Form({ GetAfterCreated }) {
         </div>
         <input id="submmitButton" type="submit" disabled={handleSubmitButton()}  value="CREATE !" />
         <input id="createNewButton" type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
-        {[error.title , error.health.one, error.health.two ,  error.summary , error.instructions].map(e => (
+        {[error.title , error.health , error.summary , error.instructions].map(e => (
           e?<span className="alert">{e}</span>:null
         ))}
       </form>
