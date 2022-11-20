@@ -6,6 +6,7 @@ import Detail from "./Detail.jsx";
 import Paginate from "./Paginate.jsx";
 import Nav from "./Nav.jsx";
 import Form from "./Form.jsx";
+import About from "./About.jsx";
 
 function MainPage() {
 
@@ -155,6 +156,7 @@ function MainPage() {
         <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
         <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
         <Route exact path="/create" render={() => (<Form GetAfterCreated={GetAfterCreated} />)}/>
+        <Route exact path="/about" render={ () => (<About />)} /> 
       </div>
     )
 }

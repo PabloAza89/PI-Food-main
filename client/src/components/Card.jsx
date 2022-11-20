@@ -5,7 +5,6 @@ import noImage1 from "../images/noImage1.jpg";
 import noImage2 from "../images/noImage2.jpg";
 import noImage3 from "../images/noImage3.jpg";
 
-
 export default function Card({ id, image, title, healthScore , diets, dishTypes }) {
 
     let arrImages = [noImage1, noImage2, noImage3]
@@ -13,10 +12,10 @@ export default function Card({ id, image, title, healthScore , diets, dishTypes 
     let randomNumber = Math.floor(Math.random() * 3) // BETWEEN 0 AND 2
 
     return (
-        <div className="card">            
+        <div className="card">
             <Link to={`${id}`}>
                 <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
-             </Link> 
+             </Link>
             <Link to={`${id}`} className="title"> 
                 <p className="card-text"><b className="title">{title}</b></p> 
             </Link>

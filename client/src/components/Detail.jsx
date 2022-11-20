@@ -60,7 +60,7 @@ export default function Detail({onFilterID}) {
                 </div>   
             </div>
         )
-    } else if (params.foodId === "create") {
+    } else if (params.foodId === "create" || params.foodId === "about") {
         return (<div></div>)
     } else {
         return (
