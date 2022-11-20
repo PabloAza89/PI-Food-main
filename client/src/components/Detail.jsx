@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import "../styles/Detail.css";
 import noImage1 from "../images/noImage1.jpg";
@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
 export default function Detail({onFilterID}) {
-
-    const [showAlert, setShowAlert] = useState(false)
 
     let arrImages = [noImage1, noImage2, noImage3]
     

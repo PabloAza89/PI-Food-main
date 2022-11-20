@@ -56,7 +56,8 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
               type="submit" value="SEARCH !"
             />
           </form>
-        <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
+          <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
+          <Link to="/about"> <button className="button">ABOUT !</button> </Link>
         </div>
         <div className="right-lower">
           <select  onChange={(event) => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) + defaultPaginateColor()  } >          
