@@ -7,8 +7,6 @@ import noImage3 from "../images/noImage3.jpg";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
-
-
 export default function Detail({onFilterID}) {
 
     let arrImages = [noImage1, noImage2, noImage3]

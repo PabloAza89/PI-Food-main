@@ -1,10 +1,7 @@
-//import { indexChoosen } from "../actions";
-
 const initialState = {
   showMain: false,
   indexChoosen: 0,
-  allIndexes: 0,
-  
+  allIndexes: 0  
 }
   
 const reducer = (state = initialState, action) => {
@@ -33,7 +30,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         response: console.log(state.indexChoosen)
-    } 
+      } 
     default:
       return state
   }

@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import '../styles/Cards.css';
 import Card from './Card.jsx';
 import { useSelector , useDispatch } from 'react-redux';
 import { setAllIndexes } from '../actions';
 
 export default function Cards({ toShow }) {
-  const [helperToUpdate, setHelperToUpdate] = useState([])
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/diets')
-  //   .then(r => r.json())
-  //   .then(res => setHelperToUpdate(res))  
-  //   }, []); 
-
-    // useEffect(() => {
-    //   fetch('http://localhost:3001/recipes')
-    //   .then((r) => r.json())
-    //   .then((res) => setHelperToUpdate(res))  
-    // }, []);
 
   const indexChoosen = useSelector( state => state.indexChoosen )
 
@@ -26,7 +14,7 @@ export default function Cards({ toShow }) {
   
   let numberIndexToDisplay = indexChoosen  
 
-  function qq() {
+  function firstFuncToCall() {
     for (let i = 0; i < toShow.length; i += 9) {
           let pedazo = toShow.slice(i, i + 9);
           arraySplitedBy9.push(pedazo);
@@ -37,14 +25,14 @@ export default function Cards({ toShow }) {
   let arr3to5
   let arr6to8  
 
-  function two () {
+  function secondFuncToCall () {
     arr0to2 = arraySplitedBy9[0]?arraySplitedBy9[numberIndexToDisplay].slice(0,3):[]
     arr3to5 = arraySplitedBy9[0]?arraySplitedBy9[numberIndexToDisplay].slice(3,6):[]
     arr6to8 = arraySplitedBy9[0]?arraySplitedBy9[numberIndexToDisplay].slice(6,9):[]
   }
 
-  qq()
-  two()
+  firstFuncToCall()
+  secondFuncToCall()
 
   dispatch(setAllIndexes(arraySplitedBy9.length))
 

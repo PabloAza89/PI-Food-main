@@ -13,8 +13,7 @@ export default function Card({ id, image, title, healthScore , diets, dishTypes 
     let randomNumber = Math.floor(Math.random() * 3) // BETWEEN 0 AND 2
 
     return (
-        <div className="card">
-            
+        <div className="card">            
             <Link to={`${id}`}>
                 <img className="image" src={image ? image : arrImages[randomNumber] } alt=""></img>
              </Link> 

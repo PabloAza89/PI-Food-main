@@ -1,34 +1,10 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/Form.css";
 import noImage1 from "../images/noImage1.jpg";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
-import MainPage from "./MainPage";
 
 export default function Form({ GetAfterCreated }) {
-
-//  const GetAfterCreated = (e) => { 
-//      e.preventDefault();
-//     const [helperToUpdate, setHelperToUpdate] = useState([])
-//     useEffect(() => {
-//       fetch('http://localhost:3001/diets')
-//       .then((r) => r.json())
-//       .then((res) => setHelperToUpdate(res))  
-//       .catch(err => {
-//         console.log(123123);
-//       });
-//     }, []);
-//     console.log(helperToUpdate)
-//   }
-
-// const GetAfterCreated = (event) => {
-//   // set loading to true initially
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   if (isLoading) return 'loading';
-
-//   return <MainPage />;
-// }
 
   let [created, setCreated] = useState(0)
   const [dietSelected, setDietSelected] = useState([])

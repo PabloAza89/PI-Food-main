@@ -9,10 +9,6 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
 
-// sequelize.authenticate() // ADDED
-// .then(() => {console.log("DB CONNECTED SUCESSFULLY")}) // ADDED
-// .catch ((e) => {console.log("Tenes este error -->", e)}) // ADDED
-
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -34,9 +30,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 const { Recipes , Diets } = sequelize.models;
-
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
 
 const Recipes_Diets = sequelize.define('Recipes_Diets', {
 }, {

@@ -5,7 +5,6 @@ import logo from "../images/logo.png";
 import { useDispatch } from 'react-redux';
 import { setIndexChoosen } from '../actions';
 
-
 export default function Cards({diets , handleTitleMatchChange , handleDietNameChange, handleHealthLevelChange, handleSortNameChange}) {
 
   const dispatch = useDispatch()
@@ -72,9 +71,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
           </select >
         </div>          
       </div>        
-    </div>
-
-    
+    </div>    
   );
   
 }

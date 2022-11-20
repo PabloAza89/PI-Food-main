@@ -14,107 +14,35 @@ function MainPage() {
     refresh: false
   });
 
- 
-
   function GetAfterCreated () { 
     setIsLoading(isLoading, isLoading.refresh = true)
     console.log("DEL FORM", isLoading)
     if (isLoading) {
-      //useEffect(() => {      
-          fetch('http://localhost:3001/recipes')
-          .then((r) => r.json())
-          .then((res) => setFoods(res))
-          fetch('http://localhost:3001/diets')
-          .then(r => r.json())
-          .then(res => setDiets(res))  
-          setIsLoading(isLoading, isLoading.main = false)
-          
-     // }, []);
+      fetch('http://localhost:3001/recipes')
+      .then((r) => r.json())
+      .then((res) => setFoods(res))
+      fetch('http://localhost:3001/diets')
+      .then(r => r.json())
+      .then(res => setDiets(res))  
+      setIsLoading(isLoading, isLoading.main = false)
     }
   }
-
-  
-  
-
-//   const [helperToUpdate, setHelperToUpdate] = useState([])
-//  function GetAfterCreated () {
-//     useEffect(() => {
-//       fetch('http://localhost:3001/diets')
-//       .then(r => r.json())
-//       .then(res => setHelperToUpdate(res))  
-//       }, []) 
-//       .then(console.log("OK"));
-//   }
 
   const [foods, setFoods] = useState([]); // ALL MAIN FOODS
   const [diets, setDiets] = useState([]); // ALL MAIN DIETS
 
-  // useEffect(() => {
-  //   if(isLoading) {
-  //     fetch('http://localhost:3001/recipes')
-  //     .then((r) => r.json())
-  //     .then((res) => setFoods(res))
-  //     //setIsLoading(false);  
-  //   }  
-  // }, []); // [] -> MEANS RUN ONCE !
-
-  // useEffect(() => {
-  //   if(isLoading) {
-  //     fetch('http://localhost:3001/diets')
-  //     .then(r => r.json())
-  //     .then(res => setDiets(res))  
-  //     setIsLoading(false);
-  //   }
-  // }, []); // [] -> MEANS RUN ONCE !
-
-  // useEffect(() => {
-  //   if(isLoading) {
-  //     fetch('http://localhost:3001/recipes')
-  //     .then((r) => r.json())
-  //     .then((res) => setFoods(res))
-  //     fetch('http://localhost:3001/diets')
-  //     .then(r => r.json())
-  //     .then(res => setDiets(res))  
-  //     setIsLoading(false);
-  //   }  
-  // }, []); // [] -> MEANS RUN ONCE !
-
-  //function CheckIfIsLoading() {
-    useEffect(() => {
-      if(isLoading) {
-        fetch('http://localhost:3001/recipes')
-        .then((r) => r.json())
-        .then((res) => setFoods(res))
-        fetch('http://localhost:3001/diets')
-        .then(r => r.json())
-        .then(res => setDiets(res))  
-        setIsLoading(isLoading, isLoading.main = false)
-      }  
-    }, []); // [] -> MEANS RUN ONCE !
-  //}
-
+  useEffect(() => {
+    if(isLoading) {
+      fetch('http://localhost:3001/recipes')
+      .then((r) => r.json())
+      .then((res) => setFoods(res))
+      fetch('http://localhost:3001/diets')
+      .then(r => r.json())
+      .then(res => setDiets(res))  
+      setIsLoading(isLoading, isLoading.main = false)
+    }  
+  }, [isLoading]); // [] -> MEANS RUN ONCE !
   
-
-  // useEffect(() => {
-  //   if(isLoading) {
-  //     fetch('http://localhost:3001/diets')
-  //     .then(r => r.json())
-  //     .then(res => setDiets(res))  
-  //     setIsLoading(false);
-  //   }
-  // }, []); // [] -> MEANS RUN ONCE !
-
-//  function GetAfterCreated () { 
-//     //e.preventDefault()
-//     const [helperToUpdate, setHelperToUpdate] = useState(() => {
-//       fetch('http://localhost:3001/diets')
-//       .then((r) => r.json())
-//       .then((res) => setHelperToUpdate(res))  
-//     });
-//     //return helperToUpdate
-//     console.log(helperToUpdate)
-//   }  
-
   let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
   let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
 
@@ -210,41 +138,24 @@ function MainPage() {
     }
   } 
 
-  // function qq () {
-  //   Promise.all([CheckIfIsLoading()])
-  // //.then(CheckIfIsLoading())
-  // .then(onDietAndTitleFilter())
-  // .then(onHealthLevelFilter())
-  // .then(onSortNameFilter())  
-
-  // }
-  // qq()
-
-  // Promise.all([CheckIfIsLoading()])
-  // //.then(CheckIfIsLoading())
-  // .then(onDietAndTitleFilter())
-  // .then(onHealthLevelFilter())
-  // .then(onSortNameFilter())  
-
   Promise.all([onDietAndTitleFilter()])
   .then(onHealthLevelFilter())
   .then(onSortNameFilter())
-  
-  
-  console.log("IS LOADING", isLoading)
 
-  return !isLoading.main ? (
-    <div className='mainPage'>   
-      {<Route exact path="/" render={ () => (<Nav diets={diets} foods={foods} 
-        handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
-        handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
-      />} 
-      <Route exact path="/" render={ () => (<Paginate />)} /> 
-      <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
-      <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
-      <Route exact path="/create" render={() => (<Form /* onClick={setIsLoading(false)} */ GetAfterCreated={GetAfterCreated} />)}/>
-    </div>
-  ) : (<div>Loading..</div>);
+  return isLoading.main ? 
+    (<div className="loading">Loading...</div>) :
+    (
+      <div className='mainPage'>   
+        {<Route exact path="/" render={ () => (<Nav diets={diets} foods={foods} 
+          handleDietNameChange={handleDietNameChange} handleHealthLevelChange={handleHealthLevelChange} 
+          handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
+        />} 
+        <Route exact path="/" render={ () => (<Paginate />)} /> 
+        <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
+        <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
+        <Route exact path="/create" render={() => (<Form GetAfterCreated={GetAfterCreated} />)}/>
+      </div>
+    )
 }
 
 export default MainPage;

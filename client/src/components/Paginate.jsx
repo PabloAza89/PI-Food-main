@@ -15,10 +15,8 @@ function Paginate() {
     let helper = 1
     let arrayOfButtons = []
     do {
-
       arrayOfButtons.push( helper)
-      helper++
-      
+      helper++      
     } while (helper <= maxNumber)
     return arrayOfButtons
   }
@@ -37,7 +35,6 @@ function Paginate() {
           <button className="asd" id={e - 1} key={e - 1}  onClick={() => dispatch(setIndexChoosen(e - 1)) + colorChanger(e - 1) } >{e}</button>
         ))
       } 
-
     </div>
   );
 }
