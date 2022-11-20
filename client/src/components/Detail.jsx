@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/Detail.css";
 import noImage1 from "../images/noImage1.jpg";
@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
 export default function Detail({onFilterID}) {
+
+    const [showAlert, setShowAlert] = useState(false)
 
     let arrImages = [noImage1, noImage2, noImage3]
     
@@ -62,9 +64,12 @@ export default function Detail({onFilterID}) {
         return (<div></div>)
     } else {
         return (
-            <div>
-                <h2 style={{color: "white", textAlign: "center"}}>THERE ARE NO MATCHING RECIPES WITH THAT ID !</h2>
-            </div>
-        )
+                <div className="alertButtonBG">
+                    <span>THERE ARE NO MATCHING RECIPES WITH THAT ID !</span>
+                    <Link id="alertTextLink" to="/" >
+                        <button className='alertButton'><b className='innerText' >GO BACK !</b></button>
+                    </Link>
+                </div>
+             )
     }    
 }
