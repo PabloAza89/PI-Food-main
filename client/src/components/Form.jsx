@@ -14,12 +14,12 @@ export default function Form({ GetAfterCreated }) {
     setDietSelected(current => [...current, event])
   }
 
-  let [title, setTitle] = useState('');
-  let [healthScore, setHealthScore] = useState("");
-  let [summary, setSummary] = useState("");
-  let [analyzedInstructions, setAnalyzedInstructions] = useState("");
+  const [title, setTitle] = useState('');
+  const [healthScore, setHealthScore] = useState("");
+  const [summary, setSummary] = useState("");
+  const [analyzedInstructions, setAnalyzedInstructions] = useState("");
   
-  let [error, setError] = useState({
+  const [error, setError] = useState({
     title: "",
     health: {
       one: "",
@@ -86,6 +86,7 @@ export default function Form({ GetAfterCreated }) {
     else {
       if (!/^\d+$/.test(value)) setError( error, error.health.one = 'Only numbers allowed in "Health Score" !', error.health.two = '');
       else {
+        setError( error, error.health.one = '');
         if (value > 100 ) setError( error, error.health.two = '', error.health.two = 'Allowed numbers are between 0 and 100 !');
         else setError( error, error.health.two = '', error.health.two = '');        
       }
@@ -165,17 +166,17 @@ export default function Form({ GetAfterCreated }) {
             </select >
           </div>
         </div>
-        <div>
-      {uniqueNamesDiets[0]&&"Diets choosen: "}{uniqueNamesDiets.map(function(e) {
-                        if ((uniqueNamesDiets.indexOf(e) !== uniqueNamesDiets.length - 1)) {
-                            return e + " + "
-                        } else return e
-                        })}
+        <div className="dietAlign">
+          {uniqueNamesDiets[0]&&"Diets choosen: "}{uniqueNamesDiets.map(function(e) {
+                            if ((uniqueNamesDiets.indexOf(e) !== uniqueNamesDiets.length - 1)) {
+                                return e + " + "
+                            } else return e
+                            })}
         </div>
         <input id="submmitButton" type="submit" disabled={handleSubmitButton()}  value="CREATE !" />
         <input id="createNewButton" type="submit" onClick={() => handleNewRecipe() + createHandler ()} value="CREATE NEW RECIPE!" />  
         {[error.title , error.health.one, error.health.two ,  error.summary , error.instructions].map(e => (
-          e?<span className="alert">{e}</span>:null
+          e?<span key={e} className="alert">{e}</span>:null
         ))}
       </form>
       </div>
