@@ -46,6 +46,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
                 placeholder="Find recipe..."
                 value={foodSearch} 
                 onChange={event => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
+                /* onClick={dispatch(setIndexChoosen(0))} */
             />
             <input className="findAdd"
               type="submit" value="SEARCH !"

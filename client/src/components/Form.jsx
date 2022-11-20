@@ -14,12 +14,12 @@ export default function Form({ GetAfterCreated }) {
     setDietSelected(current => [...current, event])
   }
 
-  const [title, setTitle] = useState('');
-  const [healthScore, setHealthScore] = useState("");
-  const [summary, setSummary] = useState("");
-  const [analyzedInstructions, setAnalyzedInstructions] = useState("");
+  let [title, setTitle] = useState('');
+  let [healthScore, setHealthScore] = useState("");
+  let [summary, setSummary] = useState("");
+  let [analyzedInstructions, setAnalyzedInstructions] = useState("");
   
-  const [error, setError] = useState({
+  let [error, setError] = useState({
     title: "",
     health: {
       one: "",
@@ -36,7 +36,7 @@ export default function Form({ GetAfterCreated }) {
     setHealthScore("")
     setSummary("")
     setAnalyzedInstructions("")
-    setError(error.title = "", error.health.one = "", error.health.two = "", error.summary= "", error.instructions= "") 
+    setError(error, error.title = "", error.health.one = "", error.health.two = "", error.summary= "", error.instructions= "") 
   }
   
   function handleSubmitButton() {
@@ -126,9 +126,6 @@ export default function Form({ GetAfterCreated }) {
     })
   }  
 
-  console.log("ALL ERRORS", error)
-  console.log("ERROR ONE PARSE", parseInt(error.health.one).length)
-  console.log("ERROR TWO", error.health.two.length)
   return (
     <div className="form-body">
       <Link  id="iconImageDiv"  to="/" >

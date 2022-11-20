@@ -14,9 +14,12 @@ function MainPage() {
     refresh: false
   });
 
+
   function GetAfterCreated () { 
     setIsLoading(isLoading, isLoading.refresh = true)
-    console.log("DEL FORM", isLoading)
+    
+    
+
     if (isLoading) {
       fetch('http://localhost:3001/recipes')
       .then((r) => r.json())
@@ -141,6 +144,8 @@ function MainPage() {
   Promise.all([onDietAndTitleFilter()])
   .then(onHealthLevelFilter())
   .then(onSortNameFilter())
+
+  //console.log("DIETAS", diets)
 
   return isLoading.main ? 
     (<div className="loading">Loading...</div>) :
