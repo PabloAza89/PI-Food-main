@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case 'GET_ALL_INDEXES':
       return {
         ...state,
-        response: console.log(state.allIndexes)
+        response: state.allIndexes
       }
     case 'SET_INDEX_CHOOSEN':
       return {
@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
     case 'GET_INDEX_CHOOSEN': 
       return {
         ...state,
-        response: console.log(state.indexChoosen)
+        response: state.indexChoosen
       } 
     default:
       return state

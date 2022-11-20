@@ -28,6 +28,10 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
     }
   }
 
+  function defaultPaginateColor () {
+    return document.getElementById(0).style.background='rgba(46, 230, 163, 0.377)'
+  }
+
   return (    
    <div className='main-nav-div'>
       <div className="main-left">
@@ -45,7 +49,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
                 type="text"        
                 placeholder="Find recipe..."
                 value={foodSearch} 
-                onChange={event => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
+                onChange={(event) => setFoodSearch(event.target.value) + dispatch(setIndexChoosen(0)) }
                 
             />
             <input className="findAdd"
@@ -55,7 +59,7 @@ export default function Cards({diets , handleTitleMatchChange , handleDietNameCh
         <Link to="/create"> <button className="button">CREATE RECIPE !</button> </Link>
         </div>
         <div className="right-lower">
-          <select  onChange={event => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) }>          
+          <select  onChange={(event) => handleDietNameChange(event.target.value) + dispatch(setIndexChoosen(0)) + defaultPaginateColor()  } >          
             {diets.map(e =>(
               <option id={e.id} key={e.id}>{e.title}</option>
             ))}

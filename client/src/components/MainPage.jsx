@@ -72,8 +72,7 @@ function MainPage() {
   }
 
   const handleDietNameChange = (dietName) => { 
-    setDietName({name: dietName}); 
-    console.log("DIET NAME", dietName)
+    setDietName({name: dietName});
   }
 
   const handleTitleMatchChange = (titleMatch) => {
@@ -144,10 +143,7 @@ function MainPage() {
   Promise.all([onDietAndTitleFilter()])
   .then(onHealthLevelFilter())
   .then(onSortNameFilter())
-
-  console.log("TO SHOW", toShow)
-
-
+  
   return isLoading.main ? 
     (<div className="loading">Loading...</div>) :
     (

@@ -5,16 +5,16 @@
   height: 2.2vh;
 }
 
-[id='0'] {
+[id="0"] {
   background-color: rgba(46, 230, 163, 0.377);
   height: 2vh;
 }
 
-[id='0'].asd {
+[id="0"].asd {
   height: 2.2vh;
 }
 
-.asd:not([id='0'])
+.asd:not([id="0"])
 {
   background-color: rgba(230, 46, 175, 0.363);
   height: 2.2vh;
