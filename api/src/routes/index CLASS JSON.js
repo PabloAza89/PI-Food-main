@@ -26,7 +26,11 @@ let allApiResults = async () => {
             analyzedInstructions:
                 e.analyzedInstructions[0] ? e.analyzedInstructions[0].steps.map(e=> e.step) : [],
             image: e.image,
-            diets: e.diets,
+            diets: e.diets.map(function(e) {
+                if ((e.indexOf(e) !== e.length - 1)) {
+                    return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                } else return e.split(" ").map(e => e[0].toUpperCase() + e.slice(1)).join(" ")
+                }), 
             dishTypes: e.dishTypes
         }
     })

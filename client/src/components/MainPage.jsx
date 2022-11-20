@@ -17,8 +17,6 @@ function MainPage() {
 
   function GetAfterCreated () { 
     setIsLoading(isLoading, isLoading.refresh = true)
-    
-    
 
     if (isLoading) {
       fetch('http://localhost:3001/recipes')
@@ -48,6 +46,7 @@ function MainPage() {
   
   let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
   let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
+  
 
   const [dietName, setDietName] = useState({ 
     name: "All Diets", // FIRST INSTANCE DEFAULT VALUE
@@ -74,6 +73,7 @@ function MainPage() {
 
   const handleDietNameChange = (dietName) => { 
     setDietName({name: dietName}); 
+    console.log("DIET NAME", dietName)
   }
 
   const handleTitleMatchChange = (titleMatch) => {
@@ -145,7 +145,8 @@ function MainPage() {
   .then(onHealthLevelFilter())
   .then(onSortNameFilter())
 
-  //console.log("DIETAS", diets)
+  console.log("TO SHOW", toShow)
+
 
   return isLoading.main ? 
     (<div className="loading">Loading...</div>) :
