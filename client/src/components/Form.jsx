@@ -5,6 +5,8 @@ import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 
 export default function Form({ GetAfterCreated }) {
+  
+  const [showAlert, setShowAlert] = useState(false)
 
   let [created, setCreated] = useState(0)
   const [dietSelected, setDietSelected] = useState([])
@@ -70,7 +72,7 @@ export default function Form({ GetAfterCreated }) {
         if (err.message === "Unexpected token 'T', \"THERE WAS \"... is not valid JSON") setCreated(0)
       });      
     } else {
-      alert("Recipe was already created ! Please select 'CREATE NEW RECIPE!' to create a new one !");
+      setShowAlert(true)
     }
  };
 
@@ -125,9 +127,10 @@ export default function Form({ GetAfterCreated }) {
       name: "-- select an option --",
       hidden: false
     })
-  }  
+  }
 
-  return (
+  return !showAlert ?
+  (
     <div className="form-body">
       <Link  id="iconImageDiv"  to="/" >
         <img onClick={() => GetAfterCreated()} className="iconImageForm" src={logo} alt=""></img>
@@ -180,5 +183,13 @@ export default function Form({ GetAfterCreated }) {
         ))}
       </form>
       </div>
-    );
+    )
+    :
+    (
+    <div className="alertButtonBG">
+      <span>Recipe was already created ! </span>
+      <span>Please select 'CREATE NEW RECIPE!' to create a new one !</span>
+      <button className='alertButton' onClick={() => setShowAlert(false)}><b>GO BACK !</b></button>
+    </div>
+    )
 }

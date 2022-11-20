@@ -13,8 +13,7 @@ function MainPage() {
     main: true,
     refresh: false
   });
-
-
+  
   function GetAfterCreated () { 
     setIsLoading(isLoading, isLoading.refresh = true)
 
