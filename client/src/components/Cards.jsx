@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/Cards.css';
 import Card from './Card.jsx';
 import { useSelector , useDispatch } from 'react-redux';
 import { setAllIndexes } from '../actions';
 
 export default function Cards({ toShow }) {
+  const [helperToUpdate, setHelperToUpdate] = useState([])
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/diets')
+  //   .then(r => r.json())
+  //   .then(res => setHelperToUpdate(res))  
+  //   }, []); 
+
+    // useEffect(() => {
+    //   fetch('http://localhost:3001/recipes')
+    //   .then((r) => r.json())
+    //   .then((res) => setHelperToUpdate(res))  
+    // }, []);
 
   const indexChoosen = useSelector( state => state.indexChoosen )
 

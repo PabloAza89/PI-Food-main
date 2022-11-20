@@ -1,10 +1,34 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import "../styles/Form.css";
 import noImage1 from "../images/noImage1.jpg";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import MainPage from "./MainPage";
 
 export default function Form({ GetAfterCreated }) {
+
+//  const GetAfterCreated = (e) => { 
+//      e.preventDefault();
+//     const [helperToUpdate, setHelperToUpdate] = useState([])
+//     useEffect(() => {
+//       fetch('http://localhost:3001/diets')
+//       .then((r) => r.json())
+//       .then((res) => setHelperToUpdate(res))  
+//       .catch(err => {
+//         console.log(123123);
+//       });
+//     }, []);
+//     console.log(helperToUpdate)
+//   }
+
+// const GetAfterCreated = (event) => {
+//   // set loading to true initially
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   if (isLoading) return 'loading';
+
+//   return <MainPage />;
+// }
 
   let [created, setCreated] = useState(0)
   const [dietSelected, setDietSelected] = useState([])
@@ -78,17 +102,17 @@ export default function Form({ GetAfterCreated }) {
     if(/(!|¡|@|[?]|¡|<|>|[/]|[\\]|%|[[]|]|[|]|°|#|[$]|&|[()]|[)]|=|_|[*]|¿|[+]|~|{|}|`|\^)/.test(value) && value.length !== 0) {
       setError( error, error.title = 'Special characters not allowed in "Title" !');
     } else { setError(error, error.title = '') }
-    
+    setTitle(value);
   }
 
   function validateHealthScore(value) {
     if (value.toString().length === 0 ) setError( error, error.health.one = '', error.health.two = '');
     else {
       if (!/^\d+$/.test(value)) setError( error, error.health.one = 'Only numbers allowed in "Health Score" !', error.health.two = '');
-        else {
-          if (value > 100 ) setError( error, error.health.two = '', error.health.two = 'Allowed numbers are between 0 and 100 !');
-          else setError( error, error.health.two = '', error.health.two = '');        
-        }
+      else {
+        if (value > 100 ) setError( error, error.health.two = '', error.health.two = 'Allowed numbers are between 0 and 100 !');
+        else setError( error, error.health.two = '', error.health.two = '');        
+      }
     }
     setHealthScore(value)
   }
@@ -131,11 +155,11 @@ export default function Form({ GetAfterCreated }) {
   console.log("ERROR TWO", error.health.two.length)
   return (
     <div className="form-body">
-      <Link id="iconImageDiv"  to="/" >
-        <img onClick={GetAfterCreated()} className="iconImageForm" src={logo} alt=""></img>
+      <Link  id="iconImageDiv"  to="/" >
+        <img onClick={() => GetAfterCreated()} className="iconImageForm" src={logo} alt=""></img>
       </Link>
-      <Link id="iconText" to="/">
-        <h2 onClick={GetAfterCreated()} >Go Back !</h2> 
+      <Link  id="iconText" to="/">
+        <h2 onClick={() => GetAfterCreated()} >Go Back !</h2> 
       </Link>
       <form className="form" onSubmit={handleSubmit}>        
         <img className="image-form" src={noImage1} alt=""></img>
