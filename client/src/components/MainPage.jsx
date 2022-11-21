@@ -46,6 +46,7 @@ function MainPage() {
   
   let dietsAndTitleFilter = [] // FIRST INSTANCE ARRAY TO FILTER: 1º DIETS --> 2º TITLE
   let toShow = [] // ARRAY SORTED BY HEALTH LEVEL OR A-Z TO SHOW
+ 
   
 
   const [dietName, setDietName] = useState({ 
@@ -144,6 +145,8 @@ function MainPage() {
   .then(onHealthLevelFilter())
   .then(onSortNameFilter())
   
+  
+ 
   return isLoading.main ? 
     (<div className="loading">Loading...</div>) :
     (
@@ -153,7 +156,7 @@ function MainPage() {
           handleSortNameChange={handleSortNameChange} handleTitleMatchChange={handleTitleMatchChange}  />)}
         />} 
         <Route exact path="/" render={ () => (<Paginate />)} /> 
-        <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />       
+        <Route exact path="/" render={ () => (<Cards toShow={toShow}  />) } />
         <Route exact path="/:foodId" render={() => (<Detail onFilterID={onFilterID} />)}/>
         <Route exact path="/create" render={() => (<Form GetAfterCreated={GetAfterCreated} />)}/>
         <Route exact path="/about" render={ () => (<About />)} /> 

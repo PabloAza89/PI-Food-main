@@ -35,8 +35,9 @@ export default function Cards({ toShow }) {
   secondFuncToCall()
 
   dispatch(setAllIndexes(arraySplitedBy9.length))
-
-  return (
+  
+  return toShow[0] !== undefined ?
+  (
     <div>
       <div className='cards'>              
        {arr0to2.map(e => <Card
@@ -78,5 +79,8 @@ export default function Cards({ toShow }) {
           /> )} 
       </div>
     </div>
-  );
+  )
+  :
+  (<div className="notFound">No recipe was found !</div>) 
+
 }
