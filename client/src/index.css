@@ -7,10 +7,6 @@ html {
   background-image: url("./images/landingBG.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  top: -5px;
-  left: -5px;
-  padding-right: 10px;
-  padding-bottom: 10px;   
 }
 
 body {

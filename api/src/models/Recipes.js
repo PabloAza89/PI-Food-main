@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
     },
     analyzedInstructions: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     }
   }, {
     timestamps: false
