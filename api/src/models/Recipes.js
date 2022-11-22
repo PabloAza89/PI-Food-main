@@ -17,7 +17,11 @@ module.exports = (sequelize) => {
     },
     healthScore: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        max: 100,
+        min: 0
+      }
     },
     analyzedInstructions: {
       type: DataTypes.TEXT,
