@@ -27,7 +27,7 @@
 }
 
 .image-form {
-  padding-bottom: 2vh;
+  padding-bottom: 0.5vh;
 }
 .asd {
   display: flex;
@@ -167,6 +167,45 @@
   background-color:  rgba(87, 223, 223, 0.377);  
   font-size: 2.6vh; 
   border-width: 2.5px;  
+}
+
+.titleFormRecipe {
+  padding-bottom: 1vh;
+}
+
+.alertButtonBGSuccess {
+  background-color: rgba(148, 179, 138, 0.171);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  border-color: rgba(240, 248, 255, 0);
+  align-items: center;
+  justify-content: center;
+  color:rgba(240, 248, 255, 0.726);
+  font-size: 5vh;    
+}
+
+.alertButtonSuccess {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(65, 177, 177, 0);
+  width: 12vw;
+  border-color: rgba(240, 248, 255, 0);
+  height: 4vh;
+  margin-top: 0vh;
+  font-size: 2.5vh; 
+  color: rgba(240, 248, 255, 0);
+  padding-top: 2px;
+}
+
+.hiddenSuccess {
+  background-color: rgba(0, 255, 255, 0);
+  color: rgba(240, 248, 255, 0);
+  border-color: rgba(240, 248, 255, 0);
 }
 
 @media (max-width: 1024px) {
